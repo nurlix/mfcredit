@@ -20,7 +20,6 @@ public class CreditOrderStateDaoImpl extends AbstractDao<Long, CreditOrderState>
 		List<CreditOrderState> states = (List<CreditOrderState>) criteria.list();
 		return states;
 	}
-
 	@Override
 	public CreditOrderState findById(long id) {
 		return getByKey(id);
@@ -34,8 +33,8 @@ public class CreditOrderStateDaoImpl extends AbstractDao<Long, CreditOrderState>
 	}
 
 	@Override
-	public void save(CreditOrderState state) {
-		persist(state);
+	public void save(CreditOrderState type) {
+		persist(type);
 	}
 
 	@Override

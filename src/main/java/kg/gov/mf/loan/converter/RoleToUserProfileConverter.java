@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import kg.gov.mf.loan.manage.model.UserProfile;
 import kg.gov.mf.loan.manage.service.UserProfileService;
+import kg.gov.mf.loan.model.UserProfile;
  
 /**
  * A converter class used in views to map id's to actual userProfile objects.

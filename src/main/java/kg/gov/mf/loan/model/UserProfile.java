@@ -1,4 +1,4 @@
-package kg.gov.mf.loan.manage.model;
+package kg.gov.mf.loan.model;
 
 import java.io.Serializable;
 

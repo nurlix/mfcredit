@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kg.gov.mf.loan.manage.dao.UserProfileDao;
-import kg.gov.mf.loan.manage.model.UserProfile;
+import kg.gov.mf.loan.model.UserProfile;
 
 @Service("userProfileService")
 @Transactional

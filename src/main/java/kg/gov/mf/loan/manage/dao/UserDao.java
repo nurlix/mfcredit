@@ -2,7 +2,7 @@ package kg.gov.mf.loan.manage.dao;
 
 import java.util.List;
 
-import kg.gov.mf.loan.manage.model.User;
+import kg.gov.mf.loan.model.User;
 
 public interface UserDao {
 

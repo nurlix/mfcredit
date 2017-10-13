@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kg.gov.mf.loan.manage.dao.UserDao;
-import kg.gov.mf.loan.manage.model.User;
+import kg.gov.mf.loan.model.User;
 
 @Service("userService")
 @Transactional

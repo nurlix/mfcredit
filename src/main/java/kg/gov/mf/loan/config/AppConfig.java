@@ -134,7 +134,6 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(roleToUserProfileConverter);
     }
-     
  
     /**
      * Configure MessageSource to lookup any validation/error message in internationalized property files

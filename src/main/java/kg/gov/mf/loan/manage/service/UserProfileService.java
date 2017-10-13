@@ -2,7 +2,7 @@ package kg.gov.mf.loan.manage.service;
 
 import java.util.List;
 
-import kg.gov.mf.loan.manage.model.UserProfile;
+import kg.gov.mf.loan.model.UserProfile;
 
 public interface UserProfileService {
 

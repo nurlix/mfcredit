@@ -4,12 +4,11 @@ import java.util.List;
 
 import kg.gov.mf.loan.manage.model.CreditOrderState;
 
-public interface CreditOrderStateDao {
-
+public interface CreditOrderStateDao{
+	
 	List<CreditOrderState> findAll();
 	CreditOrderState findById(long id);
 	CreditOrderState findByName(String name);
     void save(CreditOrderState type);
     void deleteById(long id);
-	
 }
