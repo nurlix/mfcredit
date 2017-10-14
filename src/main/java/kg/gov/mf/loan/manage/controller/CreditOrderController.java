@@ -71,20 +71,19 @@ public class CreditOrderController {
 	public String saveCreditOrder(CreditOrder creditOrder, long stateId, long typeId)
 	{
 		loggerOrder.info("Order : {}", creditOrder);
+		loggerOrder.info("State id : {}", stateId);
+		loggerOrder.info("Type id : {}", typeId);
 		if(creditOrder != null && creditOrder.getId() == 0)
 		{
-			/*
-			CreditOrder newOrder = new CreditOrder(creditOrder.getRegNumber(), creditOrder.getRegDate(), 
-					creditOrder.getDescription(), creditOrderStateService.findByName("Active"), creditOrderTypeService.findByName("PPKR"));
-			*/
 			CreditOrder newOrder = new CreditOrder(creditOrder.getRegNumber(), creditOrder.getRegDate(), 
 					creditOrder.getDescription(), creditOrderStateService.findById(stateId), creditOrderTypeService.findById(typeId));
-			
 			creditOrderService.save(newOrder);
 		}
 			
 		
 		if(creditOrder != null && creditOrder.getId() > 0)
+			creditOrder.setCreditOrderState(creditOrderStateService.findById(stateId));
+			creditOrder.setCreditOrderType(creditOrderTypeService.findById(typeId));
 			creditOrderService.update(creditOrder);
 		
 		return "redirect:" + "/manage/order/list";
