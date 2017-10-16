@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+
+
+<body>
+
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-3">
+			<table
+				class="table table-hover table-condensed table-striped table-bordered compact condensed">
+
+				<tbody>
+					<tr th:each="villageInList : ${aokmotu.village}">
+						<td th:text="${villageInList.name}">Thymus Thymi</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
