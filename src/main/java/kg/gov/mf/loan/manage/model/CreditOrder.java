@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -42,7 +43,7 @@ public class CreditOrder {
 	@JoinColumn(name="credit_order_type_id")
 	private CreditOrderType creditOrderType;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name="creditOrder_id")
 	private Set<AppliedEntityList> appliedEntityList;
 	

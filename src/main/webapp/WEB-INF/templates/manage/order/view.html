@@ -473,7 +473,7 @@
 																<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#largeList' + {l.id}}">Edit</a>
 															</td>
 															<td>
-																<form th:action="@{/manage/order/__${order.id}__/entitylist/delete}" method="post">
+																<form th:action="@{/manage/order/__${order.id}__/entitylist/delete}" method="post" onsubmit="return confirm('Are you sure?') ? true : false;">
 																	<input hidden="true" type="text" id="id" name="id" th:value="${l.id}" />
 																	<button type="submit" class="btn btn-outline btn-circle dark btn-sm red">Delete</button>
 																</form>

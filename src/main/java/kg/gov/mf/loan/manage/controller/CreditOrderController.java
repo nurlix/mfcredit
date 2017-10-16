@@ -76,12 +76,7 @@ public class CreditOrderController {
         model.addAttribute("emptyType", new CreditOrderType());
         
         model.addAttribute("emptyList", new AppliedEntityList());
-        model.addAttribute("entityList", null);
-        
-        Set<AppliedEntityList> lists = order.getAppliedEntityList();
-        for (AppliedEntityList appliedEntityList : lists) {
-        	loggerEntityList.info("List : ", appliedEntityList);
-		}
+        model.addAttribute("entityList", order.getAppliedEntityList());
         
         model.addAttribute("loggedinuser", Utils.getPrincipal());
         return "/manage/order/view";

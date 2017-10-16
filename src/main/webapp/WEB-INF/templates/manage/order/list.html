@@ -366,8 +366,7 @@
 												</tr>
 											</ordercheck>
 											<order th:each="o : ${orders}">
-												<tr class="clickable-row"
-													th:classappend="${param.id != null and o.id.toString()== param.id[0] ? 'active' : '' }">
+												<tr class="clickable-row">
 													<td th:text="${o.id}">Id</td>
 													<td th:text="${o.regNumber}">AB0C1234</td>
 													<td th:text="${o.regDate}">01.01.2017</td>
