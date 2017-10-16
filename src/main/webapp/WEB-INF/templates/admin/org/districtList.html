@@ -115,10 +115,6 @@
 								<div class="row">
 									<div class="col-md-12">
 										<a data-remote="false" data-toggle="modal"
-											data-target="#districtFormModal" th:href="@{/district/add}"
-											role="button" class="btn btn-large blue-hoki"> Add
-											District</a>
-										<a data-remote="false" data-toggle="modal"
 											data-target="#districtFormModal" th:href="@{/aokmotu/add}"
 											role="button" class="btn btn-large btn-primary"> Add
 											Aokmotu</a>											
@@ -209,8 +205,8 @@
 
 	    if(link.attr("href").indexOf('aokmotu/add')>0)
 	    {
-		    $(this).find(".modal-title").html(link.attr("href").replace("/aokmotu/add","/region/"+districtID+"/aokmotu/add"));
-		    $(this).find(".modal-body").load(link.attr("href").replace("/aokmotu/add","/region/"+districtID+"/aokmotu/add"));
+		    $(this).find(".modal-title").html(link.attr("href").replace("/aokmotu/add","/district/"+districtID+"/aokmotu/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/aokmotu/add","/district/"+districtID+"/aokmotu/add"));
 	    }
 	    else
     	{

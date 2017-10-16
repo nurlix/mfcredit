@@ -72,8 +72,8 @@ public class AokmotuController {
 	}
 	
 	
-	@RequestMapping(value = "/aokmotu/add/{districtId}", method = RequestMethod.GET)
-	public String showAokmotuAddFormWithRegion(@PathVariable("districtId") long districtId,Model model) {
+	@RequestMapping(value = "/district/{districtId}/aokmotu/add", method = RequestMethod.GET)
+	public String showAokmotuAddFormWithDistrict(@PathVariable("districtId") long districtId,Model model) {
 
 		Aokmotu modelAokmotu = new Aokmotu();
 		
@@ -109,7 +109,7 @@ public class AokmotuController {
 			this.aokmotuService.edit(aokmotu);
 		}
 
-		return "redirect:/aokmotu/list";
+		return "redirect:/district/list";
 
 	}
 
@@ -118,7 +118,7 @@ public class AokmotuController {
 
 		this.aokmotuService.deleteById(id);
 
-		return "redirect:/aokmotu/list";
+		return "redirect:/district/list";
 	}
 
      

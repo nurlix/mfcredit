@@ -60,17 +60,17 @@ public class DistrictController {
 
 		return "admin/org/districtView";
 	}
+	
+	@RequestMapping("/district/{id}/details")
+	public String viewDistrictDetailsById(@PathVariable("id") long id, Model model) {
+
+		District district = this.districtService.findById(id);
+
+		model.addAttribute("district", district);
+
+		return "admin/org/districtDetails";
+	}	
     
-	
-	@RequestMapping(value = "/district/add", method = RequestMethod.GET)
-	public String getDistrictAddForm(Model model) {
-
-		model.addAttribute("district", new District());
-		model.addAttribute("regionList", this.regionService.findAll());
-
-		return "admin/org/districtForm";
-	}
-	
 	
 	@RequestMapping(value = "/region/{regionId}/district/add", method = RequestMethod.GET)
 	public String getDistrictAddFormWithRegion(@PathVariable("regionId") long regionId,Model model) {
@@ -86,9 +86,6 @@ public class DistrictController {
 	}	
 	
 	
-	
-	
-
 	@RequestMapping("/district/{id}/edit")
 	public String getDistrictEditForm(@PathVariable("id") long id, Model model) {
 		model.addAttribute("district", this.districtService.findById(id));
