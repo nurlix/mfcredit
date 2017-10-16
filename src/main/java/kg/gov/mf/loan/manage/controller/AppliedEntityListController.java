@@ -2,6 +2,7 @@ package kg.gov.mf.loan.manage.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,8 @@ import kg.gov.mf.loan.manage.model.AppliedEntityList;
 import kg.gov.mf.loan.manage.model.AppliedEntityListState;
 import kg.gov.mf.loan.manage.model.AppliedEntityListType;
 import kg.gov.mf.loan.manage.model.CreditOrder;
+import kg.gov.mf.loan.manage.model.CreditOrderState;
+import kg.gov.mf.loan.manage.model.CreditOrderType;
 import kg.gov.mf.loan.manage.service.AppliedEntityListService;
 import kg.gov.mf.loan.manage.service.AppliedEntityListStateService;
 import kg.gov.mf.loan.manage.service.AppliedEntityListTypeService;
@@ -48,6 +51,21 @@ public class AppliedEntityListController {
 		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
 	    binder.registerCustomEditor(Date.class, editor);
 	}
+	
+	@RequestMapping(value = { "/manage/order/{orderId}/entitylist/{listId}/view"})
+    public String viewEntityList(ModelMap model, @PathVariable("orderId")Long orderId, @PathVariable("listId")Long listId) {
+
+		AppliedEntityList list = listService.findById(listId);
+        model.addAttribute("entityList", list);
+        
+        model.addAttribute("states", null);
+        model.addAttribute("emptyState", new AppliedEntityListState());
+
+        model.addAttribute("orderId", orderId);
+        
+        model.addAttribute("loggedinuser", Utils.getPrincipal());
+        return "/manage/order/entitylist/view";
+    }
 	
 	@RequestMapping(value="/manage/order/{orderId}/entitylist/save", method=RequestMethod.POST)
 	public String saveAppliedEntityList(AppliedEntityList list, long stateId, long typeId, 

@@ -69,11 +69,11 @@ public class CreditOrderController {
         
         List<AppliedEntityListState> states = elStateService.findAll();
         model.addAttribute("states", states);
-		model.addAttribute("emptyState", new CreditOrderState());
+		model.addAttribute("emptyState", new AppliedEntityListState());
 		
 		List<AppliedEntityListType> types = elTypeService.findAll();
         model.addAttribute("types", types);
-        model.addAttribute("emptyType", new CreditOrderType());
+        model.addAttribute("emptyType", new AppliedEntityListType());
         
         model.addAttribute("emptyList", new AppliedEntityList());
         model.addAttribute("entityList", order.getAppliedEntityList());

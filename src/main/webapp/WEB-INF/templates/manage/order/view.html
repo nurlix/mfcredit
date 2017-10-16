@@ -451,6 +451,7 @@
 															<th>List date</th>
 															<th>Entity List State</th>
 															<th>Entity List Type</th>
+															<th>View Details</th>
 															<th>Edit</th>
 															<th>Delete</th>
 														</tr>
@@ -469,6 +470,9 @@
 															<td th:text="${l.listDate}">01.01.2017</td>
 															<td th:text="${l.appliedEntityListState.name}">Active</td>
 															<td th:text="${l.appliedEntityListType.name}">RPKR</td>
+															<td>
+																<a th:href="@{/manage/order/__${order.id}__/entitylist/__${l.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
+															</td>
 															<td>
 																<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#largeList' + {l.id}}">Edit</a>
 															</td>
