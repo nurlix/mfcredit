@@ -39,6 +39,98 @@
 			<div class="page-content">
 
 			
+			
+			
+			
+			<div class="row">
+					<div class="col-md-12">
+						<!-- BEGIN BORDERED TABLE PORTLET-->
+						<div class="portlet portlet-fit ">
+							<div class="portlet-body">
+								<table
+									class="table table-hover table-condensed table-striped table-bordered compact condensed"
+									id="regionTable">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Name</th>
+											<th>Code</th>
+											<th>View</th>
+											<th>Edit</th>
+											<th>Delete</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr >
+											<td th:text="${region.id}">Id</td>
+											<td th:text="${region.name}">Name</td>
+											<td th:text="${region.code}">Code</td>
+											<td><a th:href="@{/region/__${region.id}__/details}"
+												role="button" class="btn btn-xs green-stripe"> View </a></td>
+											<td><a data-remote="false" data-toggle="modal"
+												data-target="#regionFormModal"
+												th:href="@{/region/__${region.id}__/edit}" role="button"
+												class="btn btn-xs blue-stripe"> Edit </a></td>
+											<td>
+												<form th:action="@{/region/__${region.id}__/remove}"
+													method="post">
+													<button type="submit" class="btn btn-xs red-stripe">
+														Delete</button>
+												</form>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="col-md-12">
+
+									<!-- Default bootstrap modal example -->
+									<div class="modal fade" id="regionFormModal" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+												</div>
+												<div class="modal-body">...</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Save
+														changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<a data-remote="false" data-toggle="modal"
+											data-target="#regionFormModal" th:href="@{/region/__${region.id}__/district/add}"
+											role="button" class="btn btn-large btn-primary"> Add
+											District</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END BORDERED TABLE PORTLET-->
+					</div>
+				
+
+				
+				</div>
+			
+			
+			
+			
+			
+			
+			
 				<div class="row">
 					<div class="col-md-12">
 
@@ -72,19 +164,32 @@
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 		$(document).ready(function() {
-			
+
+			var table = $('#regionTable').DataTable({
+		    	stateSave: true,
+		    	"language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"},
+	    		"info":     false,
+	    		keys: {
+	    	        focus: ':eq(0)'
+	    	    }
+		    } );
+
+			table.on('key-focus', function(e, datatable, cell) {
 
 
-				var RegionID = $("#region_id").val();
+				var rowData = datatable.row(cell.index().row).data();
 
+				$("#region_id").val(rowData[0]);
 				
-				var sUrl ="/MFCredit/region/" + RegionID+"/view";
+				var sUrl ="/MFCredit/region/" + rowData[0]+"/view";
 				
 				$.get(sUrl, function(data) {
 
 					$('#content').html(data);
+				});
+
 				});
 
 			});
@@ -100,8 +205,8 @@
 
 	    if(link.attr("href").indexOf('district/add')>0)
 	    {
-	    	$(this).find(".modal-title").html("/region/"+regionID+link.attr("href"));
-		    $(this).find(".modal-body").load("/region/"+regionID+link.attr("href"));
+	    	$(this).find(".modal-title").html(link.attr("href"));
+		    $(this).find(".modal-body").load(link.attr("href"));
 	    }
 	    else
     	{

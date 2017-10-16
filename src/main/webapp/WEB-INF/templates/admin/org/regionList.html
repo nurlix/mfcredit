@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-	
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <head>
 <title></title>
 
@@ -11,12 +11,19 @@
 <link
 	th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}"
 	rel="stylesheet" type="text/css" />
-<link
-	th:href="@{/assets/global/plugins/datatables/datatables.min.css}"
+<link th:href="@{/assets/global/plugins/datatables/datatables.min.css}"
 	rel="stylesheet" type="text/css" />
 <link
 	th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}"
 	rel="stylesheet" type="text/css" />
+	
+	  <style type="text/css">
+table.KeyTable tr.focus {
+outline: 3px solid #3366FF;
+outline-offset: -3px;
+}
+
+  </style>
 
 </head>
 
@@ -46,7 +53,7 @@
 						<div class="portlet portlet-fit ">
 							<div class="portlet-body">
 								<table
-									class="table table-hover table-condensed table-striped table-bordered compact condensed"
+									class="table compact"
 									id="regionTable">
 									<thead>
 										<tr>
@@ -121,9 +128,13 @@
 						</div>
 						<!-- END BORDERED TABLE PORTLET-->
 					</div>
+				
+
+				
 				</div>
 
 				<div class="row">
+
 					<div class="col-md-12">
 
 						<input hidden="true" type="text" id="region_id" name="region_id" />
@@ -181,6 +192,22 @@
 
 					$('#content').html(data);
 				});
+				
+				
+				
+				
+				
+				var row = datatable.row( cell.index().row );
+
+
+	      table.$('tr.info').removeClass('info');
+				$( row.node() ).addClass( "info" );
+
+				var rowData = row.data();
+				
+
+				var colData = datatable.cell( { focused: true } ).data();
+				
 
 				});
 
@@ -211,6 +238,7 @@
 
 	
 </script>
+
 
 
 

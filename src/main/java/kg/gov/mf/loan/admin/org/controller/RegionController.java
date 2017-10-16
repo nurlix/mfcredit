@@ -34,15 +34,6 @@ public class RegionController {
 		return "admin/org/regionList";
 	}
 	
-	
-	@RequestMapping(value = "/region/table", method = RequestMethod.GET)
-	public String showRegionTable(Model model) {
-		model.addAttribute("region", new Region());
-		model.addAttribute("regionList", this.regionService.findAll());
-
-		return "admin/org/regionTable";
-	}	
-	
 	@RequestMapping("region/{id}/view")
 	public String viewRegionById(@PathVariable("id") long id, Model model) {
 

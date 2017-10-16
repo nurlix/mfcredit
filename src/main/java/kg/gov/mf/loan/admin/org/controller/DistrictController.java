@@ -3,13 +3,14 @@ package kg.gov.mf.loan.admin.org.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import kg.gov.mf.loan.admin.org.model.*;
 import kg.gov.mf.loan.admin.org.service.*;
@@ -84,7 +85,7 @@ public class DistrictController {
 
 		return "admin/org/districtForm";
 	}	
-	
+
 	
 	@RequestMapping("/district/{id}/edit")
 	public String getDistrictEditForm(@PathVariable("id") long id, Model model) {
@@ -96,7 +97,7 @@ public class DistrictController {
 	}
 	
 	@RequestMapping(value = "/district/save", method = RequestMethod.POST)
-	public String saveDistrictAndRedirectToDistrictList(@Validated @ModelAttribute("district") District district, BindingResult result) {
+	public ModelAndView saveDistrictAndRedirectToRegionDetails(@Validated @ModelAttribute("district") District district, BindingResult result,ModelMap model) {
 
 		if (result.hasErrors()) {
 			System.out.println(" ==== BINDING ERROR ====" + result.getAllErrors().toString());
@@ -108,10 +109,12 @@ public class DistrictController {
 			this.districtService.edit(district);
 		}
 
-		return "redirect:/region/list";
+		String url = "/region/"+district.getRegion().getId()+"/details";
 
-	}
+        return new ModelAndView("redirect:"+url, model);
 
+	}	
+	
 	@RequestMapping("/district/{id}/remove")
 	public String removeDistrictAndRedirectToDistrictList(@PathVariable("id") long id) {
 
