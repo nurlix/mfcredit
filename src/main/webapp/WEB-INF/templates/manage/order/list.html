@@ -8,7 +8,7 @@
 <link th:href="@{/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}" rel="stylesheet" type="text/css" />
 </head>
 <body
-	class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
+	class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed">
 	<!-- BEGIN HEADER -->
 	<div th:replace="layout :: header-top" />
 	<!-- END HEADER -->
@@ -338,7 +338,7 @@
 										<div class="col-md-6">
 											<div class="btn-group">
 												<a class="btn green" data-toggle="modal" href="#largeOrderNew">
-												Add New Credit Order<i class="fa fa-plus"></i>
+												Add New Credit Order <i class="fa fa-plus"></i>
 												</a>
 											</div>
 										</div>
@@ -375,10 +375,7 @@
 													<td th:text="${o.creditOrderState.name}">Active</td>
 													<td th:text="${o.creditOrderType.name}">RPKR</td>
 													<td>
-														<form th:action="@{/manage/order/view}" method="get">
-															<input hidden="true" type="text" id="id" name="id" th:value="${o.id}" />
-															<button type="submit" class="btn btn-outline btn-circle btn-sm blue">View Details</button>
-														</form>
+														<a th:href="@{/manage/order/__${o.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
 													</td>
 													<td>
 														<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#largeOrder' + {o.id}}">Edit</a>

@@ -3,27 +3,33 @@ package kg.gov.mf.loan.manage.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import kg.gov.mf.loan.manage.model.AppliedEntityList;
+import kg.gov.mf.loan.manage.model.AppliedEntityListState;
+import kg.gov.mf.loan.manage.model.AppliedEntityListType;
 import kg.gov.mf.loan.manage.model.CreditOrder;
 import kg.gov.mf.loan.manage.model.CreditOrderState;
 import kg.gov.mf.loan.manage.model.CreditOrderType;
+import kg.gov.mf.loan.manage.service.AppliedEntityListStateService;
+import kg.gov.mf.loan.manage.service.AppliedEntityListTypeService;
 import kg.gov.mf.loan.manage.service.CreditOrderService;
 import kg.gov.mf.loan.manage.service.CreditOrderStateService;
 import kg.gov.mf.loan.manage.service.CreditOrderTypeService;
+import kg.gov.mf.loan.util.Utils;
 
 @Controller
 @SessionAttributes("roles")
@@ -39,7 +45,14 @@ public class CreditOrderController {
 	CreditOrderService creditOrderService;
 	
 	static final Logger loggerOrder = LoggerFactory.getLogger(CreditOrder.class);
-	static final Logger loggerOrderState = LoggerFactory.getLogger(CreditOrderState.class);
+	
+	@Autowired
+	AppliedEntityListStateService elStateService;
+	
+	@Autowired
+	AppliedEntityListTypeService elTypeService;
+	
+	static final Logger loggerEntityList = LoggerFactory.getLogger(AppliedEntityList.class);
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
@@ -47,6 +60,32 @@ public class CreditOrderController {
 		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
 	    binder.registerCustomEditor(Date.class, editor);
 	}
+	
+	@RequestMapping(value = { "/manage/order/{orderId}/view"})
+    public String viewOrder(ModelMap model, @PathVariable("orderId")Long orderId) {
+
+		CreditOrder order = creditOrderService.findById(orderId);
+        model.addAttribute("order", order);
+        
+        List<AppliedEntityListState> states = elStateService.findAll();
+        model.addAttribute("states", states);
+		model.addAttribute("emptyState", new CreditOrderState());
+		
+		List<AppliedEntityListType> types = elTypeService.findAll();
+        model.addAttribute("types", types);
+        model.addAttribute("emptyType", new CreditOrderType());
+        
+        model.addAttribute("emptyList", new AppliedEntityList());
+        model.addAttribute("entityList", null);
+        
+        Set<AppliedEntityList> lists = order.getAppliedEntityList();
+        for (AppliedEntityList appliedEntityList : lists) {
+        	loggerEntityList.info("List : ", appliedEntityList);
+		}
+        
+        model.addAttribute("loggedinuser", Utils.getPrincipal());
+        return "/manage/order/view";
+    }
 	
 	@RequestMapping(value = { "/manage/order/", "/manage/order/list" }, method = RequestMethod.GET)
     public String listOrders(ModelMap model) {
@@ -63,7 +102,7 @@ public class CreditOrderController {
         model.addAttribute("orders", orders);
         model.addAttribute("emptyOrder", new CreditOrder());
         
-        model.addAttribute("loggedinuser", getPrincipal());
+        model.addAttribute("loggedinuser", Utils.getPrincipal());
         return "/manage/order/list";
     }
 	
@@ -71,8 +110,6 @@ public class CreditOrderController {
 	public String saveCreditOrder(CreditOrder creditOrder, long stateId, long typeId)
 	{
 		loggerOrder.info("Order : {}", creditOrder);
-		loggerOrder.info("State id : {}", stateId);
-		loggerOrder.info("Type id : {}", typeId);
 		if(creditOrder != null && creditOrder.getId() == 0)
 		{
 			CreditOrder newOrder = new CreditOrder(creditOrder.getRegNumber(), creditOrder.getRegDate(), 
@@ -104,7 +141,7 @@ public class CreditOrderController {
 		if(state != null && state.getId() > 0)
 			creditOrderStateService.update(state);
 		
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", Utils.getPrincipal());
         return "redirect:" + "/manage/order/list";
     }
 	
@@ -116,7 +153,7 @@ public class CreditOrderController {
 		if(type != null && type.getId() > 0)
 			creditOrderTypeService.update(type);
 		
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinuser", Utils.getPrincipal());
         return "redirect:" + "/manage/order/list";
     }
 	
@@ -133,20 +170,4 @@ public class CreditOrderController {
 			creditOrderTypeService.deleteById(id);
         return "redirect:" + "/manage/order/list";
     }
-	
-	/**
-     * This method returns the principal[user-name] of logged-in user.
-     */
-    private String getPrincipal(){
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
- 
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails)principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
-    }
-
 }

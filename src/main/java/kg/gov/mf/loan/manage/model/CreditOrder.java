@@ -42,11 +42,9 @@ public class CreditOrder {
 	@JoinColumn(name="credit_order_type_id")
 	private CreditOrderType creditOrderType;
 	
-	/*
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="credit_order_id")
+	@JoinColumn(name="creditOrder_id")
 	private Set<AppliedEntityList> appliedEntityList;
-	*/
 	
 	public CreditOrder()
 	{
@@ -116,7 +114,6 @@ public class CreditOrder {
 				+ description + ", creditOrderState=" + creditOrderState + ", creditOrderType=" + creditOrderType + "]";
 	}
 	
-	/*
 	public Set<AppliedEntityList> getAppliedEntityList() {
 		return appliedEntityList;
 	}
@@ -124,8 +121,5 @@ public class CreditOrder {
 	public void setAppliedEntityList(Set<AppliedEntityList> appliedEntityList) {
 		this.appliedEntityList = appliedEntityList;
 	}
-	*/
-	
-	
 
 }

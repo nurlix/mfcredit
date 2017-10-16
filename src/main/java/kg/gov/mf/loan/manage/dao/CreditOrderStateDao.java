@@ -9,6 +9,6 @@ public interface CreditOrderStateDao{
 	List<CreditOrderState> findAll();
 	CreditOrderState findById(long id);
 	CreditOrderState findByName(String name);
-    void save(CreditOrderState type);
+    void save(CreditOrderState state);
     void deleteById(long id);
 }

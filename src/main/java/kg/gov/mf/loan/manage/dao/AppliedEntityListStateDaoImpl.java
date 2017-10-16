@@ -7,33 +7,34 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import kg.gov.mf.loan.manage.model.CreditOrderState;
+import kg.gov.mf.loan.manage.model.AppliedEntityListState;
 
-@Repository("creditOrderStateDao")
-public class CreditOrderStateDaoImpl extends AbstractDao<Long, CreditOrderState> implements CreditOrderStateDao{
+@Repository("appliedEntityListStateDao")
+public class AppliedEntityListStateDaoImpl extends AbstractDao<Long, AppliedEntityListState> implements AppliedEntityListStateDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<CreditOrderState> findAll() {
+	public List<AppliedEntityListState> findAll() {
 		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		List<CreditOrderState> states = (List<CreditOrderState>) criteria.list();
+		List<AppliedEntityListState> states = (List<AppliedEntityListState>) criteria.list();
 		return states;
 	}
+
 	@Override
-	public CreditOrderState findById(long id) {
+	public AppliedEntityListState findById(long id) {
 		return getByKey(id);
 	}
 
 	@Override
-	public CreditOrderState findByName(String name) {
+	public AppliedEntityListState findByName(String name) {
 		Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("name", name));
-        return (CreditOrderState) crit.uniqueResult();
+        return (AppliedEntityListState) crit.uniqueResult();
 	}
 
 	@Override
-	public void save(CreditOrderState state) {
+	public void save(AppliedEntityListState state) {
 		persist(state);
 	}
 
@@ -41,7 +42,7 @@ public class CreditOrderStateDaoImpl extends AbstractDao<Long, CreditOrderState>
 	public void deleteById(long id) {
 		Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("id", id));
-        CreditOrderState state = (CreditOrderState)crit.uniqueResult();
+        AppliedEntityListState state = (AppliedEntityListState)crit.uniqueResult();
         delete(state);
 	}
 

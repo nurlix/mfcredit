@@ -7,41 +7,42 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import kg.gov.mf.loan.manage.model.CreditOrderState;
+import kg.gov.mf.loan.manage.model.AppliedEntityListType;
 
-@Repository("creditOrderStateDao")
-public class CreditOrderStateDaoImpl extends AbstractDao<Long, CreditOrderState> implements CreditOrderStateDao{
+@Repository("appliedEntityListTypeDao")
+public class AppliedEntityListTypeDaoImpl extends AbstractDao<Long, AppliedEntityListType> implements AppliedEntityListTypeDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<CreditOrderState> findAll() {
+	public List<AppliedEntityListType> findAll() {
 		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		List<CreditOrderState> states = (List<CreditOrderState>) criteria.list();
-		return states;
+		List<AppliedEntityListType> types = (List<AppliedEntityListType>) criteria.list();
+		return types;
 	}
+
 	@Override
-	public CreditOrderState findById(long id) {
+	public AppliedEntityListType findById(long id) {
 		return getByKey(id);
 	}
 
 	@Override
-	public CreditOrderState findByName(String name) {
+	public AppliedEntityListType findByName(String name) {
 		Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("name", name));
-        return (CreditOrderState) crit.uniqueResult();
+        return (AppliedEntityListType) crit.uniqueResult();
 	}
 
 	@Override
-	public void save(CreditOrderState state) {
-		persist(state);
+	public void save(AppliedEntityListType type) {
+		persist(type);
 	}
 
 	@Override
 	public void deleteById(long id) {
 		Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("id", id));
-        CreditOrderState state = (CreditOrderState)crit.uniqueResult();
+        AppliedEntityListType state = (AppliedEntityListType)crit.uniqueResult();
         delete(state);
 	}
 
