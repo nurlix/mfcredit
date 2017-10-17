@@ -88,6 +88,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.connector.version}</version>
+			<scope>runtime</scope>			
 		</dependency>
 
 		<!-- SLF4J/Logback -->

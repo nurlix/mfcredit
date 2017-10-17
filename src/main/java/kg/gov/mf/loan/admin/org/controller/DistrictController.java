@@ -43,15 +43,6 @@ public class DistrictController {
 	}
 	
 	
-	@RequestMapping(value = "/district/table", method = RequestMethod.GET)
-	public String showDistrictTable(Model model) {
-		model.addAttribute("district", new District());
-		model.addAttribute("districtList", this.districtService.findAll());
-
-		return "admin/org/districtTable";
-	}
-	
-	
 	@RequestMapping("/district/{id}/view")
 	public String viewDistrictById(@PathVariable("id") long id, Model model) {
 

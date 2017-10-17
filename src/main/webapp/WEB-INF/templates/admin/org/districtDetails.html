@@ -39,6 +39,111 @@
 			<div class="page-content">
 
 			
+			
+			
+			
+			
+			
+
+				<div class="row">
+					<div class="col-md-12">
+						<!-- BEGIN BORDERED TABLE PORTLET-->
+						<div class="portlet portlet-fit ">
+							<div class="portlet-body">
+
+								<div>
+									<table class="table table-hover table-condensed table-striped table-bordered compact condensed" id="districtTable">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Name</th>
+												<th>Code</th>
+												<th>Region</th>
+												<th>View</th>
+												<th>Edit</th>
+												<th>Delete</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											
+											<tr>
+												<td th:text="${district.id}">Id</td>
+												<td th:text="${district.name}">Name</td>     
+												<td th:text="${district.code}">Code</td>
+												<td th:text="${district.region.name}">Region</td>
+												<td><a th:href="@{/district/__${district.id}__/details}"
+													role="button" class="btn btn-xs green-stripe"> View </a></td>
+												<td><a data-remote="false" data-toggle="modal"
+													data-target="#districtFormModal"
+													th:href="@{/district/__${district.id}__/edit}"
+													role="button" class="btn btn-xs blue-stripe"> Edit </a></td>
+												<td>
+													<form th:action="@{/district/__${district.id}__/remove}" method="post">
+														<button type="submit" class="btn btn-xs red-stripe">Delete</button>
+													</form>
+												</td>
+											</tr>
+										</tbody>
+
+									</table>
+								</div>
+
+
+								<div class="col-md-12">
+
+									<!-- Default bootstrap modal example -->
+									<div class="modal fade" id="districtFormModal" tabindex="-1"
+										role="dialog" aria-labelledby="myModalLabel"
+										aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+												</div>
+												<div class="modal-body">...</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal">Close</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+
+
+
+								<div class="row">
+									<div class="col-md-12">
+										<a data-remote="false" data-toggle="modal"
+											data-target="#districtFormModal" th:href="@{/aokmotu/add}"
+											role="button" class="btn btn-large btn-primary"> Add
+											Aokmotu</a>											
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END BORDERED TABLE PORTLET-->
+					</div>
+				</div>
+				
+							
+			
+			
+			
+			
+			
+			
+			
+			
 				<div class="row">
 					<div class="col-md-12">
 
@@ -74,15 +179,46 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
-				var DistrictID = $("#district_id").val();
 
+			var table = $('#districtTable').DataTable({
+		    	stateSave: true,
+		    	"language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"},
+	    		"info":     false,
+	    		keys: {
+	    	        focus: ':eq(0)'
+	    	    }
+		    } );
+
+			table.on('key-focus', function(e, datatable, cell) {
+
+
+				var rowData = datatable.row(cell.index().row).data();
+
+				$("#district_id").val(rowData[0]);
 				
-				var sUrl ="/MFCredit/district/" + DistrictID+"/view";
-
+				var sUrl ="/MFCredit/district/" + rowData[0]+"/view";
+				
 				$.get(sUrl, function(data) {
 
 					$('#content').html(data);
+				});
+				
+				
+				
+				
+				
+				var row = datatable.row( cell.index().row );
+
+
+	      table.$('tr.info').removeClass('info');
+				$( row.node() ).addClass( "info" );
+
+				var rowData = row.data();
+				
+
+				var colData = datatable.cell( { focused: true } ).data();
+				
+
 				});
 
 			});
@@ -92,14 +228,13 @@
 	$("#districtFormModal").on("show.bs.modal", function(e) {
 		
 	    var link = $(e.relatedTarget);
-	    
-	    
+
 	    var districtID = $("#district_id").val();
 
-	    if(link.attr("href").indexOf('district/add')>0)
+	    if(link.attr("href").indexOf('aokmotu/add')>0)
 	    {
-	    	$(this).find(".modal-title").html("/district/"+districtID+link.attr("href"));
-		    $(this).find(".modal-body").load("/district/"+districtID+link.attr("href"));
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/aokmotu/add","/district/"+districtID+"/aokmotu/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/aokmotu/add","/district/"+districtID+"/aokmotu/add"));
 	    }
 	    else
     	{
