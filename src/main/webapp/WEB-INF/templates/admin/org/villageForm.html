@@ -9,7 +9,7 @@
 
 <body>
 
-	<form th:action="@{/village/save}" id="form_sample_2"
+	<form th:action="@{/village/save}" id="form_sample_2" th:object="${village}"
 		class="form-horizontal" method="post">
 		<div class="form-body">
 			<div class="alert alert-danger display-hide">
@@ -27,10 +27,12 @@
 				</label>
 				<div class="col-md-4">
 					<input hidden="true" type="text" id="id" name="id"
-						th:value="${village.id}" />
+						th:field="*{id}" />
+					<input hidden="true" type="text" id="aokmotu.id" name="aokmotu.id"
+						th:field="*{aokmotu.id}" />						
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-							name="name" th:value="${village.name}" />
+							name="name" th:field="*{name}" />
 					</div>
 				</div>
 			</div>
@@ -42,7 +44,7 @@
 
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
-							name="code" th:value="${village.code}" />
+							name="code" th:field="*{code}" />
 					</div>
 				</div>
 			</div>		
@@ -54,9 +56,10 @@
 				</label>
 				<div class="col-md-4">
 
-					<select th:field="*{village.aokmotu}">
+					<select th:value="${village.aokmotu}">
 					  <option th:each="aokmotuInList : ${aokmotuList}" 
 					          th:value="${aokmotuInList.id}" 
+					          th:selected="(${aokmotuInList.id} == *{aokmotu.id})"	
 					          th:text="${aokmotuInList.name}">Aokmotu</option>
 					</select>
 

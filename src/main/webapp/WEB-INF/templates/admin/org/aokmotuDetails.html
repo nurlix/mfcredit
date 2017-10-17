@@ -2,26 +2,25 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
+<title></title>
 
-	<title>
-		MFLoan | Aokmotus
-	</title>
-	
-	<div  th:replace="fragments/header :: header-css">
-	</div>
+<div th:replace="fragments/header :: header-css"></div>
 
-	
-	<link th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />	
-	
-	<link th:href="@{/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
-	<link th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
-
-
+<link
+	th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/datatables/datatables.min.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}"
+	rel="stylesheet" type="text/css" />
 
 </head>
 
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed">
-	
+<body
+	class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed">
+
 	<!-- BEGIN HEADER -->
 	<div th:replace="layout :: header-top"></div>
 	<!-- END HEADER -->
@@ -30,14 +29,21 @@
 	<div class="page-container">
 
 		<!-- BEGIN SIDEBAR -->
-		<div th:replace="layout :: page-container-sidebar"> </div>
+		<div th:replace="layout :: page-container-sidebar"></div>
 		<!-- END SIDEBAR -->
-		
+
 		<!-- BEGIN CONTENT -->
 		<div class="page-content-wrapper">
 
 			<!-- BEGIN CONTENT BODY -->
 			<div class="page-content">
+
+			
+			
+			
+			
+			
+			
 
 				<div class="row">
 					<div class="col-md-12">
@@ -61,21 +67,19 @@
 
 										<tbody>
 											
-											<tr th:each="aokmotuInList : ${aokmotuList}">
-												<td th:text="${aokmotuInList.id}">Id</td>
-												<td th:text="${aokmotuInList.name}">Name</td>     
-												<td th:text="${aokmotuInList.code}">Code</td>
-												<td th:text="${aokmotuInList.district.name}">District</td>	
-												<td><a th:href="@{/aokmotu/__${aokmotuInList.id}__/details}"
-													role="button" class="btn btn-xs green-stripe"> View </a></td>											
+											<tr>
+												<td th:text="${aokmotu.id}">Id</td>
+												<td th:text="${aokmotu.name}">Name</td>     
+												<td th:text="${aokmotu.code}">Code</td>
+												<td th:text="${aokmotu.district.name}">Region</td>
+												<td><a th:href="@{/aokmotu/__${aokmotu.id}__/details}"
+													role="button" class="btn btn-xs green-stripe"> View </a></td>
+												<td><a data-remote="false" data-toggle="modal"
+													data-target="#aokmotuFormModal"
+													th:href="@{/aokmotu/__${aokmotu.id}__/edit}"
+													role="button" class="btn btn-xs blue-stripe"> Edit </a></td>
 												<td>
-													<a data-remote="false" data-toggle="modal"
-													data-target="#aokmotuFormModal" th:href="@{/aokmotu/edit/__${aokmotuInList.id}__}"
-													role="button" class="btn btn-xs blue-stripe"> Edit
-													</a>
-												</td>
-												<td>
-													<form th:action="@{/aokmotu/remove/__${aokmotuInList.id}__}" method="post">
+													<form th:action="@{/aokmotu/__${aokmotu.id}__/remove}" method="post">
 														<button type="submit" class="btn btn-xs red-stripe">Delete</button>
 													</form>
 												</td>
@@ -131,18 +135,26 @@
 					</div>
 				</div>
 				
-				
-			<div class="row">
-				<div class="col-md-12">
+							
+			
+			
+			
+			
+			
+			
+			
+			
+				<div class="row">
+					<div class="col-md-12">
 
-					<input hidden="true" type="text" id="aokmotu_id" name="aokmotu_id" />
-					
-					<div id="content"></div>
+						<input hidden="true" type="text" id="aokmotu_id" name="aokmotu_id" th:value="${aokmotu.id}" />
 
+						<div id="content"></div>
+
+					</div>
 				</div>
-			</div>				
-				
-				
+
+
 			</div>
 			<!-- END CONTENT BODY -->
 		</div>
@@ -152,17 +164,19 @@
 	<!-- END CONTAINER -->
 	<div th:replace="layout :: footer"></div>
 	<div th:replace="fragments/footer :: footer-js"></div>
-	
-	
-	<script th:src="@{/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
-	<script th:src="@{/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>	
-	
+
+	<script th:src="@{/assets/global/plugins/datatables/datatables.js}"
+		type="text/javascript"></script>
+	<script
+		th:src="@{/assets/global/plugins/datatables/dataTables.keyTable.js}"
+		type="text/javascript"></script>
+
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 
 	<!-- END PAGE LEVEL PLUGINS -->
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
 
-	
+
 		<script type="text/javascript">
 		$(document).ready(function() {
 
@@ -235,18 +249,18 @@
 	
 
 	
-</script>           
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+</script> 
+
+
+
+
+
+
+
+
+
+
+
 	<!-- END PAGE LEVEL SCRIPTS -->
 </body>
 </html>
