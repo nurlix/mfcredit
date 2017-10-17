@@ -172,7 +172,7 @@
 														<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#basicState' + {s.id}}">Edit</a>
 													</td>
 													<td>
-														<form th:action="@{/manage/order/__${orderId}__/entitylist/state/delete}" method="post" onsubmit="return confirm('Are you sure?') ? true : false;">
+														<form th:action="@{/manage/order/__${orderId}__/entitylist/__${listId}__/entity/state/delete}" method="post" onsubmit="return confirm('Are you sure?') ? true : false;">
 															<input hidden="true" type="text" id="id" name="id" th:value="${s.id}" />
 															<button type="submit" class="btn btn-outline btn-circle dark btn-sm red">Delete</button>
 														</form>
@@ -191,7 +191,7 @@
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 												<h4 class="modal-title">Save Applied Entity State</h4>
 											</div>
-											<form th:action="@{/manage/order/__${orderId}__/entitylist/state/save}" id="form_sample_2" class="form-horizontal" method="post">
+											<form th:action="@{/manage/order/__${orderId}__/entitylist/__${listId}__/entity/state/save}" id="form_sample_2" class="form-horizontal" method="post">
 												<div class="portlet-body">
 													<div class="form-body">
 														<div class="alert alert-danger display-hide">
@@ -230,7 +230,7 @@
 													<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 													<h4 class="modal-title">Save Applied Entity State</h4>
 												</div>
-												<form th:action="@{/manage/order/__${order.id}__/entitylist/state/save}" id="form_sample_2" class="form-horizontal" method="post">
+												<form th:action="@{/manage/order/__${orderId}__/entitylist/__${listId}__/entity/state/save}" id="form_sample_2" class="form-horizontal" method="post">
 													<div class="portlet-body">
 														<div class="form-body">
 															<div class="alert alert-danger display-hide">
@@ -279,7 +279,7 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="btn-group">
-												<a class="btn green" data-toggle="modal" href="#largeListNew">
+												<a class="btn green" data-toggle="modal" href="#largeEntityNew">
 												Add New Applied Entity <i class="fa fa-plus"></i>
 												</a>
 											</div>
@@ -292,38 +292,36 @@
 										<thead>
 											<tr>
 												<th>Id</th>
-												<th>List number</th>
-												<th>List date</th>
-												<th>Entity List State</th>
-												<th>Entity List Type</th>
-												<th>View Details</th>
+												<th>Entity Name</th>
+												<th>Entity State</th>
+												<!-- <th>View Details</th> -->
 												<th>Edit</th>
 												<th>Delete</th>
 											</tr>
 										</thead>
 	
 										<tbody>
-											<statecheck th:if="${#lists.isEmpty(entityList)}">
+											<statecheck th:if="${#lists.isEmpty(entities)}">
 											<tr class="no-records-found" style="text-align: center;">
 												<td colspan="8">No matching records found</td>
 											</tr>
 											</statecheck>
-											<state th:each="l : ${entityList}">
+											<state th:each="e : ${entities}">
 											<tr class="clickable-row">
-												<td th:text="${l.id}">Id</td>
-												<td th:text="${l.listNumber}">AB0C1234</td>
-												<td th:text="${l.listDate}">01.01.2017</td>
-												<td th:text="${l.appliedEntityListState.name}">Active</td>
-												<td th:text="${l.appliedEntityListType.name}">RPKR</td>
+												<td th:text="${e.id}">Id</td>
+												<td th:text="${e.name}">AB0C1234</td>
+												<td th:text="${e.appliedEntityState.name}">Active</td>
+												<!-- 
 												<td>
 													<a th:href="@{/manage/order/__${orderId}__/entitylist/__${l.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
 												</td>
+												 -->
 												<td>
-													<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#largeList' + {l.id}}">Edit</a>
+													<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#largeEntity' + {e.id}}">Edit</a>
 												</td>
 												<td>
-													<form th:action="@{/manage/order/__${orderId}__/entitylist/delete}" method="post" onsubmit="return confirm('Are you sure?') ? true : false;">
-														<input hidden="true" type="text" id="id" name="id" th:value="${l.id}" />
+													<form th:action="@{/manage/order/__${orderId}__/entitylist/__${listId}__/entity/delete}" method="post" onsubmit="return confirm('Are you sure?') ? true : false;">
+														<input hidden="true" type="text" id="id" name="id" th:value="${e.id}" />
 														<button type="submit" class="btn btn-outline btn-circle dark btn-sm red">Delete</button>
 													</form>
 												</td>
@@ -332,49 +330,34 @@
 										</tbody>
 									</table>
 								</div>
-								<!-- BEGIN Create modal for a new order -->
-								<!-- 
-								<div class="modal fade bs-modal-lg" id="largeListNew" tabindex="-1" role="dialog" aria-hidden="true">
+								<!-- BEGIN Create modal for a new entity -->
+								<div class="modal fade bs-modal-lg" id="largeEntityNew" tabindex="-1" role="dialog" aria-hidden="true">
 	                                <div class="modal-dialog modal-lg">
 	                                    <div class="modal-content">
 	                                        <div class="modal-header">
 	                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-	                                            <h4 class="modal-title">Save Applied Entity List</h4>
+	                                            <h4 class="modal-title">Save Applied Entity</h4>
 	                                        </div>
-											<form th:action="@{/manage/order/__${order.id}__/entitylist/save}" id="form_sample_2" class="form-horizontal" method="post">
+											<form th:action="@{/manage/order/__${orderId}__/entitylist/__${listId}__/entity/save}" id="form_sample_2" class="form-horizontal" method="post">
 												<div class="portlet-body">
 			                                        <div class="form-body">
 			                                            <div class="alert alert-danger display-hide">
 			                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
 			                                            </div>
 			                                            <div class="form-group  margin-top-20">
-			                                                <label class="control-label col-md-3">List Number
+			                                                <label class="control-label col-md-3">Entity name
 			                                                    <span class="required"> * </span>
 			                                                </label>
 			                                                <div class="col-md-4">
-			                                                	<input hidden="true" type="text" id="id" name="id" th:value="${emptyList.id}"/>
+			                                                	<input hidden="true" type="text" id="id" name="id" th:value="${emptyEntity.id}"/>
 			                                                    <div class="input-icon right">
 			                                                        <i class="fa"></i>
-			                                                        <input type="text" class="form-control" name="listNumber" th:value="${emptyList.listNumber}"/> 
+			                                                        <input type="text" class="form-control" name="name" th:value="${emptyEntity.name}"/> 
 			                                                    </div>
 			                                                </div>
 			                                            </div>
 			                                            <div class="form-group">
-			                                                <label class="control-label col-md-3">List Date</label>
-			                                                <div class="col-md-4">
-			                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-			                                                        <input type="text" class="form-control" name="listDate" th:value="${emptyList.listDate}"/>
-			                                                        <span class="input-group-btn">
-			                                                            <button class="btn default" type="button">
-			                                                                <i class="fa fa-calendar"></i>
-			                                                            </button>
-			                                                        </span>
-			                                                    </div>
-			                                                    <span class="help-block"> select a date </span>
-			                                                </div>
-			                                            </div>
-			                                            <div class="form-group">
-			                                                <label class="control-label col-md-3">Applied Entity List State
+			                                                <label class="control-label col-md-3">Entity State
 			                                                    <span class="required"> * </span>
 			                                                </label>
 			                                                <div class="col-md-4">
@@ -383,19 +366,6 @@
 			                                                        <option th:each="state : ${states}"
 															               th:value="${state.id}"
 															               th:text="${state.name}">Category 1</option>
-			                                                    </select>
-			                                                </div>
-			                                            </div>
-			                                            <div class="form-group">
-			                                                <label class="control-label col-md-3">Applied Entity List Type
-			                                                    <span class="required"> * </span>
-			                                                </label>
-			                                                <div class="col-md-4">
-			                                                    <select class="form-control" name="typeId">
-			                                                        <option value="">Select...</option>
-			                                                        <option th:each="type : ${types}"
-															               th:value="${type.id}"
-															               th:text="${type.name}">Category 1</option>
 			                                                    </select>
 			                                                </div>
 			                                            </div>
@@ -409,86 +379,51 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                            -->
-	                            <!-- END Create modal for a new order -->
+	                            <!-- END Create modal for a new entity -->
 								
-								<!-- BEGIN Create modal for each order -->
-								<!-- 
-								<state th:each="l : ${entityList}">
-									<div class="modal fade bs-modal-lg" th:id="${'largeList' + {l.id}}" tabindex="-1" role="basic" aria-hidden="true">
+								<!-- BEGIN Create modal for each entity -->
+								<state th:each="e : ${entities}">
+									<div class="modal fade bs-modal-lg" th:id="${'largeEntity' + {e.id}}" tabindex="-1" role="basic" aria-hidden="true">
 										<div class="modal-dialog modal-lg">
 											<div class="modal-content">
 												<div class="modal-header">
 													<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-													<h4 class="modal-title">Save Applied Entity List</h4>
+													<h4 class="modal-title">Save Applied Entity</h4>
 												</div>
-												<form th:action="@{/manage/order/__${order.id}__/entitylist/save}" id="form_sample_2" class="form-horizontal" method="post">
+												<form th:action="@{/manage/order/__${orderId}__/entitylist/__${listId}__/entity/save}" id="form_sample_2" class="form-horizontal" method="post">
 													<div class="portlet-body">
 			                                        <div class="form-body">
 			                                            <div class="alert alert-danger display-hide">
 			                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
 			                                            </div>
 			                                            <div class="form-group  margin-top-20">
-			                                                <label class="control-label col-md-3">List Number
+			                                                <label class="control-label col-md-3">Entity name
 			                                                    <span class="required"> * </span>
 			                                                </label>
 			                                                <div class="col-md-4">
-			                                                	<input hidden="true" type="text" id="id" name="id" th:value="${l.id}"/>
+			                                                	<input hidden="true" type="text" id="id" name="id" th:value="${e.id}"/>
 			                                                    <div class="input-icon right">
 			                                                        <i class="fa"></i>
-			                                                        <input type="text" class="form-control" name="listNumber" th:value="${l.listNumber}"/> 
+			                                                        <input type="text" class="form-control" name="name" th:value="${e.name}"/> 
 			                                                    </div>
 			                                                </div>
 			                                            </div>
 			                                            <div class="form-group">
-			                                                <label class="control-label col-md-3">List Date</label>
-			                                                <div class="col-md-4">
-			                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-			                                                        <input type="text" class="form-control" name="listDate" th:value="${l.listDate}"/>
-			                                                        <span class="input-group-btn">
-			                                                            <button class="btn default" type="button">
-			                                                                <i class="fa fa-calendar"></i>
-			                                                            </button>
-			                                                        </span>
-			                                                    </div>
-			                                                    <span class="help-block"> select a date </span>
-			                                                </div>
-			                                            </div>
-			                                            <div class="form-group">
-			                                                <label class="control-label col-md-3">Applied Entity List State
+			                                                <label class="control-label col-md-3">Entity state
 			                                                    <span class="required"> * </span>
 			                                                </label>
 			                                                <div class="col-md-4">
 			                                                    <select class="form-control" name="stateId">
 			                                                        <option value="">Select...</option>
 			                                                        <states th:each="state : ${states}">
-			                                                        <option th:if="${l.id > 0 and state.name == l.appliedEntityListState.name}"
+			                                                        <option th:if="${e.id > 0 and state.name == e.appliedEntityState.name}"
 															               th:value="${state.id}"
 															               th:text="${state.name}"
 															               selected="selected">Category 1</option>
-															        <option th:unless="${l.id > 0 and state.name == l.appliedEntityListState.name}"
+															        <option th:unless="${e.id > 0 and state.name == e.appliedEntityState.name}"
 															               th:value="${state.id}"
 															               th:text="${state.name}">Category 1</option>
 															        </states>
-			                                                    </select>
-			                                                </div>
-			                                            </div>
-			                                            <div class="form-group">
-			                                                <label class="control-label col-md-3">Applied Entity List Type
-			                                                    <span class="required"> * </span>
-			                                                </label>
-			                                                <div class="col-md-4">
-			                                                    <select class="form-control" name="typeId">
-			                                                        <option value="">Select...</option>
-			                                                        <types th:each="type : ${types}">
-			                                                        <option th:if="${l.id > 0 and type.name == l.appliedEntityListType.name}"
-															               th:value="${type.id}"
-															               th:text="${type.name}"
-															               selected="selected">Category 1</option>
-															        <option th:unless="${l.id > 0 and type.name == l.appliedEntityListType.name}"
-															               th:value="${type.id}"
-															               th:text="${type.name}">Category 1</option>
-			                                                        </types>
 			                                                    </select>
 			                                                </div>
 			                                            </div>
@@ -503,7 +438,7 @@
 										</div>
 									</div>
 								</state>
-								<!-- END Create modal for each order -->
+								<!-- END Create modal for each entity -->
 							</div>
 						</div>
 					</div>

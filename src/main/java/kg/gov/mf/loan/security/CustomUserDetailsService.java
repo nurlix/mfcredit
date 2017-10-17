@@ -14,9 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kg.gov.mf.loan.manage.service.UserService;
 import kg.gov.mf.loan.model.User;
 import kg.gov.mf.loan.model.UserProfile;
+import kg.gov.mf.loan.service.UserService;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService{

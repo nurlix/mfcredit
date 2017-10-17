@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import kg.gov.mf.loan.manage.model.AppliedEntityList;
-import kg.gov.mf.loan.manage.model.AppliedEntityListState;
-import kg.gov.mf.loan.manage.model.AppliedEntityListType;
-import kg.gov.mf.loan.manage.model.CreditOrder;
-import kg.gov.mf.loan.manage.model.CreditOrderState;
-import kg.gov.mf.loan.manage.model.CreditOrderType;
-import kg.gov.mf.loan.manage.service.AppliedEntityListStateService;
-import kg.gov.mf.loan.manage.service.AppliedEntityListTypeService;
-import kg.gov.mf.loan.manage.service.CreditOrderService;
-import kg.gov.mf.loan.manage.service.CreditOrderStateService;
-import kg.gov.mf.loan.manage.service.CreditOrderTypeService;
+import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityList;
+import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityListState;
+import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityListType;
+import kg.gov.mf.loan.manage.model.order.CreditOrder;
+import kg.gov.mf.loan.manage.model.order.CreditOrderState;
+import kg.gov.mf.loan.manage.model.order.CreditOrderType;
+import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListStateService;
+import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListTypeService;
+import kg.gov.mf.loan.manage.service.order.CreditOrderService;
+import kg.gov.mf.loan.manage.service.order.CreditOrderStateService;
+import kg.gov.mf.loan.manage.service.order.CreditOrderTypeService;
 import kg.gov.mf.loan.util.Utils;
 
 @Controller

@@ -16,16 +16,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kg.gov.mf.loan.manage.model.AppliedEntityList;
-import kg.gov.mf.loan.manage.model.AppliedEntityListState;
-import kg.gov.mf.loan.manage.model.AppliedEntityListType;
-import kg.gov.mf.loan.manage.model.CreditOrder;
-import kg.gov.mf.loan.manage.model.CreditOrderState;
-import kg.gov.mf.loan.manage.model.CreditOrderType;
-import kg.gov.mf.loan.manage.service.AppliedEntityListService;
-import kg.gov.mf.loan.manage.service.AppliedEntityListStateService;
-import kg.gov.mf.loan.manage.service.AppliedEntityListTypeService;
-import kg.gov.mf.loan.manage.service.CreditOrderService;
+import kg.gov.mf.loan.manage.model.entity.AppliedEntity;
+import kg.gov.mf.loan.manage.model.entity.AppliedEntityState;
+import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityList;
+import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityListState;
+import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityListType;
+import kg.gov.mf.loan.manage.model.order.CreditOrder;
+import kg.gov.mf.loan.manage.service.entity.AppliedEntityStateService;
+import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListService;
+import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListStateService;
+import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListTypeService;
+import kg.gov.mf.loan.manage.service.order.CreditOrderService;
 import kg.gov.mf.loan.util.Utils;
 
 @Controller
@@ -43,6 +44,9 @@ public class AppliedEntityListController {
 	@Autowired
 	CreditOrderService orderService;
 	
+	@Autowired
+	AppliedEntityStateService entityStateService;
+	
 	static final Logger loggerEntityList = LoggerFactory.getLogger(AppliedEntityList.class);
 	
 	@InitBinder
@@ -58,9 +62,13 @@ public class AppliedEntityListController {
 		AppliedEntityList list = listService.findById(listId);
         model.addAttribute("entityList", list);
         
-        model.addAttribute("states", null);
-        model.addAttribute("emptyState", new AppliedEntityListState());
-
+        List<AppliedEntityState> states = entityStateService.findAll();
+        model.addAttribute("states", states);
+		model.addAttribute("emptyState", new AppliedEntityState());
+		
+		model.addAttribute("emptyEntity", new AppliedEntity());
+        model.addAttribute("entities", list.getAppliedEntity());
+        
         model.addAttribute("orderId", orderId);
         
         model.addAttribute("loggedinuser", Utils.getPrincipal());

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import kg.gov.mf.loan.manage.service.UserProfileService;
-import kg.gov.mf.loan.manage.service.UserService;
+import kg.gov.mf.loan.service.UserProfileService;
+import kg.gov.mf.loan.service.UserService;
 
 @Controller
 @RequestMapping("/")

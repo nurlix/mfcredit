@@ -488,7 +488,7 @@
 												</table>
 											</div>
 											
-											<!-- BEGIN Create modal for a new order -->
+											<!-- BEGIN Create modal for a new list -->
 											<div class="modal fade bs-modal-lg" id="largeListNew" tabindex="-1" role="dialog" aria-hidden="true">
 				                                <div class="modal-dialog modal-lg">
 				                                    <div class="modal-content">
@@ -564,9 +564,9 @@
 				                                    </div>
 				                                </div>
 				                            </div>
-				                            <!-- END Create modal for a new order -->
+				                            <!-- END Create modal for a new list -->
 											
-											<!-- BEGIN Create modal for each order -->
+											<!-- BEGIN Create modal for each list -->
 											<state th:each="l : ${entityList}">
 												<div class="modal fade bs-modal-lg" th:id="${'largeList' + {l.id}}" tabindex="-1" role="basic" aria-hidden="true">
 													<div class="modal-dialog modal-lg">
@@ -656,7 +656,7 @@
 													</div>
 												</div>
 											</state>
-											<!-- END Create modal for each order -->
+											<!-- END Create modal for each list -->
 										</div>
 									</div>
 								</div>
