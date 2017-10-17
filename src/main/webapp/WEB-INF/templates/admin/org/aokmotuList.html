@@ -11,10 +11,10 @@
 	</div>
 
 	
-	<link th:href="@{/css/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />	
+	<link th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />	
 	
-	<link th:href="@{/css/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
-	<link th:href="@{/css/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
 
 
 
@@ -155,8 +155,8 @@
 	<div th:replace="fragments/footer :: footer-js"></div>
 	
 	
-	<script th:src="@{/css/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
-	<script th:src="@{/css/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>	
+	<script th:src="@{/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>	
 	
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 
@@ -177,22 +177,25 @@
 		    } );
 			
 			
+
 			table.on('key-focus', function(e, datatable, cell) {
-			
+				
 				var rowData = datatable.row(cell.index().row).data();
 				
-
 				
 				$("#aokmotu_id").val(rowData[0]);
 				
-				var sUrl ="/aokmotu/view/" + rowData[0];
+				var sUrl ="/MFCredit/aokmotu/" + rowData[0]+"/view";
+
 				
 				$.get(sUrl, function(data) {
 
 					$('#content').html(data);
 				});
 
-				});
+				
+
+				});			
 
 			});
 		</script>
@@ -200,19 +203,10 @@
 	<script type="text/javascript">
 	$("#aokmotuFormModal").on("show.bs.modal", function(e) {
 	
-		
-		alert("111");
-		
-		
 	    var link = $(e.relatedTarget);
-	    
-
-		
 	    
 	    var aokmotuID = $("#aokmotu_id").val();
 	    
-
-		
 	    if(link.attr("href").indexOf('village/add')>0)
 	    {
 	    	$(this).find(".modal-title").html(link.attr("href")+"/"+aokmotuID);

@@ -180,6 +180,8 @@
 			
 				var rowData = datatable.row(cell.index().row).data();
 				
+
+
 				
 				$("#district_id").val(rowData[0]);
 				
@@ -190,6 +192,19 @@
 
 					$('#content').html(data);
 				});
+
+
+				var row = datatable.row( cell.index().row );
+
+
+			      table.$('tr.info').removeClass('info');
+						$( row.node() ).addClass( "info" );
+
+						var rowData = row.data();
+						
+
+						var colData = datatable.cell( { focused: true } ).data();
+						
 
 				});
 

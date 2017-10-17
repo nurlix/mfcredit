@@ -43,7 +43,7 @@ public class AokmotuController {
 	}
 	
 	
-	@RequestMapping("/aokmotu/{id}/view/")
+	@RequestMapping("/aokmotu/{id}/view")
 	public String viewAokmotuById(@PathVariable("id") long id, Model model) {
 
 		Aokmotu aokmotu = this.aokmotuService.findById(id);
@@ -53,7 +53,7 @@ public class AokmotuController {
 		return "admin/org/aokmotuView";
 	}
 	
-	@RequestMapping("/aokmotu/{id}/details/")
+	@RequestMapping("/aokmotu/{id}/details")
 	public String viewAokmotuDetailsById(@PathVariable("id") long id, Model model) {
 
 		Aokmotu aokmotu = this.aokmotuService.findById(id);
@@ -91,7 +91,7 @@ public class AokmotuController {
 	
 	
 
-	@RequestMapping("/aokmotu/{id}/edit/")
+	@RequestMapping("/aokmotu/{id}/edit")
 	public String editAokmotu(@PathVariable("id") long id, Model model) {
 		model.addAttribute("aokmotu", this.aokmotuService.findById(id));
 		model.addAttribute("districtList", this.districtService.findAll());
