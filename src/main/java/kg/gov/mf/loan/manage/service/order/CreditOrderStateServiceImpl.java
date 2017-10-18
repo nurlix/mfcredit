@@ -51,7 +51,7 @@ public class CreditOrderStateServiceImpl implements CreditOrderStateService{
 
 	@Override
 	public boolean isTypeNameUnique(long id, String name) {
-		CreditOrderState state = findById(id);
+		CreditOrderState state = findByName(name);
         return (state == null || ((id != 0L) && (state.getId() == id)));
 	}
 }

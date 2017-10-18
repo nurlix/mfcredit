@@ -51,7 +51,7 @@ public class AppliedEntityListStateServiceImpl implements AppliedEntityListState
 
 	@Override
 	public boolean isStateNameUnique(long id, String name) {
-		AppliedEntityListState state = findById(id);
+		AppliedEntityListState state = findByName(name);
         return (state == null || ((id != 0L) && (state.getId() == id)));
 	}
 

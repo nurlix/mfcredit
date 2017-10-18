@@ -51,7 +51,7 @@ public class AppliedEntityListTypeServiceImpl implements AppliedEntityListTypeSe
 
 	@Override
 	public boolean isTypeNameUnique(long id, String name) {
-		AppliedEntityListType type = findById(id);
+		AppliedEntityListType type = findByName(name);
         return (type == null || ((id != 0L) && (type.getId() == id)));
 	}
 

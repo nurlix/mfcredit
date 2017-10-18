@@ -52,7 +52,7 @@ public class CreditOrderTypeServiceImpl implements CreditOrderTypeService{
 
 	@Override
 	public boolean isTypeNameUnique(long id, String name) {
-		CreditOrderType type = findById(id);
+		CreditOrderType type = findByName(name);
         return ( type == null || ((id != 0L) && (type.getId() == id)));
 	}
 }

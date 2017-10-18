@@ -51,7 +51,7 @@ public class DocumentPackageStateServiceImpl implements DocumentPackageStateServ
 
 	@Override
 	public boolean isStateNameUnique(long id, String name) {
-		DocumentPackageState state = findById(id);
+		DocumentPackageState state = findByName(name);
         return (state == null || ((id != 0L) && (state.getId() == id)));
 	}
 

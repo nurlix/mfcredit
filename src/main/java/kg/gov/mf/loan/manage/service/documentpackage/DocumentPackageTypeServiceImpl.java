@@ -51,7 +51,7 @@ public class DocumentPackageTypeServiceImpl implements DocumentPackageTypeServic
 
 	@Override
 	public boolean isTypeNameUnique(long id, String name) {
-		DocumentPackageType type = findById(id);
+		DocumentPackageType type = findByName(name);
         return (type == null || ((id != 0L) && (type.getId() == id)));
 	}
 

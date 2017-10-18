@@ -18,10 +18,14 @@ import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackage;
 import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackageState;
 import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackageType;
 import kg.gov.mf.loan.manage.model.entity.AppliedEntity;
+import kg.gov.mf.loan.manage.model.entitydocument.EntityDocumentRegisteredBy;
+import kg.gov.mf.loan.manage.model.entitydocument.EntityDocumentState;
 import kg.gov.mf.loan.manage.service.documentpackage.DocumentPackageService;
 import kg.gov.mf.loan.manage.service.documentpackage.DocumentPackageStateService;
 import kg.gov.mf.loan.manage.service.documentpackage.DocumentPackageTypeService;
 import kg.gov.mf.loan.manage.service.entity.AppliedEntityService;
+import kg.gov.mf.loan.manage.service.entitydocument.EntityDocumentRegisteredByService;
+import kg.gov.mf.loan.manage.service.entitydocument.EntityDocumentStateService;
 import kg.gov.mf.loan.util.Utils;
 
 @Controller
@@ -38,6 +42,12 @@ public class DocumentPackageController {
 	
 	@Autowired
 	DocumentPackageService dpService;
+	
+	@Autowired
+	EntityDocumentStateService edStateService;
+	
+	@Autowired
+	EntityDocumentRegisteredByService rbService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
@@ -56,6 +66,14 @@ public class DocumentPackageController {
 
 		DocumentPackage dp = dpService.findById(dpId);
         model.addAttribute("dp", dp);
+        
+        List<EntityDocumentState> states = edStateService.findAll();
+        model.addAttribute("states", states);
+		model.addAttribute("emptyState", new EntityDocumentState());
+		
+		List<EntityDocumentRegisteredBy> rBs = rbService.findAll();
+		model.addAttribute("rBs", rBs);
+		model.addAttribute("emptyRB", new EntityDocumentRegisteredBy());
         
         model.addAttribute("orderId", orderId);
         model.addAttribute("listId", listId);

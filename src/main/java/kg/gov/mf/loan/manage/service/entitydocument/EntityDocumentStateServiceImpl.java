@@ -1,4 +1,4 @@
-package kg.gov.mf.loan.manage.service.entity;
+package kg.gov.mf.loan.manage.service.entitydocument;
 
 import java.util.List;
 
@@ -6,34 +6,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import kg.gov.mf.loan.manage.dao.entity.AppliedEntityStateDao;
-import kg.gov.mf.loan.manage.model.entity.AppliedEntityState;
+import kg.gov.mf.loan.manage.dao.entitydocument.EntityDocumentStateDao;
+import kg.gov.mf.loan.manage.model.entitydocument.EntityDocumentState;
 
-@Service("appliedEntityStateService")
+@Service("entityDocumentStateService")
 @Transactional
-public class AppliedEntityStateServiceImpl implements AppliedEntityStateService{
+public class EntityDocumentStateServiceImpl implements EntityDocumentStateService{
 	
 	@Autowired
-	private AppliedEntityStateDao stateDao;
+	private EntityDocumentStateDao stateDao;
 
 	@Override
-	public AppliedEntityState findById(long id) {
+	public EntityDocumentState findById(long id) {
 		return this.stateDao.findById(id);
 	}
 
 	@Override
-	public AppliedEntityState findByName(String name) {
+	public EntityDocumentState findByName(String name) {
 		return this.stateDao.findByName(name);
 	}
 
 	@Override
-	public void save(AppliedEntityState state) {
+	public void save(EntityDocumentState state) {
 		this.stateDao.save(state);
 	}
 
 	@Override
-	public void update(AppliedEntityState state) {
-		AppliedEntityState entity = this.stateDao.findById(state.getId());
+	public void update(EntityDocumentState state) {
+		EntityDocumentState entity = this.stateDao.findById(state.getId());
         if(entity!=null){
             entity.setName(state.getName());
         }
@@ -45,13 +45,13 @@ public class AppliedEntityStateServiceImpl implements AppliedEntityStateService{
 	}
 
 	@Override
-	public List<AppliedEntityState> findAll() {
+	public List<EntityDocumentState> findAll() {
 		return this.stateDao.findAll();
 	}
 
 	@Override
 	public boolean isStateNameUnique(long id, String name) {
-		AppliedEntityState state = findByName(name);
+		EntityDocumentState state = findByName(name);
         return (state == null || ((id != 0L) && (state.getId() == id)));
 	}
 
