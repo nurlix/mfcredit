@@ -1,14 +1,20 @@
 package kg.gov.mf.loan.manage.model.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackage;
 import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityList;
 
 @Entity
@@ -29,6 +35,10 @@ public class AppliedEntity {
 	
 	@ManyToOne
 	private AppliedEntityList appliedEntityList;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="appliedEntity_id")
+	private Set<DocumentPackage> documentPackage;
 	
 	public AppliedEntity()
 	{
@@ -70,5 +80,13 @@ public class AppliedEntity {
 
 	public void setAppliedEntityList(AppliedEntityList appliedEntityList) {
 		this.appliedEntityList = appliedEntityList;
+	}
+
+	public Set<DocumentPackage> getDocumentPackage() {
+		return documentPackage;
+	}
+
+	public void setDocumentPackage(Set<DocumentPackage> documentPackage) {
+		this.documentPackage = documentPackage;
 	}
 }

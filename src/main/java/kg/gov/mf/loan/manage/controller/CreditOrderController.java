@@ -114,10 +114,12 @@ public class CreditOrderController {
 			
 		
 		if(creditOrder != null && creditOrder.getId() > 0)
+		{
 			creditOrder.setCreditOrderState(creditOrderStateService.findById(stateId));
 			creditOrder.setCreditOrderType(creditOrderTypeService.findById(typeId));
 			creditOrderService.update(creditOrder);
-		
+		}
+			
 		return "redirect:" + "/manage/order/list";
 	}
 	

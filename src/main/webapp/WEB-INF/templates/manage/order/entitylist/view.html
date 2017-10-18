@@ -294,7 +294,7 @@
 												<th>Id</th>
 												<th>Entity Name</th>
 												<th>Entity State</th>
-												<!-- <th>View Details</th> -->
+												<th>View Details</th>
 												<th>Edit</th>
 												<th>Delete</th>
 											</tr>
@@ -311,11 +311,9 @@
 												<td th:text="${e.id}">Id</td>
 												<td th:text="${e.name}">AB0C1234</td>
 												<td th:text="${e.appliedEntityState.name}">Active</td>
-												<!-- 
 												<td>
-													<a th:href="@{/manage/order/__${orderId}__/entitylist/__${l.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
+													<a th:href="@{/manage/order/__${orderId}__/entitylist/__${listId}__/entity/__${e.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
 												</td>
-												 -->
 												<td>
 													<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#largeEntity' + {e.id}}">Edit</a>
 												</td>
@@ -452,21 +450,11 @@
 	<!-- END CONTAINER -->
 	<div th:replace="layout :: footer" />
 	<div th:replace="fragments/footer :: footer-js" />
-	<script th:src="@{/assets/pages/scripts/ui-modals.min.js}"
-		type="text/javascript"></script>
-	<script th:src="@{/assets/pages/scripts/form-validation.min.js}"
-		type="text/javascript"></script>
-	<script
-		th:src="@{/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js}"
-		type="text/javascript"></script>
-	<script
-		th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"
-		type="text/javascript"></script>
-	<script
-		th:src="@{/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"
-		type="text/javascript"></script>
-	<script
-		th:src="@{/assets/pages/scripts/components-date-time-pickers.min.js}"
-		type="text/javascript"></script>
+	<script th:src="@{/assets/pages/scripts/ui-modals.min.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/pages/scripts/form-validation.min.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/pages/scripts/components-date-time-pickers.min.js}" type="text/javascript"></script>
 </body>
 </html>

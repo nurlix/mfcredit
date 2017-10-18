@@ -91,10 +91,12 @@ public class AppliedEntityListController {
 			
 		
 		if(list != null && list.getId() > 0)
+		{
 			list.setAppliedEntityListState(elStateService.findById(stateId));
 			list.setAppliedEntityListType(elTypeService.findById(typeId));
 			listService.update(list);
-		
+		}
+			
 		return "redirect:" + "/manage/order/{orderId}/view";
 	}
 	
