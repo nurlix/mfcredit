@@ -149,8 +149,8 @@
 	<div th:replace="fragments/footer :: footer-js"></div>
 	
 	
-	<script th:src="@{/css/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
-	<script th:src="@{/css/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>	
+	<script th:src="@{/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>	
 	
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 
@@ -175,10 +175,14 @@
 			
 				var rowData = datatable.row(cell.index().row).data();
 				
+
 				
 				$("#identityDocGivenBy_id").val(rowData[0]);
 				
-				var sUrl ="/identityDocGivenBy/" + rowData[0]+"/view";
+
+				
+				var sUrl ="/MFCredit/identityDocGivenBy/" + rowData[0]+"/view";
+
 				
 				$.get(sUrl, function(data) {
 
