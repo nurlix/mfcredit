@@ -11,10 +11,10 @@
 	</div>
 
 	
-	<link th:href="@{/css/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />	
+	<link th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />	
 	
-	<link th:href="@{/css/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
-	<link th:href="@{/css/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
 
 
 
@@ -65,12 +65,12 @@
 												<td th:text="${s.enabled}">Enabled</td>
 												<td>
 													<a data-remote="false" data-toggle="modal"
-													data-target="#identityDocTypeFormModal" th:href="@{/identityDocType/edit/__${s.id}__}"
+													data-target="#identityDocTypeFormModal" th:href="@{/identityDocType/__${s.id}__/edit}"
 													role="button" class="btn btn-xs blue-stripe"> Edit
 													</a>
 												</td>
 												<td>
-													<form th:action="@{/identityDocType/remove/__${s.id}__}" method="post">
+													<form th:action="@{/identityDocType/__${s.id}__/remove}" method="post">
 														<button type="submit" class="btn btn-xs red-stripe">Delete</button>
 													</form>
 												</td>
@@ -118,12 +118,6 @@
 											data-target="#identityDocTypeFormModal" th:href="@{/identityDocType/add}"
 											role="button" class="btn btn-large btn-primary"> Add
 											IdentityDocType</a>
-										<a data-remote="false" data-toggle="modal"
-											data-target="#identityDocTypeFormModal" th:href="@{/district/add}"
-											role="button" class="btn btn-large btn-primary"> Add
-											District</a>
-
-
 									</div>
 								</div>
 							</div>
@@ -184,7 +178,7 @@
 				
 				$("#identityDocType_id").val(rowData[0]);
 				
-				var sUrl ="/identityDocType/view/" + rowData[0];
+				var sUrl ="/identityDocType/" + rowData[0]+"/view";
 				
 				$.get(sUrl, function(data) {
 

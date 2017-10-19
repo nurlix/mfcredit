@@ -70,12 +70,12 @@
 													role="button" class="btn btn-xs green-stripe"> View </a></td>											
 												<td>
 													<a data-remote="false" data-toggle="modal"
-													data-target="#aokmotuFormModal" th:href="@{/aokmotu/edit/__${aokmotuInList.id}__}"
+													data-target="#aokmotuFormModal" th:href="@{/aokmotu/__${aokmotuInList.id}__/edit}"
 													role="button" class="btn btn-xs blue-stripe"> Edit
 													</a>
 												</td>
 												<td>
-													<form th:action="@{/aokmotu/remove/__${aokmotuInList.id}__}" method="post">
+													<form th:action="@{/aokmotu/__${aokmotuInList.id}__/remove}" method="post">
 														<button type="submit" class="btn btn-xs red-stripe">Delete</button>
 													</form>
 												</td>
