@@ -64,6 +64,28 @@ public class EntityDocument {
 	
 	@ManyToOne
 	private DocumentPackage documentPackage;
+	
+	public EntityDocument()
+	{
+		
+	}
+	
+	public EntityDocument(long completedBy, Date completedDate, String completedDescription, long approvedBy,
+			Date approvedDate, String approvedDescription, String registeredNumber, Date registeredDate,
+			String registeredDescription, EntityDocumentRegisteredBy registeredBy,
+			EntityDocumentState entityDocumentState) {
+		this.completedBy = completedBy;
+		this.completedDate = completedDate;
+		this.completedDescription = completedDescription;
+		this.approvedBy = approvedBy;
+		this.approvedDate = approvedDate;
+		this.approvedDescription = approvedDescription;
+		this.registeredNumber = registeredNumber;
+		this.registeredDate = registeredDate;
+		this.registeredDescription = registeredDescription;
+		this.registeredBy = registeredBy;
+		this.entityDocumentState = entityDocumentState;
+	}
 
 	public long getId() {
 		return id;

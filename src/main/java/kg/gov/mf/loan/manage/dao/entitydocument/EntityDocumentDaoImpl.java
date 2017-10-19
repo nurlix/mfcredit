@@ -16,7 +16,7 @@ public class EntityDocumentDaoImpl extends AbstractDao<Long, EntityDocument> imp
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<EntityDocument> findAll() {
-		Criteria criteria = createEntityCriteria().addOrder(Order.asc("listNumber"));
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("registeredNumber"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<EntityDocument> docs = (List<EntityDocument>) criteria.list();
 		return docs;

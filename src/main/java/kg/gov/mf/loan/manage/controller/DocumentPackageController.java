@@ -18,6 +18,7 @@ import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackage;
 import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackageState;
 import kg.gov.mf.loan.manage.model.documentpackage.DocumentPackageType;
 import kg.gov.mf.loan.manage.model.entity.AppliedEntity;
+import kg.gov.mf.loan.manage.model.entitydocument.EntityDocument;
 import kg.gov.mf.loan.manage.model.entitydocument.EntityDocumentRegisteredBy;
 import kg.gov.mf.loan.manage.model.entitydocument.EntityDocumentState;
 import kg.gov.mf.loan.manage.service.documentpackage.DocumentPackageService;
@@ -74,10 +75,14 @@ public class DocumentPackageController {
 		List<EntityDocumentRegisteredBy> rBs = rbService.findAll();
 		model.addAttribute("rBs", rBs);
 		model.addAttribute("emptyRB", new EntityDocumentRegisteredBy());
+		
+		model.addAttribute("emptyED", new EntityDocument());
+		model.addAttribute("entityDocuments", dp.getEntityDocument());
         
         model.addAttribute("orderId", orderId);
         model.addAttribute("listId", listId);
         model.addAttribute("entityId", entityId);
+        model.addAttribute("dpId", dpId);
         
         model.addAttribute("loggedinuser", Utils.getPrincipal());
         return "/manage/order/entitylist/entity/documentpackage/view";
@@ -122,7 +127,7 @@ public class DocumentPackageController {
 	}
 	
 	@RequestMapping(value="/manage/order/{orderId}/entitylist/{listId}/entity/{entityId}/documentpackage/delete", method=RequestMethod.POST)
-    public String deleteAppliedEntity(long id, @PathVariable("orderId")Long orderId, @PathVariable("listId")Long listId, @PathVariable("entityId")Long entityId) {
+    public String deleteDocumentPackage(long id, @PathVariable("orderId")Long orderId, @PathVariable("listId")Long listId, @PathVariable("entityId")Long entityId) {
 		if(id > 0)
 			dpService.deleteById(id);
 		return "redirect:" + "/manage/order/{orderId}/entitylist/{listId}/entity/{entityId}/view";
