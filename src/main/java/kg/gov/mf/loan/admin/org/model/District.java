@@ -33,10 +33,8 @@ public class District {
     @JoinColumn(name="region_id")
     Region region;    
     
-    @OneToMany(mappedBy = "district", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "district", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<Aokmotu> aokmotu = new HashSet<Aokmotu>();
-
-
 
 	public long getId() {
 		return id;

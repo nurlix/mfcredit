@@ -1,10 +1,7 @@
 package kg.gov.mf.loan.admin.org.dao;
 
 import java.util.List;
- 
-
-
-
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -63,13 +60,26 @@ public class VillageDaoImpl implements VillageDao {
 	public void deleteById(long id) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
-		Village village = (Village) session.load(Village.class, new Long (id));
-		if(village!=null)
+		Village villageToBeDeleted = (Village) session.load(Village.class, new Long (id));
+		if(villageToBeDeleted!=null)
 		{
-			session.delete(village);
+			
+			
+			Aokmotu aokmotuOfVillageToBeDeleted = (Aokmotu) session.load(Aokmotu.class, villageToBeDeleted.getAokmotu().getId());
+
+			Set <Village> villageList = aokmotuOfVillageToBeDeleted.getVillage();
+			
+			villageList.remove((Village) villageToBeDeleted);
+			
+			aokmotuOfVillageToBeDeleted.setVillage(villageList);
+			
+			session.update(aokmotuOfVillageToBeDeleted);
+			
+			
+			//session.delete(village);
 		}
 		
-		logger.info("Village deleted == "+village);
+		logger.info("Village deleted == "+villageToBeDeleted);
 		
 	}
 

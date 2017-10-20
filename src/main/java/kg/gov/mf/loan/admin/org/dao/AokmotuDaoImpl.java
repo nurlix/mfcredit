@@ -1,10 +1,7 @@
 package kg.gov.mf.loan.admin.org.dao;
 
 import java.util.List;
- 
-
-
-
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -63,13 +60,28 @@ public class AokmotuDaoImpl implements AokmotuDao {
 	public void deleteById(long id) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
-		Aokmotu aokmotu = (Aokmotu) session.load(Aokmotu.class, new Long (id));
-		if(aokmotu!=null)
+		Aokmotu aokmotuToBeDeleted = (Aokmotu) session.load(Aokmotu.class, new Long (id));
+		if(aokmotuToBeDeleted!=null)
 		{
-			session.delete(aokmotu);
+			
+			
+			
+			District districtOfAokmotuToBeDeleted = (District) session.load(District.class, aokmotuToBeDeleted.getDistrict().getId());
+
+			Set <Aokmotu> aokmotuList = districtOfAokmotuToBeDeleted.getAokmotu();
+			
+			aokmotuList.remove((Aokmotu) aokmotuToBeDeleted);
+			
+			districtOfAokmotuToBeDeleted.setAokmotu(aokmotuList);
+			
+			session.update(districtOfAokmotuToBeDeleted);
+			
+			
+			
+			//session.delete(aokmotu);
 		}
 		
-		logger.info("Aokmotu deleted == "+aokmotu);
+		logger.info("Aokmotu deleted == "+aokmotuToBeDeleted);
 		
 	}
 

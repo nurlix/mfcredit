@@ -119,7 +119,7 @@ public class AokmotuController {
 
 	}
 
-	@RequestMapping("/aokmotu/{id}/remove/")
+	@RequestMapping("/aokmotu/{id}/remove")
 	public String removeAokmotu(@PathVariable("id") long id) {
 
 		this.aokmotuService.deleteById(id);

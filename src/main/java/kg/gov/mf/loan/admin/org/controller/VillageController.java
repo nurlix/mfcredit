@@ -119,7 +119,7 @@ public class VillageController {
 
 	}
 
-	@RequestMapping("/village/{id}/remove/")
+	@RequestMapping("/village/{id}/remove")
 	public String removeVillage(@PathVariable("id") long id) {
 
 		this.villageService.deleteById(id);

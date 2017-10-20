@@ -1,10 +1,7 @@
 package kg.gov.mf.loan.admin.org.dao;
 
 import java.util.List;
- 
-
-
-
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -66,7 +63,18 @@ public class DistrictDaoImpl implements DistrictDao {
 		District district = (District) session.load(District.class, new Long (id));
 		if(district!=null)
 		{
-			session.delete(district);
+			
+			Region region = (Region) session.load(Region.class, district.getRegion().getId());
+
+			Set <District> districtList = region.getDistrict();
+			
+			districtList.remove((District) district);
+			
+			region.setDistrict(districtList);
+			
+			session.update(region);
+			
+			//session.delete(district);
 		}
 		
 		logger.info("District deleted == "+district);
