@@ -29,7 +29,10 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import kg.gov.mf.loan.admin.org.converter.*;
+
 import kg.gov.mf.loan.converter.RoleToUserProfileConverter;
+
 
 @Configuration
 @EnableWebMvc
@@ -39,6 +42,33 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
      
     @Autowired
     RoleToUserProfileConverter roleToUserProfileConverter;
+    
+    @Autowired
+    OrgFormConverter orgFormConverter;
+    
+    
+    @Autowired
+    AokmotuConverter aokmotuConverter;    
+
+    
+    @Autowired
+    DistrictConverter districtConverter;    
+
+    
+    @Autowired
+    RegionConverter regionConverter;    
+
+    
+    @Autowired
+    VillageConverter villageConverter;    
+
+    @Autowired
+    IdentityDocGivenByConverter identityDocGivenByConverter;    
+    
+  
+    @Autowired
+    IdentityDocTypeConverter identityDocTypeConverter;    
+
     
     private static final String UTF8 = "UTF-8";
     
@@ -137,6 +167,17 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(roleToUserProfileConverter);
+        
+        
+        registry.addConverter(orgFormConverter);
+        registry.addConverter(aokmotuConverter);
+        registry.addConverter(regionConverter);
+        registry.addConverter(districtConverter);
+        registry.addConverter(villageConverter);
+        registry.addConverter(identityDocTypeConverter);
+        registry.addConverter(identityDocGivenByConverter);
+        
+        
     }
      
  
