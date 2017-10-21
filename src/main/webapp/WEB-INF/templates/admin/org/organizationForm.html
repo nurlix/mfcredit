@@ -28,7 +28,24 @@
 				</label>
 				<div class="col-md-4">
 					<input hidden="true" type="text" id="id" name="id"
-						th:field="${organization.id}" />
+						th:field="*{id}" />
+<input hidden="true" type="text" id="orgFormId" name="orgForm.id"
+						th:field="*{orgForm.id}" />	
+<input hidden="true" type="text" id="addressId" name="address.id"
+						th:field="*{address.id}" />	
+<input hidden="true" type="text" id="regionId" name="address.region.id"
+						th:field="*{address.region.id}" />	
+<input hidden="true" type="text" id="districtId" name="address.district.id"
+						th:field="*{address.district.id}" />	
+<input hidden="true" type="text" id="aokmotuId" name="address.aokmotu.id"
+						th:field="*{address.aokmotu.id}" />	
+<input hidden="true" type="text" id="villageId" name="address.village.id"
+						th:field="*{address.village.id}" />
+<input hidden="true" type="text" id="identityDocTypeId" name="identityDoc.identityDocType.id"
+						th:field="*{identityDoc.identityDocType.id}" />												
+<input hidden="true" type="text" id="identityDocGivenById" name="identityDoc.identityDocGivenBy.id"
+						th:field="*{identityDoc.identityDocGivenBy.id}" />	
+											
 					<div class="input-icon right">
 						<i class="fa"></i> <input type="text" class="form-control"
 							name="name" th:field="*{name}" />
@@ -53,7 +70,7 @@
 				</label>
 				<div class="col-md-4">
 
-					<select th:value="${organization.orgForm}">
+					<select th:value="${organization.orgForm}" id="orgFormSelect" onchange="updateOrgFormId(this);">
 						<option th:each="orgFormInList : ${orgFormList}"
 							th:value="${orgFormInList.id}"
 							th:selected="(${orgFormInList.id} == *{orgForm.id})"
@@ -61,14 +78,12 @@
 					</select>
 				</div>
 			</div>
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 
 			<div class="tabbable-custom ">
 				<ul class="nav nav-tabs ">
@@ -88,8 +103,7 @@
 							<div class="col-md-4">
 
 								<div class="input-icon right">
-													<input hidden="true" type="text" id="organization.address.id" name="id"
-						th:field="${organization.address.id}" />
+													
 									<i class="fa"></i> <input type="text" class="form-control"
 										name="address.line" th:field="*{address.line}" />
 								</div>
@@ -101,11 +115,13 @@
 							</label>
 							<div class="col-md-4">
 
-								<select th:value="${organization.address.region}">
+								<select th:value="${organization.address.region}" onchange="updateRegionId(this);">
 									<option th:each="regionInList : ${regionList}"
-										th:value="${regionInList.id}"
-										th:selected="(${regionInList.id} == ${organization.region.id})" 
-										th:text="${regionInList.name}">Region</option>
+										th:value="${regionInList.id}" 
+										th:selected="(${regionInList.id} == *{address.region.id})"
+										th:text="${regionInList.name}"
+
+										>Region</option>
 								</select>
 
 							</div>
@@ -118,9 +134,11 @@
 							</label>
 							<div class="col-md-4">
 
-								<select th:field="*{address.district}">
+								<select th:value="${organization.address.district}" onchange="updateDistrictId(this);">
 									<option th:each="districtInList : ${districtList}"
+									
 										th:value="${districtInList.id}"
+										th:selected="(${districtInList.id} == *{address.district.id})"
 										th:text="${districtInList.name}">District</option>
 								</select>
 
@@ -134,9 +152,11 @@
 							</label>
 							<div class="col-md-4">
 
-								<select th:field="*{address.aokmotu}">
+								<select th:value="${organization.address.aokmotu}" onchange="updateAokmotuId(this);">
 									<option th:each="aokmotuInList : ${aokmotuList}"
-										th:value="${aokmotuInList.id}" th:text="${aokmotuInList.name}">Aokmotu</option>
+										th:value="${aokmotuInList.id}"
+									    th:selected="(${aokmotuInList.id} == *{address.aokmotu.id})" 
+										th:text="${aokmotuInList.name}">Aokmotu</option>
 								</select>
 
 							</div>
@@ -149,9 +169,11 @@
 							</label>
 							<div class="col-md-4">
 
-								<select th:field="*{address.village}">
+								<select th:value="${organization.address.village}" onchange="updateVillageId(this);">
 									<option th:each="villageInList : ${villageList}"
-										th:value="${villageInList.id}" th:text="${villageInList.name}">Village</option>
+										th:value="${villageInList.id}"
+										th:selected="(${villageInList.id} == *{address.village.id})"
+										th:text="${villageInList.name}">Village</option>
 								</select>
 
 							</div>
@@ -163,9 +185,7 @@
 								class="required"> * </span>
 							</label>
 							<div class="col-md-4">
-								<input hidden="true" type="text" id="identityDocID"
-									name="identityDoc.id" th:field="${organization.identityDoc.id}" />
-								<div class="input-icon right">
+																<div class="input-icon right">
 									<i class="fa"></i> <input type="text" class="form-control"
 										name="identityDoc.name"
 										th:field="${organization.identityDoc.name}" />
@@ -215,10 +235,11 @@
 							</label>
 							<div class="col-md-4">
 
-								<select th:field="*{identityDoc.identityDocType}">
+								<select th:value="${organization.identityDoc.identityDocType}"  onchange="updateIdentityDocTypeId(this);">
 									<option
 										th:each="identityDocTypeInList : ${identityDocTypeList}"
 										th:value="${identityDocTypeInList.id}"
+										th:selected="(${identityDocTypeInList.id} == *{identityDoc.identityDocType.id})"
 										th:text="${identityDocTypeInList.name}">identityDocType</option>
 								</select>
 
@@ -227,15 +248,16 @@
 
 
 						<div class="form-group  margin-top-20">
-							<label class="control-label col-md-3">Type<span
+							<label class="control-label col-md-3">Given by<span
 								class="required"> * </span>
 							</label>
 							<div class="col-md-4">
 
-								<select th:field="*{identityDoc.identityDocGivenBy}">
+								<select th:value="${organization.identityDoc.identityDocGivenBy}" onchange="updateIdentityDocGivenById(this);">
 									<option
 										th:each="identityDocGivenByInList : ${identityDocGivenByList}"
 										th:value="${identityDocGivenByInList.id}"
+										th:selected="(${identityDocGivenByInList.id} == *{identityDoc.identityDocGivenBy.id})"
 										th:text="${identityDocGivenByInList.name}">identityDocGivenBy</option>
 								</select>
 
@@ -336,14 +358,22 @@
 					</div>
 				</div>
 			</div>
-		
-			
-			
-			
-			
-			
-			
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
 		<div class="form-actions">
 			<div class="row">
 				<div class="col-md-offset-3 col-md-9">
@@ -354,6 +384,7 @@
 			</div>
 		</div>
 	</form>
+
 
 </body>
 </html>

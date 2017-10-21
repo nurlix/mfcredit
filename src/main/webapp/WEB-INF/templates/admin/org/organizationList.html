@@ -64,18 +64,18 @@
 												<td th:text="${s.id}">Id</td>
 												<td th:text="${s.name}">Name</td>     
 												<td th:text="${s.description}">Description</td>
-												<td th:text="${s.name}">Description</td>
+												<td th:text="${s.orgForm.name}">Description</td>
 
 
 
 												<td>
 													<a data-remote="false" data-toggle="modal"
-													data-target="#organizationFormModal" th:href="@{/organization/edit/__${s.id}__}"
+													data-target="#organizationFormModal" th:href="@{/organization/__${s.id}__/edit}"
 													role="button" class="btn btn-xs blue-stripe"> Edit
 													</a>
 												</td>
 												<td>
-													<form th:action="@{/organization/remove/__${s.id}__}" method="post">
+													<form th:action="@{/organization/__${s.id}__/remove}" method="post">
 														<button type="submit" class="btn btn-xs red-stripe">Delete</button>
 													</form>
 												</td>
@@ -192,11 +192,9 @@
 			
 				var rowData = datatable.row(cell.index().row).data();
 
-
-				
 				$("#organization_id").val(rowData[0]);
 				
-				var sUrl ="/organization/" + rowData[0]+"/view";
+				var sUrl ="/MFCredit/organization/" + rowData[0]+"/view";
 				
 				$.get(sUrl, function(data) {
 
@@ -207,6 +205,52 @@
 
 			});
 		</script>
+		
+			<script>
+
+		
+function updateOrgFormId(sel)
+{
+    $("#orgFormId").val(sel.value);
+}
+
+function updateAddressId(sel)
+{
+    $("#addressId").val(sel.value);
+}
+
+function updateRegionId(sel)
+{
+    $("#regionId").val(sel.value);
+}
+
+function updateDistrictId(sel)
+{
+    $("#districtId").val(sel.value);
+}
+
+function updateAokmotuId(sel)
+{
+    $("#aokmotuId").val(sel.value);
+}
+
+function updateVillageId(sel)
+{
+    $("#villageId").val(sel.value);
+}
+
+function updateIdentityDocTypeId(sel)
+{
+    $("#identityDocTypeId").val(sel.value);
+}
+
+function updateIdentityDocGivenById(sel)
+{
+    $("#identityDocGivenById").val(sel.value);
+}
+
+
+	</script>
            
 	<script type="text/javascript">
 	$("#organizationFormModal").on("show.bs.modal", function(e) {
@@ -219,8 +263,8 @@
    
 	    if(link.attr("href").indexOf('bankData/add')>0)
 	    {
-	    	$(this).find(".modal-title").html(link.attr("href")+"/"+organizationID);
-		    $(this).find(".modal-body").load(link.attr("href")+"/"+organizationID);
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/bankData/add","/organization/"+organizationID+"/bankData/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/bankData/add","/organization/"+organizationID+"/bankData/add"));
 	    }
 	    else
 	    if(link.attr("href").indexOf('information/add')>0)
@@ -233,8 +277,8 @@
 	    if(link.attr("href").indexOf('department/add')>0)
 		    
 	    {
-	    	$(this).find(".modal-title").html(link.attr("href")+"/"+organizationID);
-		    $(this).find(".modal-body").load(link.attr("href")+"/"+organizationID);
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/department/add","/organization/"+organizationID+"/department/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/department/add","/organization/"+organizationID+"/department/add"));
 	    }
 		    
 	    else

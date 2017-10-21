@@ -145,7 +145,7 @@ public class OrganizationController {
 		return "admin/org/organizationTable";
 	}	
 	
-	@RequestMapping("/organization/view/{id}")
+	@RequestMapping("/organization/{id}/view")
 	public String viewOrganizationById(@PathVariable("id") long id, Model model) {
 
 		Organization organization = this.organizationService.findById(id);
@@ -165,20 +165,50 @@ public class OrganizationController {
 		
 		Organization modelOrganization = new Organization();
 		
-		
-		/*
 		OrgForm modelOrgForm = new OrgForm();
+		modelOrgForm.setId(1);
+		modelOrganization.setOrgForm(modelOrgForm);
+
+		Address modelAddress = new Address();
+		modelAddress.setId(0);
 		
-		modelOrganization.setAddress(new Address());
-		modelOrganization.setIdentityDoc(new IdentityDoc());
-		modelOrganization.setContact(new Contact());
-		modelOrganization.setOrgForm(new OrgForm());
+		Region modelRegion = new Region();
+		modelRegion.setId(1);
+
+		District modelDistrict = new District();
+		modelDistrict.setId(1);
+
+		Aokmotu modelAokmotu = new Aokmotu();
+		modelAokmotu.setId(1);
 		
-		*/
+		Village modelVillage = new Village();
+		modelVillage.setId(1);
 		
+		modelAddress.setRegion(modelRegion);
+		modelAddress.setDistrict(modelDistrict);
+		modelAddress.setAokmotu(modelAokmotu);
+		modelAddress.setVillage(modelVillage);
+
+		
+		
+		modelOrganization.setAddress(modelAddress);
+
+		IdentityDoc modelIdentityDoc = new IdentityDoc();
+		modelIdentityDoc.setId(0);
+		
+		IdentityDocType modelIdentityDocType = new IdentityDocType();
+		modelIdentityDocType.setId(1);
+		modelIdentityDoc.setIdentityDocType(modelIdentityDocType);
+		
+		IdentityDocGivenBy modelIdentityDocGivenBy = new IdentityDocGivenBy();
+		modelIdentityDocGivenBy.setId(1);
+		modelIdentityDoc.setIdentityDocGivenBy(modelIdentityDocGivenBy);
+
+		modelOrganization.setIdentityDoc(modelIdentityDoc);
+		
+
 		
 		model.addAttribute("organization", modelOrganization);
-		//model.addAttribute("orgForm", modelOrgForm);
 		
 		model.addAttribute("regionList", this.regionService.findAll());
 		model.addAttribute("districtList", this.districtService.findAll());			
@@ -193,7 +223,7 @@ public class OrganizationController {
 	
 	
 
-	@RequestMapping("/organization/edit/{id}")
+	@RequestMapping("/organization/{id}/edit")
 	public String getOrganizationEditForm(@PathVariable("id") long id, Model model) {
 		model.addAttribute("organization", this.organizationService.findById(id));
 		model.addAttribute("regionList", this.regionService.findAll());
@@ -219,6 +249,8 @@ public class OrganizationController {
 //			organization.setAddress(this.addressService.findById(organization.getAddress().getId()));
 //			organization.setIdentityDoc(this.identityDocService.findById(organization.getIdentityDoc().getId()));
 			
+			//organization.setOrgForm(this.orgFormService.findById(organization.getOrgForm().getId()));
+			
 			this.organizationService.create(organization);
 		} else {
 			this.organizationService.edit(organization);
@@ -228,7 +260,7 @@ public class OrganizationController {
 
 	}
 
-	@RequestMapping("/organization/remove/{id}")
+	@RequestMapping("/organization/{id}/remove")
 	public String removeOrganizationAndRedirectToOrganizationList(@PathVariable("id") long id) {
 
 		this.organizationService.deleteById(id);
