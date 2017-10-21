@@ -98,7 +98,7 @@ public class InformationDaoImpl implements InformationDao {
  
     
 	@Override
-	public Information findInformationBySystemObjectTypeIdAndSystemObjectId(long systemObjectTypeId,long systemObjectId) {
+	public List<Information> findInformationBySystemObjectTypeIdAndSystemObjectId(long systemObjectTypeId,long systemObjectId) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
 		
@@ -107,7 +107,7 @@ public class InformationDaoImpl implements InformationDao {
 		criteria.add(Restrictions.eq("systemObjectId", systemObjectId));
 
 
-		return (Information) criteria ;
+		return criteria.list() ;
 	}
 
 }

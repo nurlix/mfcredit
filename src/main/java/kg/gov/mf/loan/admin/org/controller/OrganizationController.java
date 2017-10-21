@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kg.gov.mf.loan.admin.org.model.*;
 import kg.gov.mf.loan.admin.org.service.*;
 
+import kg.gov.mf.loan.admin.sys.model.*;
+import kg.gov.mf.loan.admin.sys.service.*;
+
 @Controller
 public class OrganizationController {
 	
@@ -118,7 +121,7 @@ public class OrganizationController {
     }
     
     
-    /*
+    
 	@Autowired
     private InformationService informationService;
 	
@@ -126,7 +129,7 @@ public class OrganizationController {
     {
         this.informationService = rs;
     } 
-    */   
+    
     
 	@RequestMapping(value = "/organization/list", method = RequestMethod.GET)
 	public String listOrganizations(Model model) {
@@ -152,7 +155,7 @@ public class OrganizationController {
 
 		model.addAttribute("organization", organization);
 		model.addAttribute("positionList", this.positionService.findAll());
-	//	model.addAttribute("informationList", this.informationService.findInformationBySystemObjectTypeIdAndSystemObjectId(2, organization.getId()));		
+		model.addAttribute("informationList", this.informationService.findInformationBySystemObjectTypeIdAndSystemObjectId(2, organization.getId()));		
 		
 
 		return "admin/org/organizationView";

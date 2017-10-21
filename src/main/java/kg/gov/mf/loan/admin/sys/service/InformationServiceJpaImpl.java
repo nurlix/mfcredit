@@ -50,7 +50,7 @@ public class InformationServiceJpaImpl implements InformationService {
 	
 	@Override
 	@Transactional	
-	public Information findInformationBySystemObjectTypeIdAndSystemObjectId(long systemObjectTypeId,long systemObjectId)  {
+	public List<Information> findInformationBySystemObjectTypeIdAndSystemObjectId(long systemObjectTypeId,long systemObjectId)  {
 		return this.informationDao.findInformationBySystemObjectTypeIdAndSystemObjectId(systemObjectTypeId, systemObjectId);
 	}	
 

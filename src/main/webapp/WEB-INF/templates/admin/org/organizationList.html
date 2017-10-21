@@ -270,9 +270,11 @@ function updateIdentityDocGivenById(sel)
 	    if(link.attr("href").indexOf('information/add')>0)
 	    {
 	    	var url = link.attr("href");
-	    	 
-	    	$(this).find(".modal-title").html("/2/"+organizationID+url);
-		    $(this).find(".modal-body").load("/2/"+organizationID+url);
+
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/information/add","/2/"+organizationID+"/information/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/information/add","/2/"+organizationID+"/information/add"));	    	
+	    	
+	    	
 	    } else
 	    if(link.attr("href").indexOf('department/add')>0)
 		    

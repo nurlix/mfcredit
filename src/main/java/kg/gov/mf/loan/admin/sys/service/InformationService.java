@@ -19,6 +19,6 @@ public interface InformationService {
 	
 	public List<Information> findAll();
 	
-	public Information findInformationBySystemObjectTypeIdAndSystemObjectId(long systemObjectTypeId,long systemObjectId);
+	public List<Information> findInformationBySystemObjectTypeIdAndSystemObjectId(long systemObjectTypeId,long systemObjectId);
 
 }
