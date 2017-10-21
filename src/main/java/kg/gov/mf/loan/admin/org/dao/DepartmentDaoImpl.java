@@ -1,10 +1,7 @@
 package kg.gov.mf.loan.admin.org.dao;
 
 import java.util.List;
- 
-
-
-
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -66,7 +63,19 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		Department department = (Department) session.load(Department.class, new Long (id));
 		if(department!=null)
 		{
-			session.delete(department);
+			
+			Organization organization = (Organization) session.load(Organization.class, department.getOrganization().getId());
+
+			Set <Department> departmentList = organization.getDepartment();
+			
+			departmentList.remove((Department) department);
+			
+			organization.setDepartment(departmentList);
+			
+			session.update(organization);
+			
+			
+			//session.delete(department);
 		}
 		
 		logger.info("Department deleted == "+department);

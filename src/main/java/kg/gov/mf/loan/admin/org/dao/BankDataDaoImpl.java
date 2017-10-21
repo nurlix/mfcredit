@@ -1,10 +1,7 @@
 package kg.gov.mf.loan.admin.org.dao;
 
 import java.util.List;
- 
-
-
-
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -66,7 +63,20 @@ public class BankDataDaoImpl implements BankDataDao {
 		BankData bankData = (BankData) session.load(BankData.class, new Long (id));
 		if(bankData!=null)
 		{
-			session.delete(bankData);
+			
+			Organization organization = (Organization) session.load(Organization.class, bankData.getOrganization().getId());
+
+			Set <BankData> bankDataList = organization.getBankData();
+			
+			bankDataList.remove((BankData) bankData);
+			
+			organization.setBankData(bankDataList);
+			
+			session.update(organization);
+			
+			
+			
+			//session.delete(bankData);
 		}
 		
 		logger.info("BankData deleted == "+bankData);

@@ -39,6 +39,12 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_15_1">
 
+
+								<div class="row">
+									<div class="col-md-12">
+										
+										
+																			
 							<table
 								class="table table-hover table-condensed table-striped table-bordered compact condensed">
 
@@ -70,9 +76,19 @@
 										<td th:text="${organization.address.village.name}">Address
 											line</td>
 									</tr>
+									
+
+												
+												
+												
+												
 								</tbody>
 							</table>
 
+																			
+																																
+									</div>
+								</div>
 
 
 					</div>
@@ -174,9 +190,20 @@
 									<tbody>
 										<tr th:each="bankDataInList : ${organization.bankData}">
 											<td th:text="${bankDataInList.name}">Thymus Thymi</td>
-											<td th:text="${bankDataInList.description}">Thymus Thymi</td>											
-											<td th:text="${bankDataInList.account_number}">Thymus Thymi</td>
+											<td th:text="${bankDataInList.description}">Thymus Thymi</td>
+											<td th:text="${bankDataInList.account_number}">Thymus
+												Thymi</td>
 											<td th:text="${bankDataInList.bik}">Thymus Thymi</td>
+											<td><a data-remote="false" data-toggle="modal"
+												data-target="#organizationFormModal"
+												th:href="@{/bankData/__${bankDataInList.id}__/edit}" role="button"
+												class="btn btn-xs blue-stripe"> Edit </a></td>
+											<td>
+												<form th:action="@{/bankData/__${bankDataInList.id}__/remove}"
+													method="post">
+													<button type="submit" class="btn btn-xs red-stripe">Delete</button>
+												</form>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -198,6 +225,16 @@
 											<td th:text="${departmentInList.description}">Thymus Thymi</td>
 											<td th:text="${departmentInList.enabled}">Thymus
 												Thymi
+											</td>
+											<td><a data-remote="false" data-toggle="modal"
+												data-target="#organizationFormModal"
+												th:href="@{/department/__${departmentInList.id}__/edit}" role="button"
+												class="btn btn-xs blue-stripe"> Edit </a></td>
+											<td>
+												<form th:action="@{/department/__${departmentInList.id}__/remove}"
+													method="post">
+													<button type="submit" class="btn btn-xs red-stripe">Delete</button>
+												</form>
 											</td>
 											<td>
 												<a data-remote="false" data-toggle="modal"
@@ -242,6 +279,7 @@
 									<th>Date</th>
 									<th>ObjectTypeId</th>
 									<th>ObjectId</th>
+									<th>View</th>
 									<th>Edit</th>
 									<th>Delete</th>
 								</tr>

@@ -44,10 +44,10 @@ public class Organization {
     @JoinColumn(name="contact_id")
     Contact contact;      
     
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<BankData> bankData = new HashSet<BankData>();    
     
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Department> department = new HashSet<Department>(); 
     
     

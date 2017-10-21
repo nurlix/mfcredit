@@ -52,6 +52,7 @@
 												<th>Id</th>
 												<th>Name</th>
 												<th>Edit</th>
+												<th>View</th>
 												<th>Delete</th>
 											</tr>
 										</thead>
@@ -61,6 +62,11 @@
 											<tr th:each="s : ${informationList}">
 												<td th:text="${s.id}">Id</td>
 												<td th:text="${s.name}">Name</td>
+												<td>
+													<a  th:href="@{/information/__${s.id}__/details}"
+													role="button" class="btn btn-xs green-stripe"> View
+													</a>
+												</td>												
 												<td>
 													<a data-remote="false" data-toggle="modal"
 													data-target="#informationFormModal" th:href="@{/information/__${s.id}__/edit}"
