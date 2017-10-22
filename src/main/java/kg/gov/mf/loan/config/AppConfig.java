@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.config;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.CacheControl;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -160,9 +162,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-        registry.addResourceHandler("/assets/**").addResourceLocations("/static/assets/");
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/").setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS));
+        registry.addResourceHandler("/assets/**").addResourceLocations("/static/assets/").setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS));;
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS));;
     }
     
     @Bean(name = "multipartResolver")
