@@ -49,7 +49,7 @@ public class Information {
     private Date date;
     
 
-    @OneToMany(mappedBy="information", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy="information", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
     private Set<Attachment> attachment = new HashSet<Attachment>();  
     
     

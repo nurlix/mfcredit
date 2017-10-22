@@ -11,10 +11,10 @@
 	</div>
 
 	
-	<link th:href="@{/css/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />	
+	<link th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />	
 	
-	<link th:href="@{/css/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
-	<link th:href="@{/css/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
 
 
 
@@ -63,8 +63,8 @@
 	<div th:replace="fragments/footer :: footer-js"></div>
 	
 	
-	<script th:src="@{/css/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
-	<script th:src="@{/css/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>	
+	<script th:src="@{/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>	
 	
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 
@@ -75,10 +75,12 @@
 		<script type="text/javascript">
 		$(document).ready(function() {
 
-			var CSystemID = $("#cSystem_id").val();
-
-			var sUrl ="/cSystem/" + CSystemID+"/view";
+			var cSystemID = $("#cSystem_id").val();
 			
+
+			var sUrl ="/MFCredit/cSystem/" + cSystemID+"/view";
+			
+
 			$.get(sUrl, function(data) {
 
 				$('#content').html(data);
