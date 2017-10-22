@@ -10,7 +10,7 @@
 <body>
 
 	<form th:action="@{/systemFile/save}" enctype="multipart/form-data" id="form_sample_2"
-		class="form-horizontal" method="post" th:object="${systemFile}">
+		class="form-horizontal" method="post" >
 		<div class="form-body">
 			<div class="alert alert-danger display-hide">
 				<button class="close" data-close="alert"></button>
@@ -42,7 +42,7 @@
 				</label>
 				<div class="col-md-4">
 					<div class="input-icon right">
-						<input type="file" class="form-control"
+						<input type="file" class="file"
 							name="file"/>
 					
 					</div>

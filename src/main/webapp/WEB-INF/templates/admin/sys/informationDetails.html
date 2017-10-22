@@ -9,14 +9,14 @@
 
 
 <link
-	th:href="@{/css/assets/global/plugins/datatables/keyTable.bootstrap.css}"
+	th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}"
 	rel="stylesheet" type="text/css" />
 
 <link
-	th:href="@{/css/assets/global/plugins/datatables/datatables.min.css}"
+	th:href="@{/assets/global/plugins/datatables/datatables.min.css}"
 	rel="stylesheet" type="text/css" />
 <link
-	th:href="@{/css/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}"
+	th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}"
 	rel="stylesheet" type="text/css" />
 
 
@@ -328,10 +328,10 @@ $(window).on("popstate", function() {
 	<div th:replace="fragments/footer :: footer-js"></div>
 
 
-	<script th:src="@{/css/assets/global/plugins/datatables/datatables.js}"
+	<script th:src="@{/assets/global/plugins/datatables/datatables.js}"
 		type="text/javascript"></script>
 	<script
-		th:src="@{/css/assets/global/plugins/datatables/dataTables.keyTable.js}"
+		th:src="@{/assets/global/plugins/datatables/dataTables.keyTable.js}"
 		type="text/javascript"></script>
 
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -360,7 +360,7 @@ $(window).on("popstate", function() {
 				
 				$("#information_id").val(rowData[0]);
 				
-				var sUrl ="/information/" + rowData[0]+"/view";
+				var sUrl ="/MFCredit/information/" + rowData[0]+"/view";
 				
 				$.get(sUrl, function(data) {
 
@@ -384,18 +384,17 @@ $(window).on("popstate", function() {
 	    
 	    {
 
-	    	$(this).find(".modal-title").html("/information/"+informationID+link.attr("href"));
-		    $(this).find(".modal-body").load("/information/"+informationID+link.attr("href"));
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/attachment/add","/information/"+informationID+"/attachment/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/attachment/add","/information/"+informationID+"/attachment/add"));
 	    }
 	    else
 	    if(link.attr("href").indexOf('information/add')>0)
 		    
 	    {
 	    	var parentInformationID = $("#parentInformation_id").val();
-	    	
-			alert(parentInformationID);
-	    	$(this).find(".modal-title").html("/information/"+informationID+link.attr("href"));
-		    $(this).find(".modal-body").load("/information/"+informationID+link.attr("href"));
+
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/information/add","/information/"+informationID+"/information/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/information/add","/information/"+informationID+"/information/add"));
 	    }	    
 	    else
     	{

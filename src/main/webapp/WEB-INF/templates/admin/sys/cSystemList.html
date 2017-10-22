@@ -207,8 +207,8 @@
 	    {
 	    	var url = link.attr("href");
 	    	 
-	    	$(this).find(".modal-title").html("/1/"+cSystemID+url);
-		    $(this).find(".modal-body").load("/1/"+cSystemID+url);
+	    	$(this).find(".modal-title").html(url.replace("/information/add","/1/"+cSystemID+"/information/add"));
+		    $(this).find(".modal-body").load(url.replace("/information/add","/1/"+cSystemID+"/information/add"));
 	    }
 	    else
     	{

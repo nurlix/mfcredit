@@ -117,17 +117,7 @@
 
 
 								<div class="row">
-									<div class="col-md-12">
-										<a data-remote="false" data-toggle="modal"
-											data-target="#informationFormModal" th:href="@{/information/add}"
-											role="button" class="btn btn-large btn-primary"> Add
-											Information</a>
-										<a data-remote="false" data-toggle="modal"
-											data-target="#informationFormModal" th:href="@{/childinformation/add}"
-											role="button" class="btn btn-large btn-primary"> Add
-											child infortmation</a>
-																					
-									</div>
+
 								</div>
 							</div>
 						</div>
@@ -211,9 +201,8 @@
 	    if(link.attr("href").indexOf('child')>0)
 	    
 	    {
-	    	 var url = link.attr("href").replace("child","");
-	    	$(this).find(".modal-title").html(url+"/"+informationID);
-		    $(this).find(".modal-body").load(url+"/"+informationID);
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/childinformation/add","/information/"+informationID+"/information/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/childinformation/add","/information/"+informationID+"/information/add"));
 	    }
 	    else
     	{

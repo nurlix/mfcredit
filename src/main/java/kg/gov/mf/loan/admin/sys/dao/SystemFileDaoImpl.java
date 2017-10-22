@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.admin.sys.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -11,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.admin.org.model.District;
+import kg.gov.mf.loan.admin.org.model.Region;
 import kg.gov.mf.loan.admin.sys.model.*;
  
 @Repository
@@ -64,7 +67,20 @@ public class SystemFileDaoImpl implements SystemFileDao {
 		SystemFile systemFile = (SystemFile) session.load(SystemFile.class, new Long (id));
 		if(systemFile!=null)
 		{
-			session.delete(systemFile);
+			
+			
+			Attachment attachment = (Attachment) session.load(Attachment.class, systemFile.getAttachment().getId());
+
+			Set <SystemFile> systemFileList = attachment.getSystemFile();
+			
+			systemFileList.remove((SystemFile) systemFile);
+			
+			attachment.setSystemFile(systemFileList);
+			
+			session.update(attachment);
+			
+			
+			//session.delete(systemFile);
 		}
 		
 		logger.info("SystemFile deleted == "+systemFile);

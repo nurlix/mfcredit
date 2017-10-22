@@ -177,11 +177,25 @@ public class SystemFileController {
 	
 
 	@RequestMapping("/systemFile/{id}/remove")
-	public String removeSystemFileAndRedirectToSystemFileList(@PathVariable("id") long id) {
+	public ModelAndView removeSystemFileAndRedirectToSystemFileList(@PathVariable("id") long id,ModelMap model) {
 
+		String url = "/attachment/"+this.systemFileService.findById(id).getAttachment().getId()+"/details";
+		
+		
+		SystemFile systemFile = this.systemFileService.findById(id);
+
+		model.addAttribute("systemFile", systemFile);
+		
+		
+		File file = new File(systemFile.getPath());
+		
+		file.delete();
+		
 		this.systemFileService.deleteById(id);
+		
 
-		return "redirect:/systemFile/list";
+
+        return new ModelAndView("redirect:"+url, model);
 	}
 
 }

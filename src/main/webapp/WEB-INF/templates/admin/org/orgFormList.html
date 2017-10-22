@@ -11,10 +11,10 @@
 	</div>
 
 	
-	<link th:href="@{/css/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />	
+	<link th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />	
 	
-	<link th:href="@{/css/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
-	<link th:href="@{/css/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
 
 
 
@@ -65,12 +65,12 @@
 												<td th:text="${s.enabled}">Enabled</td>
 												<td>
 													<a data-remote="false" data-toggle="modal"
-													data-target="#orgFormFormModal" th:href="@{/orgForm/edit/__${s.id}__}"
+													data-target="#orgFormFormModal" th:href="@{/orgForm/__${s.id}__/edit}"
 													role="button" class="btn btn-xs blue-stripe"> Edit
 													</a>
 												</td>
 												<td>
-													<form th:action="@{/orgForm/remove/__${s.id}__}" method="post">
+													<form th:action="@{/orgForm/__${s.id}__/remove}" method="post">
 														<button type="submit" class="btn btn-xs red-stripe">Delete</button>
 													</form>
 												</td>
@@ -118,10 +118,7 @@
 											data-target="#orgFormFormModal" th:href="@{/orgForm/add}"
 											role="button" class="btn btn-large btn-primary"> Add
 											OrgForm</a>
-										<a data-remote="false" data-toggle="modal"
-											data-target="#orgFormFormModal" th:href="@{/district/add}"
-											role="button" class="btn btn-large btn-primary"> Add
-											District</a>
+
 
 
 									</div>
@@ -155,8 +152,8 @@
 	<div th:replace="fragments/footer :: footer-js"></div>
 	
 	
-	<script th:src="@{/css/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
-	<script th:src="@{/css/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>	
+	<script th:src="@{/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>	
 	
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 
@@ -184,7 +181,7 @@
 				
 				$("#orgForm_id").val(rowData[0]);
 				
-				var sUrl ="/orgForm/view/" + rowData[0];
+				var sUrl ="/orgForm/" + rowData[0]+"/view";
 				
 				$.get(sUrl, function(data) {
 

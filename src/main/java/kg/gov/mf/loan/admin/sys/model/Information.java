@@ -61,7 +61,7 @@ public class Information {
     
     
     
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name="parent_information_id")
     public Information parentInformation;
 

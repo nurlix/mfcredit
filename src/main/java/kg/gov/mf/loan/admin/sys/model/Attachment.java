@@ -37,7 +37,7 @@ public class Attachment {
     @JoinColumn(name="information_id")
     private Information information;
     
-    @OneToMany(mappedBy="attachment", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy="attachment", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
     private Set<SystemFile> systemFile = new HashSet<SystemFile>();      
 
 	public long getId() {
