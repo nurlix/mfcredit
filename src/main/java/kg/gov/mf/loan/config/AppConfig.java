@@ -37,6 +37,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import kg.gov.mf.loan.admin.org.converter.*;
+import kg.gov.mf.loan.admin.sys.converter.*;
 
 import kg.gov.mf.loan.converter.RoleToUserProfileConverter;
 
@@ -76,6 +77,11 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Autowired
     IdentityDocTypeConverter identityDocTypeConverter;    
 
+    @Autowired
+    RoleConverter roleConverter;      
+
+    @Autowired
+    RoleToStringConverter roleToStringConverter; 
     
     private static final String UTF8 = "UTF-8";
     
@@ -188,7 +194,8 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         registry.addConverter(villageConverter);
         registry.addConverter(identityDocTypeConverter);
         registry.addConverter(identityDocGivenByConverter);
-        
+        registry.addConverter(roleConverter);
+        registry.addConverter(roleToStringConverter);
         
     }
      

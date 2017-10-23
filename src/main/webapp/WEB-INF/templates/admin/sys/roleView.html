@@ -36,7 +36,7 @@
 
 					<tbody>
 
-						<tr th:each="userInList : ${role.user}">
+						<tr th:each="userInList : ${role.users}">
 							<td th:text="${userInList.id}">Id</td>
 							<td th:text="${userInList.name}">Name</td>
 							<td><a th:href="@{/user/__${userInList.id}__/details}"

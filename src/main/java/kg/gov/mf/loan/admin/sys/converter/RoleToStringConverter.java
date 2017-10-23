@@ -9,7 +9,7 @@ import kg.gov.mf.loan.admin.sys.model.Role;
 import kg.gov.mf.loan.admin.sys.service.RoleService;
  
 @Component
-public class RoleConverter implements Converter<String, Role>{
+public class RoleToStringConverter implements Converter<Role, String>{
  
     @Autowired
     RoleService roleService;
@@ -18,16 +18,11 @@ public class RoleConverter implements Converter<String, Role>{
      * Gets UserProfile by Id
      * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
      */
-    public Role convert(String element) 
-    {
-        Integer id = Integer.parseInt((String)element);
-        Role role = roleService.findById((long)id);
-        return role;
-    }
-    
     public String convert(Role role) 
     {
-        return String.valueOf(role.getId());
+        String id = String.valueOf(role.getId());
+        return id;
     }
+    
      
 }

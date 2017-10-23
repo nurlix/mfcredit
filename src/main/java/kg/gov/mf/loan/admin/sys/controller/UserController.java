@@ -85,7 +85,6 @@ public class UserController {
 		model.addAttribute("user", new User());
 		model.addAttribute("userList", this.userService.findAll());
 		model.addAttribute("roleList", this.roleService.findAll());		
-		model.addAttribute("selectedRoleList", this.roleService.findById(1));		
 
 		return "admin/sys/userForm";
 	}

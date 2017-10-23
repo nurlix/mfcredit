@@ -62,19 +62,11 @@
 				<label class="control-label col-md-3">Roles<span
 					class="required"> * </span>
 				</label>
-				<div class="col-md-4" th:if="${selectedRoleList != null}">
-					<select th:value="*{roles}" multiple="multiple">
-					  <option th:each="roleInList : ${roleList}" 
-					          th:value="${roleInList.id}"
-					          th:text="${roleInList.name}"
-					          >Role</option>
-					</select>
-				</div>
-				
+			
 				<div class="col-md-4" th:if="${selectedRoleList == null}">
-					<select th:value="*{roles}" multiple="multiple">
+					<select th:field="*{roles}" multiple="multiple">
 					  <option th:each="roleInList : ${roleList}" 
-					          th:value="${roleInList.id}"
+					          th:value="${{roleInList}}"
 					          th:text="${roleInList.name}"
 					          
 					          >Role</option>

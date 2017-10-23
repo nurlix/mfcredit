@@ -36,6 +36,7 @@ public class RoleController
 	public String viewrole(@PathVariable("id") int id, Model model) {
 
 		Role role = this.roleService.findById(id);
+		
 
 		model.addAttribute("role", role);
 		model.addAttribute("roleList", this.roleService.findAll());
