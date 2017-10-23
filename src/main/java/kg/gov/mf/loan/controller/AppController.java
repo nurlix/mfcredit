@@ -19,9 +19,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import kg.gov.mf.loan.manage.service.UserProfileService;
 import kg.gov.mf.loan.manage.service.UserService;
 
+
+/*
 @Controller
 @RequestMapping("/")
 @SessionAttributes("roles")
+*/
+
+
 public class AppController {
  
     @Autowired
