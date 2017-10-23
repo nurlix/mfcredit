@@ -3,7 +3,6 @@ package kg.gov.mf.loan.manage.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +23,7 @@ import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityListType;
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
 import kg.gov.mf.loan.manage.model.order.CreditOrderState;
 import kg.gov.mf.loan.manage.model.order.CreditOrderType;
+import kg.gov.mf.loan.manage.model.orderdocumentpackage.OrderDocumentPackage;
 import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListStateService;
 import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListTypeService;
 import kg.gov.mf.loan.manage.service.order.CreditOrderService;
@@ -77,6 +77,11 @@ public class CreditOrderController {
         
         model.addAttribute("emptyList", new AppliedEntityList());
         model.addAttribute("entityList", order.getAppliedEntityList());
+        
+        model.addAttribute("emptyDocumentPackage", new OrderDocumentPackage());
+        model.addAttribute("orderDocumentPackages", order.getOrderDocumentPackage());
+        
+        model.addAttribute("tab0","active");
         
         model.addAttribute("loggedinuser", Utils.getPrincipal());
         return "/manage/order/view";

@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import kg.gov.mf.loan.manage.model.entitylist.AppliedEntityList;
+import kg.gov.mf.loan.manage.model.orderdocumentpackage.OrderDocumentPackage;
 
 @Entity
 @Table(name="credit_order")
@@ -48,6 +49,10 @@ public class CreditOrder {
 	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name="creditOrder_id")
 	private Set<AppliedEntityList> appliedEntityList;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="creditOrder_id")
+	private Set<OrderDocumentPackage> orderDocumentPackage;
 	
 	public CreditOrder()
 	{
@@ -125,4 +130,11 @@ public class CreditOrder {
 		this.appliedEntityList = appliedEntityList;
 	}
 
+	public Set<OrderDocumentPackage> getOrderDocumentPackage() {
+		return orderDocumentPackage;
+	}
+
+	public void setOrderDocumentPackage(Set<OrderDocumentPackage> orderDocumentPackage) {
+		this.orderDocumentPackage = orderDocumentPackage;
+	}
 }
