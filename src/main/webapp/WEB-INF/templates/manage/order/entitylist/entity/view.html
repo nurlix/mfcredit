@@ -135,6 +135,7 @@
 										<thead>
 											<tr>
 												<th>Id</th>
+												<th>Package Name</th>
 												<th>Completed Date</th>
 												<th>Approved Date</th>
 												<th>Completed Ratio</th>
@@ -157,6 +158,7 @@
 											<state th:each="dp : ${dPackages}">
 											<tr class="clickable-row">
 												<td th:text="${dp.id}">Id</td>
+												<td th:text="${dp.name}">Name</td>
 												<td th:text="${dp.completedDate}">01.01.1970</td>
 												<td th:text="${dp.approvedDate}">01.01.1970</td>
 												<td th:text="${dp.completedRatio}">0.01</td>
@@ -195,10 +197,21 @@
 			                                            <div class="alert alert-danger display-hide">
 			                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
 			                                            </div>
-			                                            <div class="form-group margin-top-20">
-			                                                <label class="control-label col-md-3">Completed Date</label>
+			                                            <div class="form-group  margin-top-20">
+			                                                <label class="control-label col-md-3">Package Name
+			                                                    <span class="required"> * </span>
+			                                                </label>
 			                                                <div class="col-md-4">
 			                                                	<input hidden="true" type="text" id="id" name="id" th:value="${emptyDP.id}"/>
+			                                                    <div class="input-icon right">
+			                                                        <i class="fa"></i>
+			                                                        <input type="text" class="form-control" name="name" th:value="${emptyDP.name}"/> 
+			                                                    </div>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label class="control-label col-md-3">Completed Date</label>
+			                                                <div class="col-md-4">
 			                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
 			                                                        <input type="text" class="form-control" name="completedDate" th:value="${emptyDP.completedDate}"/>
 			                                                        <span class="input-group-btn">
@@ -210,7 +223,7 @@
 			                                                    <span class="help-block"> select a date </span>
 			                                                </div>
 			                                            </div>
-			                                            <div class="form-group margin-top-20">
+			                                            <div class="form-group">
 			                                                <label class="control-label col-md-3">Approved Date</label>
 			                                                <div class="col-md-4">
 			                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
@@ -224,7 +237,7 @@
 			                                                    <span class="help-block"> select a date </span>
 			                                                </div>
 			                                            </div>
-			                                            <div class="form-group  margin-top-20">
+			                                            <div class="form-group">
 			                                                <label class="control-label col-md-3">Completed Ratio
 			                                                    <span class="required"> * </span>
 			                                                </label>
@@ -235,7 +248,7 @@
 			                                                    </div>
 			                                                </div>
 			                                            </div>
-			                                            <div class="form-group  margin-top-20">
+			                                            <div class="form-group">
 			                                                <label class="control-label col-md-3">Approved Ratio
 			                                                    <span class="required"> * </span>
 			                                                </label>
@@ -246,7 +259,7 @@
 			                                                    </div>
 			                                                </div>
 			                                            </div>
-			                                            <div class="form-group  margin-top-20">
+			                                            <div class="form-group">
 			                                                <label class="control-label col-md-3">Registered Ratio
 			                                                    <span class="required"> * </span>
 			                                                </label>
@@ -310,10 +323,22 @@
 			                                            <div class="alert alert-danger display-hide">
 			                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
 			                                            </div>
-			                                            <div class="form-group margin-top-20">
-			                                                <label class="control-label col-md-3">Completed Date</label>
+			                                            <div class="form-group  margin-top-20">
+			                                                <label class="control-label col-md-3">Package Name
+			                                                    <span class="required"> * </span>
+			                                                </label>
 			                                                <div class="col-md-4">
 			                                                	<input hidden="true" type="text" id="id" name="id" th:value="${dp.id}"/>
+			                                                    <div class="input-icon right">
+			                                                        <i class="fa"></i>
+			                                                        <input type="text" class="form-control" name="name" th:value="${dp.name}"/> 
+			                                                    </div>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label class="control-label col-md-3">Completed Date</label>
+			                                                <div class="col-md-4">
+			                                                	
 			                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
 			                                                        <input type="text" class="form-control" name="completedDate" th:value="${dp.completedDate}"/>
 			                                                        <span class="input-group-btn">
@@ -325,7 +350,7 @@
 			                                                    <span class="help-block"> select a date </span>
 			                                                </div>
 			                                            </div>
-			                                            <div class="form-group margin-top-20">
+			                                            <div class="form-group">
 			                                                <label class="control-label col-md-3">Approved Date</label>
 			                                                <div class="col-md-4">
 			                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
@@ -339,7 +364,7 @@
 			                                                    <span class="help-block"> select a date </span>
 			                                                </div>
 			                                            </div>
-			                                            <div class="form-group  margin-top-20">
+			                                            <div class="form-group">
 			                                                <label class="control-label col-md-3">Completed Ratio
 			                                                    <span class="required"> * </span>
 			                                                </label>
@@ -350,7 +375,7 @@
 			                                                    </div>
 			                                                </div>
 			                                            </div>
-			                                            <div class="form-group  margin-top-20">
+			                                            <div class="form-group">
 			                                                <label class="control-label col-md-3">Approved Ratio
 			                                                    <span class="required"> * </span>
 			                                                </label>
@@ -361,7 +386,7 @@
 			                                                    </div>
 			                                                </div>
 			                                            </div>
-			                                            <div class="form-group  margin-top-20">
+			                                            <div class="form-group">
 			                                                <label class="control-label col-md-3">Registered Ratio
 			                                                    <span class="required"> * </span>
 			                                                </label>

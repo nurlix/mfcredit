@@ -62,7 +62,7 @@
 							<div class="portlet-title">
 								<div class="caption">
 									<i class="icon-settings font-green"></i> 
-									<span class="caption-subject font-green sbold uppercase" th:text="'Document Package : '+${dp.id}">Id</span>
+									<span class="caption-subject font-green sbold uppercase" th:text="'Document Package : '+${dp.name}">DP 1</span>
 								</div>
 							</div>
 							<div class="portlet-body form">
@@ -80,9 +80,9 @@
 											<!--/span-->
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="control-label col-md-3">Completed date:</label>
+													<label class="control-label col-md-3">Name:</label>
 													<div class="col-md-9">
-														<p class="form-control-static" th:text="${dp.completedDate}">01.01.1970</p>
+														<p class="form-control-static" th:text="${dp.name}">DP 1</p>
 													</div>
 												</div>
 											</div>
@@ -90,6 +90,15 @@
 										</div>
 										<!--/row-->
 										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label col-md-3">Completed date:</label>
+													<div class="col-md-9">
+														<p class="form-control-static" th:text="${dp.completedDate}">01.01.1970</p>
+													</div>
+												</div>
+											</div>
+											<!--/span-->
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="control-label col-md-3">Approved date:</label>
@@ -99,6 +108,9 @@
 												</div>
 											</div>
 											<!--/span-->
+										</div>
+										<!--/row-->
+										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="control-label col-md-3">Completed ratio:</label>
@@ -108,9 +120,6 @@
 												</div>
 											</div>
 											<!--/span-->
-										</div>
-										<!--/row-->
-										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="control-label col-md-3">Approved ratio:</label>
@@ -188,6 +197,7 @@
 											<tr>
 												<th>View Details</th>
 												<th>Id</th>
+												<th>Name</th>
 												<th>Completed By</th>
 												<th>Completed Date</th>
 												<th>Completed Description</th>
@@ -216,6 +226,7 @@
 														<a th:href="@{/manage/order/__${orderId}__/entitylist/__${listId}__/entity/__${entityId}__/documentpackage/__${dpId}__/entitydocument/__${ed.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
 													</td>
 													<td th:text="${ed.id}">Id</td>
+													<td th:text="${ed.name}">Name</td>
 													<td th:text="${ed.completedBy}">John Wick</td>
 													<td th:text="${ed.completedDate}">01.01.1970</td>
 													<td th:text="${ed.completedDescription}">Description here</td>
@@ -256,12 +267,25 @@
 			                                            <div class="alert alert-danger display-hide">
 			                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
 			                                            </div>
+			                                            
 			                                            <div class="form-group margin-top-20">
-			                                                <label class="control-label col-md-3">Completed By
+			                                                <label class="control-label col-md-3">Document name
 			                                                    <span class="required"> * </span>
 			                                                </label>
 			                                                <div class="col-md-4">
 			                                                	<input hidden="true" type="text" id="id" name="id" th:value="${emptyED.id}"/>
+			                                                    <div class="input-icon right">
+			                                                        <i class="fa"></i>
+			                                                        <input type="text" class="form-control" name="name" th:value="${emptyED.name}"/> 
+			                                                    </div>
+			                                                </div>
+			                                            </div>
+			                                            
+			                                            <div class="form-group">
+			                                                <label class="control-label col-md-3">Completed By
+			                                                    <span class="required"> * </span>
+			                                                </label>
+			                                                <div class="col-md-4">
 			                                                    <div class="input-icon right">
 			                                                        <i class="fa"></i>
 			                                                        <input type="text" class="form-control" name="completedBy" th:value="${emptyED.completedBy}"/> 
@@ -431,12 +455,25 @@
 			                                            <div class="alert alert-danger display-hide">
 			                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
 			                                            </div>
+			                                            
 			                                            <div class="form-group margin-top-20">
-			                                                <label class="control-label col-md-3">Completed By
+			                                                <label class="control-label col-md-3">Document name
 			                                                    <span class="required"> * </span>
 			                                                </label>
 			                                                <div class="col-md-4">
 			                                                	<input hidden="true" type="text" id="id" name="id" th:value="${ed.id}"/>
+			                                                    <div class="input-icon right">
+			                                                        <i class="fa"></i>
+			                                                        <input type="text" class="form-control" name="name" th:value="${ed.name}"/> 
+			                                                    </div>
+			                                                </div>
+			                                            </div>
+			                                            
+			                                            <div class="form-group">
+			                                                <label class="control-label col-md-3">Completed By
+			                                                    <span class="required"> * </span>
+			                                                </label>
+			                                                <div class="col-md-4">
 			                                                    <div class="input-icon right">
 			                                                        <i class="fa"></i>
 			                                                        <input type="text" class="form-control" name="completedBy" th:value="${ed.completedBy}"/> 

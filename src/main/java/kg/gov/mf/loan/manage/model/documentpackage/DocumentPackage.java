@@ -29,6 +29,9 @@ public class DocumentPackage {
 	@Column(name="id")
 	private long id;
 	
+	@Column(name="name", nullable=false, length = 50)
+	private String name;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="completed_date", nullable=false)
 	private Date completedDate;
@@ -45,6 +48,9 @@ public class DocumentPackage {
 	
 	@Column(name = "registered_ratio", precision = 12, scale = 5)
 	private Double registeredRatio;
+	
+	@Column(name="order_document_package_id", nullable=true)
+	private long orderDocumentPackageId;
 	
 	@OneToOne
 	@JoinColumn(name="document_package_state_id")
@@ -66,9 +72,10 @@ public class DocumentPackage {
 		
 	}
 
-	public DocumentPackage(Date completedDate, Date approvedDate, Double completedRatio, Double approvedRatio,
+	public DocumentPackage(String name, Date completedDate, Date approvedDate, Double completedRatio, Double approvedRatio,
 			Double registeredRatio, DocumentPackageState documentPackageState,
 			DocumentPackageType documentPackageType) {
+		this.name = name;
 		this.completedDate = completedDate;
 		this.approvedDate = approvedDate;
 		this.completedRatio = completedRatio;
@@ -76,6 +83,14 @@ public class DocumentPackage {
 		this.registeredRatio = registeredRatio;
 		this.documentPackageState = documentPackageState;
 		this.documentPackageType = documentPackageType;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public long getId() {
@@ -157,4 +172,13 @@ public class DocumentPackage {
 	public void setEntityDocument(Set<EntityDocument> entityDocument) {
 		this.entityDocument = entityDocument;
 	}
+
+	public long getOrderDocumentPackageId() {
+		return orderDocumentPackageId;
+	}
+
+	public void setOrderDocumentPackageId(long orderDocumentPackageId) {
+		this.orderDocumentPackageId = orderDocumentPackageId;
+	}
+	
 }

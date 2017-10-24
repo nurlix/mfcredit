@@ -8,7 +8,8 @@ public interface EntityDocumentDao {
 
 	List<EntityDocument> findAll();
 	EntityDocument findById(long id);
-	EntityDocument findRegNumber(String rNumber);
+	EntityDocument findByName(String name);
+	EntityDocument findByRegNumber(String rNumber);
     void save(EntityDocument document);
     void deleteById(long id);
 	

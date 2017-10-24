@@ -103,6 +103,7 @@ public class DocumentPackageController {
 		if(dp != null && dp.getId() == 0)
 		{
 			DocumentPackage newDP = new DocumentPackage(
+					dp.getName(),
 					dp.getCompletedDate(),
 					dp.getApprovedDate(),
 					dp.getCompletedRatio(), 

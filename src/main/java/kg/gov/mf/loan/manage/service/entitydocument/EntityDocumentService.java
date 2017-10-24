@@ -7,6 +7,7 @@ import kg.gov.mf.loan.manage.model.entitydocument.EntityDocument;
 public interface EntityDocumentService {
 	
 	EntityDocument findById(long id);
+	EntityDocument findByName(String name);
 	EntityDocument findByRegisteredNumber(String rNumber);
 	void save(EntityDocument doc);
 	void update(EntityDocument doc);

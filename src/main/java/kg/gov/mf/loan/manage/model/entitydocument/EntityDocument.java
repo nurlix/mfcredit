@@ -24,6 +24,9 @@ public class EntityDocument {
 	@Column(name="id")
 	private long id;
 	
+	@Column(name="name", nullable=false, length=50)	
+	private String name;
+	
 	@Column(name="completed_by", nullable=false)
 	private long completedBy;
 	
@@ -70,10 +73,11 @@ public class EntityDocument {
 		
 	}
 	
-	public EntityDocument(long completedBy, Date completedDate, String completedDescription, long approvedBy,
+	public EntityDocument(String name, long completedBy, Date completedDate, String completedDescription, long approvedBy,
 			Date approvedDate, String approvedDescription, String registeredNumber, Date registeredDate,
 			String registeredDescription, EntityDocumentRegisteredBy registeredBy,
 			EntityDocumentState entityDocumentState) {
+		this.name = name;
 		this.completedBy = completedBy;
 		this.completedDate = completedDate;
 		this.completedDescription = completedDescription;
@@ -93,6 +97,14 @@ public class EntityDocument {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public long getCompletedBy() {

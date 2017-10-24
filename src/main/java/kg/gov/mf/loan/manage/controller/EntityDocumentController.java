@@ -83,6 +83,7 @@ public class EntityDocumentController {
 		if(doc != null && doc.getId() == 0)
 		{
 			EntityDocument newDoc = new EntityDocument(
+					doc.getName(),
 					doc.getCompletedBy(),
 					doc.getCompletedDate(),
 					doc.getCompletedDescription(),

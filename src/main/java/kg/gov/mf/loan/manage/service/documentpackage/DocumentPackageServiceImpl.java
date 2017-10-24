@@ -20,6 +20,16 @@ public class DocumentPackageServiceImpl implements DocumentPackageService{
 	public DocumentPackage findById(long id) {
 		return this.dpDao.findById(id);
 	}
+	
+	@Override
+	public DocumentPackage findByName(String name) {
+		return this.dpDao.findByName(name);
+	}
+	
+	@Override
+	public List<DocumentPackage> findByOrderDocumentPackageId(long id) {
+		return this.dpDao.findByOrderDocumentPackageId(id);
+	}
 
 	@Override
 	public void save(DocumentPackage dp) {
@@ -30,6 +40,7 @@ public class DocumentPackageServiceImpl implements DocumentPackageService{
 	public void update(DocumentPackage dp) {
 		DocumentPackage entity = this.dpDao.findById(dp.getId());
         if(entity!=null){
+        	entity.setName(dp.getName());
         	entity.setCompletedDate(dp.getCompletedDate());
         	entity.setApprovedDate(dp.getApprovedDate());
         	entity.setCompletedRatio(dp.getCompletedRatio());

@@ -16,7 +16,7 @@ public class EntityDocumentDaoImpl extends AbstractDao<Long, EntityDocument> imp
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<EntityDocument> findAll() {
-		Criteria criteria = createEntityCriteria().addOrder(Order.asc("registeredNumber"));
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<EntityDocument> docs = (List<EntityDocument>) criteria.list();
 		return docs;
@@ -26,9 +26,16 @@ public class EntityDocumentDaoImpl extends AbstractDao<Long, EntityDocument> imp
 	public EntityDocument findById(long id) {
 		return getByKey(id);
 	}
+	
+	@Override
+	public EntityDocument findByName(String name) {
+		Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("name", name));
+        return (EntityDocument) crit.uniqueResult();
+	}
 
 	@Override
-	public EntityDocument findRegNumber(String rNumber) {
+	public EntityDocument findByRegNumber(String rNumber) {
 		Criteria crit = createEntityCriteria();
         crit.add(Restrictions.eq("registeredNumber", rNumber));
         return (EntityDocument) crit.uniqueResult();

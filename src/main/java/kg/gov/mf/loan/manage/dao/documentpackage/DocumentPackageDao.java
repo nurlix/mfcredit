@@ -8,6 +8,8 @@ public interface DocumentPackageDao {
 
 	List<DocumentPackage> findAll();
 	DocumentPackage findById(long id);
+	DocumentPackage findByName(String name);
+	List<DocumentPackage> findByOrderDocumentPackageId(long id);
     void save(DocumentPackage dp);
     void deleteById(long id);
 	

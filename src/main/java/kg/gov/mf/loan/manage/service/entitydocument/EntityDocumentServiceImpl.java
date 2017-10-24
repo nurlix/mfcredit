@@ -22,8 +22,13 @@ public class EntityDocumentServiceImpl implements EntityDocumentService {
 	}
 	
 	@Override
+	public EntityDocument findByName(String name) {
+		return this.docDao.findByName(name);
+	}
+	
+	@Override
 	public EntityDocument findByRegisteredNumber(String rNumber) {
-		return this.docDao.findRegNumber(rNumber);
+		return this.docDao.findByRegNumber(rNumber);
 	}
 
 	@Override
@@ -35,6 +40,7 @@ public class EntityDocumentServiceImpl implements EntityDocumentService {
 	public void update(EntityDocument doc) {
 		EntityDocument entity = this.docDao.findById(doc.getId());
         if(entity!=null){
+        	entity.setName(doc.getName());
         	entity.setCompletedBy(doc.getCompletedBy());
         	entity.setCompletedDate(doc.getCompletedDate());
         	entity.setCompletedDescription(doc.getCompletedDescription());
@@ -58,6 +64,5 @@ public class EntityDocumentServiceImpl implements EntityDocumentService {
 	public List<EntityDocument> findAll() {
 		return this.docDao.findAll();
 	}
-
 
 }
