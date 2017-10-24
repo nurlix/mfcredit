@@ -1,4 +1,4 @@
-package kg.gov.mf.loan.security;
+package kg.gov.mf.loan.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.admin.sys.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -57,10 +58,30 @@ public class Role {
 
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + "]";
+		return String.valueOf(id);
 	}
 	
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		hash = 83 * hash + Objects.hashCode(this.id);
+		return hash;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Role other = (Role) obj;
+		if (!Objects.equals(this.id, other.id)) {
+			return false;
+		}
+		return true;
+	}
 
     
     

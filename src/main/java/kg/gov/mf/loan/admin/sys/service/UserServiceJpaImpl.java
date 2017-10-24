@@ -49,6 +49,12 @@ public class UserServiceJpaImpl implements UserService {
 	}
 
 	@Override
+	@Transactional	
+	public User findByUsername(String username) {
+		return this.userDao.findByUsername(username);
+	}
+	
+	@Override
     @Transactional
     public List<User> findAll() {
         return this.userDao.findAll();

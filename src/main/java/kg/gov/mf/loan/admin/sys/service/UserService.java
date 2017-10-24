@@ -17,5 +17,8 @@ public interface UserService {
 	
 	public User findById (long id);
 	
+	public User findByUsername (String username);
+	
+	
 	public List<User> findAll();
 }

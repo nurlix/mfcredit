@@ -1,4 +1,4 @@
-package kg.gov.mf.loan.security;
+package kg.gov.mf.loan.config;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -27,20 +27,20 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  
     @Autowired
-    @Qualifier("customUserDetailsService")
     UserDetailsService userDetailsService;
  
     @Autowired
     PersistentTokenRepository tokenRepository;
  
-    /*
+    
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
         auth.authenticationProvider(authenticationProvider());
     }
-    */
     
+    
+    /*
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -49,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("admin").password("password").roles("ADMIN");
     }
+    */
  
     @Override
     protected void configure(HttpSecurity http) throws Exception {
