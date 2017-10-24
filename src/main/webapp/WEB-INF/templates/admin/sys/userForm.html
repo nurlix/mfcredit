@@ -63,7 +63,7 @@
 					class="required"> * </span>
 				</label>
 			
-				<div class="col-md-4" th:if="${selectedRoleList == null}">
+				<div class="col-md-4">
 					<select th:field="*{roles}" multiple="multiple">
 					  <option th:each="roleInList : ${roleList}" 
 					          th:value="${{roleInList}}"

@@ -54,44 +54,14 @@ public class Role {
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
-	
-
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
-		return result;
+	public String toString() {
+		return "Role [id=" + id + ", name=" + name + "]";
 	}
+	
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Role other = (Role) obj;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (users == null) {
-			if (other.users != null)
-				return false;
-		} else if (!users.equals(other.users))
-			return false;
-		return true;
-	}
-	
-	
+
     
     
     

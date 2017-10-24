@@ -78,10 +78,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     IdentityDocTypeConverter identityDocTypeConverter;    
 
     @Autowired
-    RoleConverter roleConverter;      
+    RoleFormatter roleFormatter;      
 
-    @Autowired
-    RoleToStringConverter roleToStringConverter; 
+
     
     private static final String UTF8 = "UTF-8";
     
@@ -194,10 +193,15 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         registry.addConverter(villageConverter);
         registry.addConverter(identityDocTypeConverter);
         registry.addConverter(identityDocGivenByConverter);
-        registry.addConverter(roleConverter);
-        registry.addConverter(roleToStringConverter);
+    
+        registry.addFormatter(roleFormatter);
+        
+        
+  //      registry.addConverter(roleToStringConverter);
         
     }
+    
+    
      
  
     /**
