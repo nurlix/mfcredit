@@ -1,4 +1,4 @@
-package kg.gov.mf.loan.controller;
+package kg.gov.mf.loan.admin.sys.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

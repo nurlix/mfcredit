@@ -39,7 +39,6 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import kg.gov.mf.loan.admin.org.converter.*;
 import kg.gov.mf.loan.admin.sys.converter.*;
 
-import kg.gov.mf.loan.converter.RoleToUserProfileConverter;
 
 
 @Configuration
@@ -47,9 +46,7 @@ import kg.gov.mf.loan.converter.RoleToUserProfileConverter;
 @ComponentScan(basePackages = "kg.gov.mf.loan")
 public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
      
-     
-    @Autowired
-    RoleToUserProfileConverter roleToUserProfileConverter;
+
     
     @Autowired
     OrgFormConverter orgFormConverter;
@@ -183,7 +180,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(roleToUserProfileConverter);
+
         
         
         registry.addConverter(orgFormConverter);
