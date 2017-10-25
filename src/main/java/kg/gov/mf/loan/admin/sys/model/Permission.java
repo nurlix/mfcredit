@@ -10,19 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-
- 
 @Entity
-@Table(name="roles")
-public class Role {
+@Table(name="permissions")
+public class Permission {
  
     @Id 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,15 +25,8 @@ public class Role {
     @Column(name="name")
     private String name;
     
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
-    private Set<User> users = new HashSet<User>(0);
-    
-    @ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "role_permission", joinColumns = { 
-			@JoinColumn(name = "role_id", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "permission_id", 
-					nullable = false, updatable = false) })
-    private Set<Permission> permissions = new HashSet<Permission>(0);    
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "permissions")
+    private Set<Role> roles = new HashSet<Role>(0);
 
 	public long getId() {
 		return id;
@@ -57,12 +44,14 @@ public class Role {
 		this.name = name;
 	}
 
-	public Set<User> getUsers() {
-		return users;
+
+
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Override
@@ -70,17 +59,6 @@ public class Role {
 		return String.valueOf(id);
 	}
 	
-	
-	
-	
-	public Set<Permission> getPermissions() {
-		return permissions;
-	}
-
-	public void setPermissions(Set<Permission> permissions) {
-		this.permissions = permissions;
-	}
-
 	@Override
 	public int hashCode() {
 		int hash = 5;
@@ -96,7 +74,7 @@ public class Role {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final Role other = (Role) obj;
+		final Permission other = (Permission) obj;
 		if (!Objects.equals(this.id, other.id)) {
 			return false;
 		}

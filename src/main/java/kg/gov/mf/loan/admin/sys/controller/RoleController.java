@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kg.gov.mf.loan.admin.sys.model.Role;
+import kg.gov.mf.loan.admin.sys.service.PermissionService;
 import kg.gov.mf.loan.admin.sys.service.RoleService;
 
 @Controller
@@ -23,6 +24,14 @@ public class RoleController
     {
         this.roleService = ps;
     }
+    
+	@Autowired
+    private PermissionService permissionService;
+     
+    public void setPermissionService(PermissionService ps)
+    {
+        this.permissionService = ps;
+    }    
      
 	@RequestMapping(value = "/role/list", method = RequestMethod.GET)
 	public String listRoles(Model model) {
@@ -49,13 +58,17 @@ public class RoleController
 	public String getRoleAddForm(Model model) {
 
 		model.addAttribute("role", new Role());
+		model.addAttribute("permissionList", this.permissionService.findAll());		
 
 		return "admin/sys/roleForm";
 	}
 
 	@RequestMapping("/role/{id}/edit")
 	public String editRole(@PathVariable("id") int id, Model model) {
+		
 		model.addAttribute("role", this.roleService.findById(id));
+		model.addAttribute("permissionList", this.permissionService.findAll());	
+		
 		return "admin/sys/roleForm";
 
 	}

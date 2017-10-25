@@ -77,7 +77,8 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Autowired
     RoleFormatter roleFormatter;      
 
-
+    @Autowired
+    PermissionFormatter permissionFormatter;
     
     private static final String UTF8 = "UTF-8";
     
@@ -192,6 +193,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         registry.addConverter(identityDocGivenByConverter);
     
         registry.addFormatter(roleFormatter);
+        registry.addFormatter(permissionFormatter);
         
         
   //      registry.addConverter(roleToStringConverter);
