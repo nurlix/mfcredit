@@ -532,45 +532,59 @@
 									<ul class="sub-menu">
 										<li class="nav-item"><a href="javascript:;"
 											class="nav-link nav-toggle"> <i class="icon-settings"></i>
-												Адресные данные <span class="arrow"></span>
+												Организация <span class="arrow"></span>
 										</a>
 											<ul class="sub-menu">
 
+												<li class="nav-item "><a
+													th:href="@{/orgForm/list/}" class="nav-link ">
+														<span class="title"> Вид организационных форм </span>
+												</a></li>
+
 												<li class="nav-item "><a th:href="@{/region/list/}"
-													class="nav-link "> <span class="title"> Region
-															List </span>
+													class="nav-link "> <span class="title"> Область </span>
 												</a></li>
 
 												<li class="nav-item "><a th:href="@{/district/list}"
-													class="nav-link "> <span class="title"> District
-															List </span>
+													class="nav-link "> <span class="title"> Район </span>
 												</a></li>
 
 												<li class="nav-item "><a th:href="@{/aokmotu/list}"
-													class="nav-link "> <span class="title"> Aokmotu
-															List </span>
+													class="nav-link "> <span class="title"> А.Окмоту </span>
 												</a></li>
 												<li class="nav-item "><a th:href="@{/village/list}"
-													class="nav-link "> <span class="title"> Village
-															List </span>
+													class="nav-link "> <span class="title"> Село </span>
 												</a></li>
+												
+												
+												<li class="nav-item "><a
+													th:href="@{/identityDocGivenBy/list/}" class="nav-link ">
+														<span class="title"> Орган выд. документ </span>
+												</a></li>
+
+												<li class="nav-item "><a
+													th:href="@{/identityDocType/list/}" class="nav-link ">
+														<span class="title"> Вид идент. документа </span>
+												</a></li>
+												
+												<li class="nav-item "><a
+													th:href="@{/employmentHistoryEventType/list/}" class="nav-link ">
+														<span class="title"> employmentHistoryEventType </span>
+												</a></li>												
+												
+																								
 											</ul></li>
 
 
 										<li class="nav-item"><a href="javascript:;"
 											class="nav-link nav-toggle"> <i class="icon-settings"></i>
-												Идентификационные данные <span class="arrow"></span>
+												other <span class="arrow"></span>
 										</a>
 											<ul class="sub-menu">
 
 												<li class="nav-item "><a
 													th:href="@{/identityDocGivenBy/list/}" class="nav-link ">
-														<span class="title"> IdentityDocGivenBy List </span>
-												</a></li>
-
-												<li class="nav-item "><a
-													th:href="@{/identityDocType/list/}" class="nav-link ">
-														<span class="title"> IdentityDocType List </span>
+														<span class="title"> other </span>
 												</a></li>
 
 											</ul></li>
@@ -579,39 +593,91 @@
 
 									</ul></li>
 
-								<li class="nav-item "><a th:href="@{/organization/list/}"
-									class="nav-link "> <span class="title"> Organization List
-									</span>
-								</a></li>
+
+
+
+
+								<li class="nav-item"><a href="javascript:;"
+									class="nav-link nav-toggle"> <i class="icon-folder"></i> <span
+										class="title">Организация</span> <span class="arrow "></span>
+								</a>
+									<ul class="sub-menu">
+
+										<li class="nav-item "><a th:href="@{/organization/list/}"
+											class="nav-link "> <span class="title"> Organization List
+											</span>
+										</a></li>
+										
+										<li class="nav-item "><a th:href="@{/person/list/}"
+											class="nav-link "> <span class="title"> Person List
+											</span>
+										</a></li>
+										
+										<li class="nav-item "><a th:href="@{/staff/list/}"
+											class="nav-link "> <span class="title"> Staff List
+											</span>
+										</a></li>
+										
+										<li class="nav-item "><a th:href="@{/employmentHistory/list/}"
+											class="nav-link "> <span class="title"> Empleyment History
+											</span>
+										</a></li>
+																				
+										<li class="nav-item "><a th:href="@{/employmentHistoryEvent/list/}"
+											class="nav-link "> <span class="title"> Empleyment History Event
+											</span>
+										</a></li>										
+																				
+
+									</ul></li>
+
+
+
+								<li class="nav-item"><a href="javascript:;"
+									class="nav-link nav-toggle"> <i class="icon-folder"></i> <span
+										class="title">Система</span> <span class="arrow "></span>
+								</a>
+									<ul class="sub-menu">
+										<li class="nav-item "><a th:href="@{/information/list/}"
+											class="nav-link "> <span class="title"> Information List
+											</span>
+										</a></li>
+										<li class="nav-item "><a th:href="@{/cSystem/list/}"
+											class="nav-link "> <span class="title"> System List
+											</span>
+										</a></li>
+										
+											
+										<li class="nav-item "><a th:href="@{/user/list/}"
+											class="nav-link "> <span class="title"> User List
+											</span>
+										</a></li>
+										<li class="nav-item "><a th:href="@{/role/list/}"
+											class="nav-link "> <span class="title"> Role List
+											</span>
+										</a></li>
+										<li class="nav-item "><a th:href="@{/permission/list/}"
+											class="nav-link "> <span class="title"> Permission List
+											</span>
+										</a></li>
+
+									</ul></li>
+
+
+
+
+
+
+
+
 								
-								<li class="nav-item "><a th:href="@{/information/list/}"
-									class="nav-link "> <span class="title"> Information List
-									</span>
-								</a></li>
-								<li class="nav-item "><a th:href="@{/cSystem/list/}"
-									class="nav-link "> <span class="title"> System List
-									</span>
-								</a></li>
-								<li class="nav-item "><a th:href="@{/person/list/}"
-									class="nav-link "> <span class="title"> Person List
-									</span>
-								</a></li>								
-								<li class="nav-item "><a th:href="@{/staff/list/}"
-									class="nav-link "> <span class="title"> Staff List
-									</span>
-								</a></li>									
-								<li class="nav-item "><a th:href="@{/user/list/}"
-									class="nav-link "> <span class="title"> User List
-									</span>
-								</a></li>
-								<li class="nav-item "><a th:href="@{/role/list/}"
-									class="nav-link "> <span class="title"> Role List
-									</span>
-								</a></li>
-								<li class="nav-item "><a th:href="@{/permission/list/}"
-									class="nav-link "> <span class="title"> Permission List
-									</span>
-								</a></li>								
+								
+								
+																
+								
+																
+								
+								
 																								
 							</ul>
 						</li>

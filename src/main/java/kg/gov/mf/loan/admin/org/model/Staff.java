@@ -1,5 +1,9 @@
 package kg.gov.mf.loan.admin.org.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -42,10 +48,9 @@ public class Staff {
     @JoinColumn(name="person_id")
     Person person;    
     
-    
-    
-    
-    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name="employment_history_id")
+    EmploymentHistory employmentHistory;     
     
 	public Person getPerson() {
 		return person;
@@ -102,6 +107,16 @@ public class Staff {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	public EmploymentHistory getEmploymentHistory() {
+		return employmentHistory;
+	}
+
+	public void setEmploymentHistory(EmploymentHistory employmentHistory) {
+		this.employmentHistory = employmentHistory;
+	}
+
+
 
 	
     
