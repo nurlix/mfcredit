@@ -52,6 +52,18 @@ public class RoleController
 
 		return "admin/sys/roleView";
 	}
+	
+	@RequestMapping("/role/{id}/details")
+	public String viewRoleDetails(@PathVariable("id") int id, Model model) {
+
+		Role role = this.roleService.findById(id);
+		
+
+		model.addAttribute("role", role);
+		model.addAttribute("roleList", this.roleService.findAll());
+
+		return "admin/sys/roleDetails";
+	}	
     
 	
 	@RequestMapping(value = "/role/add", method = RequestMethod.GET)

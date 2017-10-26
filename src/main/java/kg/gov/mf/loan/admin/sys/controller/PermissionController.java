@@ -43,6 +43,19 @@ public class PermissionController
 
 		return "admin/sys/permissionView";
 	}
+	
+	
+	@RequestMapping("/permission/{id}/details")
+	public String viewPermissionDetails(@PathVariable("id") int id, Model model) {
+
+		Permission permission = this.permissionService.findById(id);
+		
+
+		model.addAttribute("permission", permission);
+		model.addAttribute("permissionList", this.permissionService.findAll());
+
+		return "admin/sys/permissionDetails";
+	}	
     
 	
 	@RequestMapping(value = "/permission/add", method = RequestMethod.GET)

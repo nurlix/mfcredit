@@ -8,61 +8,7 @@
 
 <body>
 
-	<div class="tabbable-custom ">
-		<ul class="nav nav-tabs " id="permission_tabs">
-			<li class="active">
-				<a href="#userListOfPermission" data-toggle="tab">Район</a>
-			</li>
-		</ul>
-		
-		<div class="tab-content">
-			<div class="tab-pane active" id="userListOfPermission">
-
-
-				<table
-					class="table table-hover table-condensed table-striped table-bordered compact condensed"
-					id="userTable">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Name</th>
-							<th>Code</th>
-							<th>Permission</th>
-							<th>View</th>
-							<th>Edit</th>
-							<th>Delete</th>
-						</tr>
-					</thead>
-
-					<tbody>
-
-						<tr th:each="userInList : ${permission.users}">
-							<td th:text="${userInList.id}">Id</td>
-							<td th:text="${userInList.name}">Name</td>
-							<td><a th:href="@{/user/__${userInList.id}__/details}"
-								permission="button" class="btn btn-xs green-stripe"> View </a></td>
-							<td><a data-remote="false" data-toggle="modal"
-								data-target="#permissionFormModal"
-								th:href="@{/user/__${userInList.id}__/edit}"
-								permission="button" class="btn btn-xs blue-stripe"> Edit </a></td>
-
-							<td>
-								<form th:action="@{/user/__${userInList.id}__/remove}"
-									method="post">
-									<button type="submit" class="btn btn-xs red-stripe">Delete</button>
-								</form>
-							</td>
-						</tr>
-					</tbody>
-
-				</table>
-
-
-
-			</div>
-			
-		</div>
-	</div>
-
+ Permission details 
+ 
 </body>
 </html>

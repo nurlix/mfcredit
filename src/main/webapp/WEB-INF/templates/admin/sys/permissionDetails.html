@@ -49,7 +49,7 @@
 							<div class="portlet-body">
 								<table
 									class="table table-hover table-condensed table-striped table-bordered compact condensed"
-									id="roleTable">
+									id="permissionTable">
 									<thead>
 										<tr>
 											<th>Id</th>
@@ -61,16 +61,16 @@
 									</thead>
 									<tbody>
 										<tr >
-											<td th:text="${role.id}">Id</td>
-											<td th:text="${role.name}">Name</td>
-											<td><a th:href="@{/role/__${role.id}__/details}"
-												role="button" class="btn btn-xs green-stripe"> View </a></td>
+											<td th:text="${permission.id}">Id</td>
+											<td th:text="${permission.name}">Name</td>
+											<td><a th:href="@{/permission/__${permission.id}__/details}"
+												permission="button" class="btn btn-xs green-stripe"> View </a></td>
 											<td><a data-remote="false" data-toggle="modal"
-												data-target="#roleFormModal"
-												th:href="@{/role/__${role.id}__/edit}" role="button"
+												data-target="#permissionFormModal"
+												th:href="@{/permission/__${permission.id}__/edit}" permission="button"
 												class="btn btn-xs blue-stripe"> Edit </a></td>
 											<td>
-												<form th:action="@{/role/__${role.id}__/remove}"
+												<form th:action="@{/permission/__${permission.id}__/remove}"
 													method="post">
 													<button type="submit" class="btn btn-xs red-stripe">
 														Delete</button>
@@ -82,8 +82,8 @@
 								<div class="col-md-12">
 
 									<!-- Default bootstrap modal example -->
-									<div class="modal fade" id="roleFormModal" tabindex="-1"
-										role="dialog" aria-labelledby="myModalLabel"
+									<div class="modal fade" id="permissionFormModal" tabindex="-1"
+										permission="dialog" aria-labelledby="myModalLabel"
 										aria-hidden="true">
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -124,7 +124,7 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<input hidden="true" type="text" id="role_id" name="role_id" th:value="${role.id}" />
+						<input hidden="true" type="text" id="permission_id" name="permission_id" th:value="${permission.id}" />
 
 						<div id="content"></div>
 
@@ -157,7 +157,7 @@
 <script type="text/javascript">
 		$(document).ready(function() {
 
-			var table = $('#roleTable').DataTable({
+			var table = $('#permissionTable').DataTable({
 		    	stateSave: true,
 		    	"language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"},
 	    		"info":     false,
@@ -171,9 +171,9 @@
 
 				var rowData = datatable.row(cell.index().row).data();
 
-				$("#role_id").val(rowData[0]);
+				$("#permission_id").val(rowData[0]);
 				
-				var sUrl ="/MFCredit/role/" + rowData[0]+"/view";
+				var sUrl ="/MFCredit/permission/" + rowData[0]+"/view";
 				
 				$.get(sUrl, function(data) {
 
@@ -186,12 +186,12 @@
 		</script>
 
 	<script type="text/javascript">
-	$("#roleFormModal").on("show.bs.modal", function(e) {
+	$("#permissionFormModal").on("show.bs.modal", function(e) {
 		
 	    var link = $(e.relatedTarget);
 	    
 	    
-	    var roleID = $("#role_id").val();
+	    var permissionID = $("#permission_id").val();
 
 	    if(link.attr("href").indexOf('district/add')>0)
 	    {
