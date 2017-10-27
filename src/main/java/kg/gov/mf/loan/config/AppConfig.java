@@ -57,7 +57,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
         resolver.setCharacterEncoding(UTF8);
-        resolver.setCache(false);
+        resolver.setContentType("text/html; charset=UTF-8");
         return resolver;
     }
     
