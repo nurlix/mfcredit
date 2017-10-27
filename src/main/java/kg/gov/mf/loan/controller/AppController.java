@@ -47,6 +47,13 @@ public class AppController {
         return "index";
     }
     
+    @RequestMapping(value = { "/404"}, method = RequestMethod.GET)
+    public String page404(ModelMap model) {
+ 
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "404";
+    }
+    
     /**
      * This method handles login GET requests.
      * If users is already logged-in and tries to goto login page again, will be redirected to index page.

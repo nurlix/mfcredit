@@ -1,7 +1,7 @@
 package kg.gov.mf.loan.config;
 
-import javax.servlet.Filter;
-import org.springframework.web.filter.CharacterEncodingFilter;
+import javax.servlet.ServletRegistration;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -19,6 +19,12 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected String[] getServletMappings() {
         return new String[] { "/" };
+    }
+    
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        boolean done = registration.setInitParameter("throwExceptionIfNoHandlerFound", "true"); // -> true
+        if(!done) throw new RuntimeException();
     }
     
     /*
