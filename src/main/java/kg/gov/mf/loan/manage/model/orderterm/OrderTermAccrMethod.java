@@ -7,21 +7,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="order_term_currency")
-public class OrderTermCurrency {
+@Table(name="order_term_accr_method")
+public class OrderTermAccrMethod {
 	
 	@Id
 	@GeneratedValue
 	@Column(name="id")
 	private long id;
 	
-	@Column(name="name", nullable=false, length=40)
+	@Column(name="name", nullable=false, length=40)	
 	private String name;
 	
-	public OrderTermCurrency() {
+	public OrderTermAccrMethod() {
 	}
 
-	public OrderTermCurrency(String name) {
+	public OrderTermAccrMethod(String name) {
 		this.name = name;
 	}
 
@@ -40,5 +40,5 @@ public class OrderTermCurrency {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

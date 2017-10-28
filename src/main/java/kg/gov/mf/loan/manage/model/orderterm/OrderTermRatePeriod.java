@@ -1,9 +1,21 @@
 package kg.gov.mf.loan.manage.model.orderterm;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="order_term_rate_period")
 public class OrderTermRatePeriod {
 	
+	@Id
+	@GeneratedValue
+	@Column(name="id")
 	private long id;
 	
+	@Column(name="name", nullable=false, length=40)
 	private String name;
 	
 	public OrderTermRatePeriod() {
