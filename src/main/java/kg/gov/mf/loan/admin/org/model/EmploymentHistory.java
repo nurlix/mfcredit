@@ -1,5 +1,6 @@
 package kg.gov.mf.loan.admin.org.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="employmentHistory")
@@ -24,13 +29,14 @@ public class EmploymentHistory {
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
  
-    @Column(name="name", nullable=false)
-    private String name;
+    @Column(name="number")
+    private String number;
     
-    @Column(name="code", nullable=false)
-    private String code;
+    @DateTimeFormat(pattern = "dd.mm.yyyy")
+    @Temporal(TemporalType.DATE)
+    private Date date;    
     
-    @OneToOne(targetEntity=Staff.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity=Staff.class, fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name="staff_id")
     Staff staff;    
     
@@ -45,20 +51,20 @@ public class EmploymentHistory {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNumber() {
+		return number;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 
-	public String getCode() {
-		return code;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Staff getStaff() {
@@ -77,10 +83,6 @@ public class EmploymentHistory {
 		this.employmentHistoryEvent = employmentHistoryEvent;
 	}
 
-
-
-
-	
 	
     
     

@@ -52,7 +52,8 @@
 												<th>Id</th>
 												<th>Name</th>
 												<th>Description</th>
-												<th>OrgForm</th>												
+												<th>OrgForm</th>
+												<th>View</th>												
 												<th>Edit</th>
 												<th>Delete</th>
 											</tr>
@@ -65,9 +66,8 @@
 												<td th:text="${s.name}">Name</td>     
 												<td th:text="${s.description}">Description</td>
 												<td th:text="${s.orgForm.name}">Description</td>
-
-
-
+												<td><a th:href="@{/organization/__${s.id}__/details}"
+													role="button" class="btn btn-xs green-stripe"> View </a></td>
 												<td>
 													<a data-remote="false" data-toggle="modal"
 													data-target="#organizationFormModal" th:href="@{/organization/__${s.id}__/edit}"

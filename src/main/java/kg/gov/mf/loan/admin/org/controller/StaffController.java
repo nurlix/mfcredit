@@ -60,7 +60,13 @@ public class StaffController {
         this.personService = rs;
     }
     
-    
+	@Autowired
+    private EmploymentHistoryService employmentHistoryService;
+	
+    public void setEmploymentHistoryService(EmploymentHistoryService ds)
+    {
+        this.employmentHistoryService = ds;
+    }    
     
 	@RequestMapping(value = "/staff/list", method = RequestMethod.GET)
 	public String listStaffs(Model model) {
@@ -126,6 +132,11 @@ public class StaffController {
 		if (result.hasErrors()) {
 			System.out.println(" ==== BINDING ERROR ====" + result.getAllErrors().toString());
 		} else if (staff.getId() == 0) {
+			
+			EmploymentHistory employmentHistory = staff.getEmploymentHistory();
+			employmentHistory.setStaff(staff);
+			
+			
 			this.staffService.create(staff);
 		} else {
 			this.staffService.edit(staff);

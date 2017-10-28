@@ -160,6 +160,20 @@ public class OrganizationController {
 
 		return "admin/org/organizationView";
 	}
+	
+	
+	@RequestMapping("/organization/{id}/details")
+	public String viewOrganizationDetailsById(@PathVariable("id") long id, Model model) {
+
+		Organization organization = this.organizationService.findById(id);
+
+		model.addAttribute("organization", organization);
+		model.addAttribute("positionList", this.positionService.findAll());
+		model.addAttribute("informationList", this.informationService.findInformationBySystemObjectTypeIdAndSystemObjectId(2, organization.getId()));		
+		
+
+		return "admin/org/organizationDetails";
+	}
     
 	
 	@RequestMapping(value = "/organization/add", method = RequestMethod.GET)
