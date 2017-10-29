@@ -41,7 +41,7 @@ public class EmploymentHistoryEvent {
     
     
     
-    @ManyToOne(targetEntity=EmploymentHistoryEventType.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity=EmploymentHistoryEventType.class, fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name="employment_history_event_type_id")
     EmploymentHistoryEventType employmentHistoryEventType; 
     

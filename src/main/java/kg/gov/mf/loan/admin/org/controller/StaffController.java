@@ -97,6 +97,15 @@ public class StaffController {
 		return "admin/org/staffView";
 	}
     
+	@RequestMapping("/staff/{id}/details")
+	public String viewStaffDetailsById(@PathVariable("id") long id, Model model) {
+
+		Staff staff = this.staffService.findById(id);
+
+		model.addAttribute("staff", staff);
+
+		return "admin/org/staffDetails";
+	}
 	
 	@RequestMapping(value = "/staff/add", method = RequestMethod.GET)
 	public String getStaffAddForm(Model model) {
@@ -139,6 +148,10 @@ public class StaffController {
 			
 			this.staffService.create(staff);
 		} else {
+			
+			EmploymentHistory employmentHistory = staff.getEmploymentHistory();
+			employmentHistory.setStaff(staff);
+			
 			this.staffService.edit(staff);
 		}
 

@@ -51,15 +51,17 @@
 						<div class="portlet portlet-fit ">
 							<div class="portlet-body">
 
-								<div>
 
-<table class="table table-hover table-condensed table-striped table-bordered compact condensed" id="employmentHistoryEventTable">
+
+
+								<div>
+									<table class="table table-hover table-condensed table-striped table-bordered compact condensed" id="employmentHistoryTable">
 										<thead>
 											<tr>
 												<th>Id</th>
-												<th>Name</th>
-												<th>Event Type</th>
-												<th>EmploymentHistory</th>
+												<th>Number</th>
+												<th>Date</th>
+												<th>Staff</th>
 												<th>View</th>
 												<th>Edit</th>
 												<th>Delete</th>
@@ -69,20 +71,20 @@
 										<tbody>
 											
 											<tr >
-												<td th:text="${employmentHistoryEvent.id}">Id</td>
-												<td th:text="${employmentHistoryEvent.name}">Name</td>     
-												<td th:text="${employmentHistoryEvent.employmentHistoryEventType.name}">employmentHistory</td> 
-												<td th:text="${employmentHistoryEvent.employmentHistory.number}">employmentHistory</td>
-												<td><a th:href="@{/employmentHistoryEvent/__${employmentHistoryEvent.id}__/details}"
+												<td th:text="${employmentHistory.id}">Id</td>
+												<td th:text="${employmentHistory.number}">Number</td>     
+												<td th:text="${employmentHistory.date}">Date</td>
+												<td th:text="${employmentHistory.staff.name}">Staff name</td>
+												<td><a th:href="@{/employmentHistory/__${employmentHistory.id}__/details}"
 													role="button" class="btn btn-xs green-stripe"> View </a></td>
 												<td>
 													<a data-remote="false" data-toggle="modal"
-													data-target="#employmentHistoryEventFormModal" th:href="@{/employmentHistoryEvent/__${employmentHistoryEvent.id}__/edit}"
+													data-target="#employmentHistoryFormModal" th:href="@{/employmentHistory/__${employmentHistory.id}__/edit}"
 													role="button" class="btn btn-xs blue-stripe"> Edit
 													</a>
 												</td>
 												<td>
-													<form th:action="@{/employmentHistoryEvent/__${employmentHistoryEvent.id}__/remove}" method="post">
+													<form th:action="@{/employmentHistory/__${employmentHistory.id}__/remove}" method="post">
 														<button type="submit" class="btn btn-xs red-stripe">Delete</button>
 													</form>
 												</td>
@@ -90,15 +92,24 @@
 										</tbody>
 
 									</table>
-
-
 								</div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 								<div class="col-md-12">
 
 									<!-- Default bootstrap modal example -->
-									<div class="modal fade" id="employmentHistoryEventFormModal" tabindex="-1"
+									<div class="modal fade" id="employmentHistoryFormModal" tabindex="-1"
 										role="dialog" aria-labelledby="myModalLabel"
 										aria-hidden="true">
 										<div class="modal-dialog">
@@ -127,9 +138,9 @@
 								<div class="row">
 									<div class="col-md-12">
 										<a data-remote="false" data-toggle="modal"
-											data-target="#employmentHistoryEventFormModal" th:href="@{/aokmotu/add}"
+											data-target="#employmentHistoryFormModal" th:href="@{/employmentHistoryEvent/add}"
 											role="button" class="btn btn-large btn-primary"> Add
-											Information</a>											
+											Event</a>											
 
 
 									</div>
@@ -152,7 +163,7 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<input hidden="true" type="text" id="employmentHistoryEvent_id" name="employmentHistoryEvent_id" th:value="${employmentHistoryEvent.id}" />
+						<input hidden="true" type="text" id="employmentHistory_id" name="employmentHistory_id" th:value="${employmentHistory.id}" />
 
 						<div id="content"></div>
 
@@ -185,7 +196,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-			var table = $('#employmentHistoryEventTable').DataTable({
+			var table = $('#employmentHistoryTable').DataTable({
 		    	stateSave: true,
 		    	"language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"},
 	    		"info":     false,
@@ -199,9 +210,9 @@
 
 				var rowData = datatable.row(cell.index().row).data();
 
-				$("#employmentHistoryEvent_id").val(rowData[0]);
+				$("#employmentHistory_id").val(rowData[0]);
 				
-				var sUrl ="/MFCredit/employmentHistoryEvent/" + rowData[0]+"/view";
+				var sUrl ="/MFCredit/employmentHistory/" + rowData[0]+"/view";
 				
 				$.get(sUrl, function(data) {
 
@@ -230,19 +241,21 @@
 		</script>
 
 	<script type="text/javascript">
-	$("#employmentHistoryEventFormModal").on("show.bs.modal", function(e) {
+	$("#employmentHistoryFormModal").on("show.bs.modal", function(e) {
 		
 	    var link = $(e.relatedTarget);
 
-	    var employmentHistoryEventID = $("#employmentHistoryEvent_id").val();
+	    var employmentHistoryID = $("#employmentHistory_id").val();
 
-	    if(link.attr("href").indexOf('aokmotu/add')>0)
+	    if(link.attr("href").indexOf('employmentHistoryEvent/add')>0)
 	    {
-	    	$(this).find(".modal-title").html(link.attr("href").replace("/aokmotu/add","/employmentHistoryEvent/"+employmentHistoryEventID+"/aokmotu/add"));
-		    $(this).find(".modal-body").load(link.attr("href").replace("/aokmotu/add","/employmentHistoryEvent/"+employmentHistoryEventID+"/aokmotu/add"));
+	    	alert(1);
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/employmentHistoryEvent/add","/employmentHistory/"+employmentHistoryID+"/employmentHistoryEvent/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/employmentHistoryEvent/add","/employmentHistory/"+employmentHistoryID+"/employmentHistoryEvent/add"));
 	    }
 	    else
     	{
+	    	alert(2);
 	    	$(this).find(".modal-title").html(link.attr("href"));
 		    $(this).find(".modal-body").load(link.attr("href"));
     	}

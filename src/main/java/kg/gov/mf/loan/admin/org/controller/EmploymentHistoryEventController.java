@@ -33,6 +33,15 @@ public class EmploymentHistoryEventController {
     {
         this.employmentHistoryService = rs;
     }    
+    
+    
+	@Autowired
+    private EmploymentHistoryEventTypeService employmentHistoryEventTypeService;
+     
+    public void setEmploymentHistoryEventTypeService(EmploymentHistoryEventTypeService rs)
+    {
+        this.employmentHistoryEventTypeService = rs;
+    }
      
 	@RequestMapping(value = "/employmentHistoryEvent/list", method = RequestMethod.GET)
 	public String listEmploymentHistoryEvents(Model model) {
@@ -49,6 +58,7 @@ public class EmploymentHistoryEventController {
 		EmploymentHistoryEvent employmentHistoryEvent = this.employmentHistoryEventService.findById(id);
 
 		model.addAttribute("employmentHistoryEvent", employmentHistoryEvent);
+		model.addAttribute("employmentHistoryEventTypeList", this.employmentHistoryEventTypeService.findAll());
 
 		return "admin/org/employmentHistoryEventView";
 	}
@@ -71,6 +81,7 @@ public class EmploymentHistoryEventController {
 		
 		modelEmploymentHistoryEvent.setEmploymentHistory(this.employmentHistoryService.findById(employmentHistoryId));
 		model.addAttribute("employmentHistoryList", this.employmentHistoryService.findAll());		
+		model.addAttribute("employmentHistoryEventTypeList", this.employmentHistoryEventTypeService.findAll());
 		
 		model.addAttribute("employmentHistoryEvent",modelEmploymentHistoryEvent);
 
@@ -82,6 +93,7 @@ public class EmploymentHistoryEventController {
 	public String getEmploymentHistoryEventEditForm(@PathVariable("id") long id, Model model) {
 		model.addAttribute("employmentHistoryEvent", this.employmentHistoryEventService.findById(id));
 		model.addAttribute("employmentHistoryList", this.employmentHistoryService.findAll());
+		model.addAttribute("employmentHistoryEventTypeList", this.employmentHistoryEventTypeService.findAll());
 		
 		return "admin/org/employmentHistoryEventForm";
 
@@ -94,6 +106,7 @@ public class EmploymentHistoryEventController {
 			System.out.println(" ==== BINDING ERROR ====" + result.getAllErrors().toString());
 		} else if (employmentHistoryEvent.getId() == 0) {
 			employmentHistoryEvent.setEmploymentHistory(this.employmentHistoryService.findById(employmentHistoryEvent.getEmploymentHistory().getId()));
+			
 			this.employmentHistoryEventService.create(employmentHistoryEvent);
 		} else {
 			employmentHistoryEvent.setEmploymentHistory(this.employmentHistoryService.findById(employmentHistoryEvent.getEmploymentHistory().getId()));

@@ -36,7 +36,7 @@ public class EmploymentHistory {
     @Temporal(TemporalType.DATE)
     private Date date;    
     
-    @OneToOne(targetEntity=Staff.class, fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity=Staff.class, fetch = FetchType.EAGER)
     @JoinColumn(name="staff_id")
     Staff staff;    
     
