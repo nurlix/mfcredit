@@ -24,11 +24,28 @@ import kg.gov.mf.loan.manage.model.order.CreditOrder;
 import kg.gov.mf.loan.manage.model.order.CreditOrderState;
 import kg.gov.mf.loan.manage.model.order.CreditOrderType;
 import kg.gov.mf.loan.manage.model.orderdocumentpackage.OrderDocumentPackage;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTerm;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermAccrMethod;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermDaysMethod;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermFloatingRateType;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermFrequencyType;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermFund;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermRatePeriod;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermTransactionOrder;
 import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListStateService;
 import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListTypeService;
 import kg.gov.mf.loan.manage.service.order.CreditOrderService;
 import kg.gov.mf.loan.manage.service.order.CreditOrderStateService;
 import kg.gov.mf.loan.manage.service.order.CreditOrderTypeService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermAccrMethodService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermCurrencyService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermDaysMethodService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermFloatingRateTypeService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermFrequencyTypeService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermFundService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermRatePeriodService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermTransactionOrderService;
 import kg.gov.mf.loan.util.Utils;
 
 @Controller
@@ -51,6 +68,30 @@ public class CreditOrderController {
 	
 	@Autowired
 	AppliedEntityListTypeService elTypeService;
+	
+	@Autowired
+	OrderTermFundService fundService;
+	
+	@Autowired
+	OrderTermCurrencyService currService;
+	
+	@Autowired
+	OrderTermFrequencyTypeService freqTypeService;
+	
+	@Autowired
+	OrderTermRatePeriodService ratePeriodService;
+	
+	@Autowired
+	OrderTermFloatingRateTypeService rateTypeService;
+	
+	@Autowired
+	OrderTermTransactionOrderService txOrderService;
+	
+	@Autowired
+	OrderTermDaysMethodService daysMethodService;
+	
+	@Autowired
+	OrderTermAccrMethodService accrMethodService;
 	
 	static final Logger loggerEntityList = LoggerFactory.getLogger(AppliedEntityList.class);
 	
@@ -81,7 +122,40 @@ public class CreditOrderController {
         model.addAttribute("emptyDocumentPackage", new OrderDocumentPackage());
         model.addAttribute("orderDocumentPackages", order.getOrderDocumentPackage());
         
-        model.addAttribute("tab0","active");
+        List<OrderTermFund> funds = fundService.findAll();
+        model.addAttribute("funds", funds);
+        model.addAttribute("emptyFund", new OrderTermFund());
+        
+        List<OrderTermCurrency> currs = currService.findAll();
+        model.addAttribute("currencies", currs);
+        model.addAttribute("emptyCurrency", new OrderTermFund());
+        
+        List<OrderTermFrequencyType> freqTypes = freqTypeService.findAll();
+        model.addAttribute("freqTypes", freqTypes);
+        model.addAttribute("emptyFreqType", new OrderTermFrequencyType());
+        
+        List<OrderTermRatePeriod> ratePeriods = ratePeriodService.findAll();
+        model.addAttribute("ratePeriods", ratePeriods);
+        model.addAttribute("emptyRatePeriod", new OrderTermRatePeriod());
+        
+        List<OrderTermFloatingRateType> rateTypes = rateTypeService.findAll();
+        model.addAttribute("rateTypes", rateTypes);
+        model.addAttribute("emptyRateType", new OrderTermFloatingRateType());
+        
+        List<OrderTermTransactionOrder> txOrders = txOrderService.findAll();
+        model.addAttribute("txOrders", txOrders);
+        model.addAttribute("emptyTXOrder", new OrderTermTransactionOrder());
+        
+        List<OrderTermDaysMethod> daysMethods = daysMethodService.findAll();
+        model.addAttribute("daysMethods", daysMethods);
+        model.addAttribute("emptyDaysMethod", new OrderTermDaysMethod());
+        
+        List<OrderTermAccrMethod> accrMethods = accrMethodService.findAll();
+        model.addAttribute("accrMethods", accrMethods);
+        model.addAttribute("emptyAccrMethod", new OrderTermAccrMethod());
+        
+        model.addAttribute("emptyTerm", new OrderTerm());
+        model.addAttribute("orderTerms", order.getOrderTerm());
         
         model.addAttribute("loggedinuser", Utils.getPrincipal());
         return "/manage/order/view";

@@ -141,7 +141,7 @@ public class OrderTerm {
 		
 	}
 
-	public OrderTerm(CreditOrder creditOrder, String description, OrderTermFund fund, Double amount,
+	public OrderTerm(String description, OrderTermFund fund, Double amount,
 			OrderTermCurrency currency, int frequencyQuantity, OrderTermFrequencyType frequencyType,
 			int installmentQuantity, int installmentFirstDay, Date firstInstallmentDate, Date lastInstallmentDate,
 			int minDaysDisbFirstInst, int maxDaysDisbFirstInst, int graceOnPrinciplePaymentInst,
@@ -153,7 +153,6 @@ public class OrderTerm {
 			OrderTermDaysMethod daysInYearMethod, OrderTermDaysMethod daysInMonthMethod,
 			OrderTermTransactionOrder transactionOrder, OrderTermAccrMethod interestAccrMethod,
 			boolean earlyRepaymentAllowed, Double penaltyLimitPercent, boolean collateralFree) {
-		this.creditOrder = creditOrder;
 		this.description = description;
 		this.fund = fund;
 		this.amount = amount;
