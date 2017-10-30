@@ -134,7 +134,13 @@
 										<a data-remote="false" data-toggle="modal"
 											data-target="#organizationFormModal" th:href="@{/information/add}"
 											role="button" class="btn btn-large btn-primary"> Add
-											Information</a>											
+											Information</a>
+										<a data-remote="false" data-toggle="modal"
+											data-target="#organizationFormModal" th:href="@{/staff/add}"
+											role="button" class="btn btn-large btn-primary"> Add
+											Staff</a>											
+																						
+																						
 																																
 									</div>
 								</div>
@@ -282,7 +288,12 @@ function updateIdentityDocGivenById(sel)
 	    	$(this).find(".modal-title").html(link.attr("href").replace("/department/add","/organization/"+organizationID+"/department/add"));
 		    $(this).find(".modal-body").load(link.attr("href").replace("/department/add","/organization/"+organizationID+"/department/add"));
 	    }
+	    if(link.attr("href").indexOf('staff/add')>0)
 		    
+	    {
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/staff/add","/organization/"+organizationID+"/staff/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/staff/add","/organization/"+organizationID+"/staff/add"));
+	    }
 	    else
     	{
 	    	$(this).find(".modal-title").html(link.attr("href"));

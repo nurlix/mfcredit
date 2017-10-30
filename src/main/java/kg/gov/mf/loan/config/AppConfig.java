@@ -86,6 +86,11 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Autowired
     PersonFormatter personFormatter;
 
+    @Autowired
+    RegionFormatter regionFormatter;
+    
+    @Autowired
+    DistrictFormatter districtFormatter;    
     
     @Autowired
     OrganizationFormatter organizationFormatter;    
@@ -206,8 +211,8 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         
         registry.addConverter(orgFormConverter);
         registry.addConverter(aokmotuConverter);
-        registry.addConverter(regionConverter);
-        registry.addConverter(districtConverter);
+        
+        
         registry.addConverter(villageConverter);
         registry.addConverter(identityDocTypeConverter);
         registry.addConverter(identityDocGivenByConverter);
@@ -217,7 +222,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         registry.addFormatter(departmentFormatter);
         registry.addFormatter(organizationFormatter);
         registry.addFormatter(positionFormatter);
-        registry.addFormatter(personFormatter);        
+        registry.addFormatter(personFormatter);
+        registry.addFormatter(regionFormatter);
+        registry.addFormatter(districtFormatter);            
         registry.addFormatter(employmentHistoryFormatter);    
         registry.addFormatter(employmentHistoryEventTypeFormatter);    
 

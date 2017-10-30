@@ -1,7 +1,10 @@
-package kg.gov.mf.loan.admin.org.model;
+package kg.gov.mf.loan.admin.sys.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,23 +13,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
-@Table(name="employment_history_event_type")
+import kg.gov.mf.loan.admin.org.model.BankData;
 
-public class EmploymentHistoryEventType {
+@Entity
+@Table(name="object_type")
+public class ObjectType {
  
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
  
-    @Column(name="name", nullable=false)
+    @Column(name="name")
     private String name;
-  
+    
+    @Column(name="code")
+    private String code;
+    
+
 	public long getId() {
 		return id;
 	}
@@ -43,5 +53,14 @@ public class EmploymentHistoryEventType {
 		this.name = name;
 	}
 
-    
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	
+	
 }

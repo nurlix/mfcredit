@@ -48,7 +48,14 @@ public class User {
 					nullable = false, updatable = false) })
     private Set<Role> roles = new HashSet<Role>(0);
     
+    @ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_supervisor_term", joinColumns = { 
+			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "supervisor_term_id", 
+					nullable = false, updatable = false) })
+    private Set<SupervisorTerm> supervisorTerms = new HashSet<SupervisorTerm>(0);
 
+    
 	public long getId() {
 		return id;
 	}
@@ -89,6 +96,15 @@ public class User {
 		this.roles = roles;
 	}
 
+	
+
+	public Set<SupervisorTerm> getSupervisorTerms() {
+		return supervisorTerms;
+	}
+
+	public void setSupervisorTerms(Set<SupervisorTerm> supervisorTerms) {
+		this.supervisorTerms = supervisorTerms;
+	}
 
 	@Override
 	public String toString() {

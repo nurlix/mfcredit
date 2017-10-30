@@ -121,6 +121,25 @@ public class StaffController {
 		return "admin/org/staffForm";
 	}
 	
+	@RequestMapping(value = "/organization/{organizationId}/staff/add", method = RequestMethod.GET)
+	public String getStaffAddFormOrganization(Model model,@PathVariable("organizationId") long organization_id) {
+
+		Staff modelStaff = new Staff();
+		
+		modelStaff.setOrganization(this.organizationService.findById(organization_id));
+		
+		model.addAttribute("staff", modelStaff);
+
+		model.addAttribute("departmentList", this.departmentService.findAll());	
+		model.addAttribute("organizationList", this.organizationService.findAll());	
+		model.addAttribute("positionList", this.positionService.findAll());	
+		model.addAttribute("personList", this.personService.findAll());		
+		
+
+		return "admin/org/staffForm";
+	}
+	
+	
 	
 	@RequestMapping("/staff/{id}/edit")
 	public String getStaffEditForm(@PathVariable("id") long id, Model model) {

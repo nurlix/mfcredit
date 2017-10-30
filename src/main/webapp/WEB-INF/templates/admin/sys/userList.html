@@ -120,10 +120,16 @@
 									<div class="col-md-12">
 										<a data-remote="false" data-toggle="modal"
 											data-target="#userFormModal" th:href="@{/user/add}"
+											role="button" class="btn btn-large btn-primary"> Add User</a>
+										<a data-remote="false" data-toggle="modal"
+											data-target="#userFormModal" th:href="@{/supervisorTerm/add}"
 											role="button" class="btn btn-large btn-primary"> Add
-											User</a>
+											Supervisor Term</a>
 									</div>
+
+
 								</div>
+
 							</div>
 						</div>
 						<!-- END BORDERED TABLE PORTLET-->
@@ -209,6 +215,12 @@
 	    	$(this).find(".modal-title").html(link.attr("href").replace("/childuser/add","/user/"+userID+"/user/add"));
 		    $(this).find(".modal-body").load(link.attr("href").replace("/childuser/add","/user/"+userID+"/user/add"));
 	    }
+	    if(link.attr("href").indexOf('supervisorTerm/add')>0)
+		    
+	    {
+	    	$(this).find(".modal-title").html(link.attr("href").replace("/supervisorTerm/add","/user/"+userID+"/supervisorTerm/add"));
+		    $(this).find(".modal-body").load(link.attr("href").replace("/supervisorTerm/add","/user/"+userID+"/supervisorTerm/add"));
+	    }	    
 	    else
     	{
 	    	$(this).find(".modal-title").html(link.attr("href"));

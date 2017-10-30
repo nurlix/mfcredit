@@ -40,7 +40,7 @@ public class EmploymentHistory {
     @JoinColumn(name="staff_id")
     Staff staff;    
     
-    @OneToMany(mappedBy = "employmentHistory", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @OneToMany(mappedBy = "employmentHistory", cascade = CascadeType.MERGE, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<EmploymentHistoryEvent> employmentHistoryEvent = new HashSet<EmploymentHistoryEvent>();
 
 	public long getId() {
