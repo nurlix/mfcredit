@@ -1,12 +1,22 @@
 package kg.gov.mf.loan.manage.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kg.gov.mf.loan.manage.model.order.CreditOrder;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTerm;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermAccrMethod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermDaysMethod;
@@ -15,6 +25,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermFrequencyType;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFund;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermRatePeriod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermTransactionOrder;
+import kg.gov.mf.loan.manage.service.order.CreditOrderService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermAccrMethodService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermCurrencyService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermDaysMethodService;
@@ -22,6 +33,7 @@ import kg.gov.mf.loan.manage.service.orderterm.OrderTermFloatingRateTypeService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermFrequencyTypeService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermFundService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermRatePeriodService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermTransactionOrderService;
 import kg.gov.mf.loan.util.Utils;
 
@@ -51,6 +63,107 @@ public class OrderTermController {
 	
 	@Autowired
 	OrderTermAccrMethodService accrMethodService;
+	
+	@Autowired
+	CreditOrderService orderService;
+	
+	@Autowired
+	OrderTermService orderTermService;
+	
+	static final Logger loggerOrderTerm = LoggerFactory.getLogger(OrderTerm.class);
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder)
+	{
+		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+	    binder.registerCustomEditor(Date.class, editor);
+	}
+	
+	@RequestMapping(value="/manage/order/{orderId}/orderterm/save", method=RequestMethod.POST)
+	public String saveOrderTerm(
+			OrderTerm term, 
+			long fundId, 
+			long currId,
+			long freqTypeId, 
+			long ratePeriodId,
+			long interestTypeId,
+			long popotId,
+			long poiotId,
+			long diyMethodId,
+			long dimMethodId,
+			long txOrderId,
+			long intAccrId,
+			
+			@PathVariable("orderId")Long orderId, ModelMap model)
+	{
+		CreditOrder creditOrder = orderService.findById(orderId);
+		loggerOrderTerm.info("Order Term : {}", term);
+		if(term != null && term.getId() == 0)
+		{
+			OrderTerm newTerm = new OrderTerm(
+					term.getDescription(), 
+					fundService.findById(fundId),
+					term.getAmount(),
+					currService.findById(currId),
+					term.getFrequencyQuantity(),
+					freqTypeService.findById(freqTypeId),
+					term.getInstallmentQuantity(),
+					term.getInstallmentFirstDay(),
+					term.getFirstInstallmentDate(),
+					term.getLastInstallmentDate(),
+					term.getMinDaysDisbFirstInst(),
+					term.getMaxDaysDisbFirstInst(),
+					term.getGraceOnPrinciplePaymentInst(),
+					term.getGraceOnPrinciplePaymentDays(),
+					term.getGraceOnInterestPaymentInst(),
+					term.getGraceOnInterestPaymentDays(),
+					term.getGraceOnInterestAccrInst(),
+					term.getGraceOnInterestAccrDays(),
+					term.getInterestRateValue(),
+					ratePeriodService.findById(ratePeriodId),
+					rateTypeService.findById(interestTypeId),
+					term.getPenaltyOnPrincipleOverdueRateValue(),
+					rateTypeService.findById(popotId),
+					term.getPenaltyOnInterestOverdueRateValue(),
+					rateTypeService.findById(poiotId),
+					daysMethodService.findById(diyMethodId),
+					daysMethodService.findById(dimMethodId),
+					txOrderService.findById(txOrderId),
+					accrMethodService.findById(intAccrId),
+					term.isEarlyRepaymentAllowed(),
+					term.getPenaltyLimitPercent(),
+					term.isCollateralFree());
+			
+			newTerm.setCreditOrder(creditOrder);
+			orderTermService.save(newTerm);
+		}
+			
+		
+		if(term != null && term.getId() > 0)
+		{
+			term.setFund(fundService.findById(fundId));
+			term.setCurrency(currService.findById(currId));
+			term.setFrequencyType(freqTypeService.findById(freqTypeId));
+			term.setInterestRateValuePerPeriod(ratePeriodService.findById(ratePeriodId));
+			term.setInterestType(rateTypeService.findById(interestTypeId));
+			term.setPenaltyOnPrincipleOverdueType(rateTypeService.findById(popotId));
+			term.setPenaltyOnInterestOverdueType(rateTypeService.findById(poiotId));
+			term.setDaysInYearMethod(daysMethodService.findById(diyMethodId));
+			term.setDaysInMonthMethod(daysMethodService.findById(dimMethodId));
+			term.setTransactionOrder(txOrderService.findById(txOrderId));
+			term.setInterestAccrMethod(accrMethodService.findById(intAccrId));
+			orderTermService.update(term);
+		}
+			
+		return "redirect:" + "/manage/order/{orderId}/view#tab_2";
+	}
+	
+	@RequestMapping(value="/manage/order/{orderId}/orderterm/delete", method=RequestMethod.POST)
+    public String deleteOrderTerm(long id, @PathVariable("orderId")Long orderId) {
+		if(id > 0)
+			orderTermService.deleteById(id);
+		return "redirect:" + "/manage/order/{orderId}/view#tab_2";
+    }
 	
 	@RequestMapping(value="/manage/order/{orderId}/orderterm/fund/save", method=RequestMethod.POST)
     public String saveOrderTermFund(OrderTermFund fund, @PathVariable("orderId")Long orderId, ModelMap model) {

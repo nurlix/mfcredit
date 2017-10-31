@@ -891,11 +891,11 @@
 																<tr class="clickable-row">
 																	<td th:text="${term.id}">Id</td>
 																	<td th:text="${term.description}">Desc</td>
-																	<td th:text="${term.fund}">Fund</td>
+																	<td th:text="${term.fund.name}">Fund</td>
 																	<td th:text="${term.amount}">100.00</td>
-																	<td th:text="${term.currency}">RUB</td>
+																	<td th:text="${term.currency.name}">RUB</td>
 																	<td th:text="${term.frequencyQuantity}">1234</td>
-																	<td th:text="${term.frequencyType}">Type 1</td>
+																	<td th:text="${term.frequencyType.name}">Type 1</td>
 																	<td th:text="${term.installmentQuantity}">123123</td>
 																	<td th:text="${term.installmentFirstDay}">123</td>
 																	<td th:text="${term.firstInstallmentDate}">01.01.1970</td>
@@ -909,16 +909,16 @@
 																	<td th:text="${term.graceOnInterestAccrInst}">123213</td>
 																	<td th:text="${term.graceOnInterestAccrDays}">123213</td>
 																	<td th:text="${term.interestRateValue}">123</td>
-																	<td th:text="${term.interestRateValuePerPeriod}">123</td>
-																	<td th:text="${term.interestType}">Type 5</td>
+																	<td th:text="${term.interestRateValuePerPeriod.name}">123</td>
+																	<td th:text="${term.interestType.name}">Type 5</td>
 																	<td th:text="${term.penaltyOnPrincipleOverdueRateValue}">222</td>
-																	<td th:text="${term.penaltyOnPrincipleOverdueType}">Type 3</td>
+																	<td th:text="${term.penaltyOnPrincipleOverdueType.name}">Type 3</td>
 																	<td th:text="${term.penaltyOnInterestOverdueRateValue}">123</td>
-																	<td th:text="${term.penaltyOnInterestOverdueType}">Type 4</td>
-																	<td th:text="${term.daysInYearMethod}">Method 1</td>
-																	<td th:text="${term.daysInMonthMethod}">Method 1</td>
-																	<td th:text="${term.transactionOrder}">Order</td>
-																	<td th:text="${term.interestAccrMethod}">Method 2</td>
+																	<td th:text="${term.penaltyOnInterestOverdueType.name}">Type 4</td>
+																	<td th:text="${term.daysInYearMethod.name}">Method 1</td>
+																	<td th:text="${term.daysInMonthMethod.name}">Method 1</td>
+																	<td th:text="${term.transactionOrder.name}">Order</td>
+																	<td th:text="${term.interestAccrMethod.name}">Method 2</td>
 																	<td th:text="${term.earlyRepaymentAllowed}">True</td>
 																	<td th:text="${term.penaltyLimitPercent}">100</td>
 																	<td th:text="${term.collateralFree}">True</td>
@@ -940,7 +940,7 @@
 														</table>
 													</div>
 													
-													<!-- BEGIN Create modal for a new list -->
+													<!-- BEGIN Create modal for a new order term -->
 													<div class="modal fade bs-modal-lg" id="largeTermNew" tabindex="-1" role="dialog" aria-hidden="true">
 						                                <div class="modal-dialog modal-lg">
 						                                    <div class="modal-content">
@@ -966,7 +966,7 @@
 								                                                    </div>
 								                                                </div>
 								                                            </div>
-								                                            <!-- 
+								                                            
 								                                            <div class="form-group">
 								                                                <label class="control-label col-md-3">Fund
 								                                                    <span class="required"> * </span>
@@ -980,7 +980,395 @@
 								                                                    </select>
 								                                                </div>
 								                                            </div>
-								                                             -->
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Amount
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="amount" th:value="${emptyTerm.amount}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Currency
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="currId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="curr : ${currencies}"
+																				               th:value="${curr.id}"
+																				               th:text="${curr.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                             <div class="form-group">
+								                                                <label class="control-label col-md-3">Frequency Quantity
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="frequencyQuantity" th:value="${emptyTerm.frequencyQuantity}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Frequency type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="freqTypeId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="freq : ${freqTypes}"
+																				               th:value="${freq.id}"
+																				               th:text="${freq.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Installment Quantity
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="installmentQuantity" th:value="${emptyTerm.installmentQuantity}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Installment First Day
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="installmentFirstDay" th:value="${emptyTerm.installmentFirstDay}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">First Installment Date</label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+								                                                        <input type="text" class="form-control" name="firstInstallmentDate" th:value="${emptyTerm.firstInstallmentDate}"/>
+								                                                        <span class="input-group-btn">
+								                                                            <button class="btn default" type="button">
+								                                                                <i class="fa fa-calendar"></i>
+								                                                            </button>
+								                                                        </span>
+								                                                    </div>
+								                                                    <span class="help-block"> select a date </span>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Last Installment Date</label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+								                                                        <input type="text" class="form-control" name="lastInstallmentDate" th:value="${emptyTerm.lastInstallmentDate}"/>
+								                                                        <span class="input-group-btn">
+								                                                            <button class="btn default" type="button">
+								                                                                <i class="fa fa-calendar"></i>
+								                                                            </button>
+								                                                        </span>
+								                                                    </div>
+								                                                    <span class="help-block"> select a date </span>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Min Days Disb First Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="minDaysDisbFirstInst" th:value="${emptyTerm.minDaysDisbFirstInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Max Days Disb First Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="maxDaysDisbFirstInst" th:value="${emptyTerm.maxDaysDisbFirstInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Principle Payment Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnPrinciplePaymentInst" th:value="${emptyTerm.graceOnPrinciplePaymentInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Principle Payment Days
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnPrinciplePaymentDays" th:value="${emptyTerm.graceOnPrinciplePaymentDays}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Interest Payment Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnInterestPaymentInst" th:value="${emptyTerm.graceOnInterestPaymentInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Interest Payment Days
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnInterestPaymentDays" th:value="${emptyTerm.graceOnInterestPaymentDays}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Interest Accr Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnInterestAccrInst" th:value="${emptyTerm.graceOnInterestAccrInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Interest Accr Days
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnInterestAccrDays" th:value="${emptyTerm.graceOnInterestAccrDays}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest Rate Value
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="interestRateValue" th:value="${emptyTerm.interestRateValue}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest Rate Value Per Period
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="ratePeriodId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="period : ${ratePeriods}"
+																				               th:value="${period.id}"
+																				               th:text="${period.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest Type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="interestTypeId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="type : ${rateTypes}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty On Principle Overdue Rate Value
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="penaltyOnPrincipleOverdueRateValue" th:value="${emptyTerm.penaltyOnPrincipleOverdueRateValue}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty On Principle Overdue Type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="popotId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="type : ${rateTypes}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty On Interest Overdue Rate Value
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="penaltyOnInterestOverdueRateValue" th:value="${emptyTerm.penaltyOnInterestOverdueRateValue}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty On Interest Overdue Type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="poiotId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="type : ${rateTypes}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Days In Year Method
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="diyMethodId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="method : ${daysMethods}"
+																				               th:value="${method.id}"
+																				               th:text="${method.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Days In Month Method
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="dimMethodId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="method : ${daysMethods}"
+																				               th:value="${method.id}"
+																				               th:text="${method.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Transaction Order
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="txOrderId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="order : ${txOrders}"
+																				               th:value="${order.id}"
+																				               th:text="${order.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest Accr Method
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="intAccrId">
+								                                                        <option value="">Select...</option>
+								                                                        <option th:each="accrMethod : ${accrMethods}"
+																				               th:value="${accrMethod.id}"
+																				               th:text="${accrMethod.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Early Repayment Allowed
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="checkbox" name="earlyRepaymentAllowed">
+								                                                        <!-- th:checked="${flag} ? 'checked'" -->
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty Limit Percent
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="penaltyLimitPercent" th:value="${emptyTerm.penaltyLimitPercent}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Collateral Free
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="checkbox" name="collateralFree">
+								                                                        <!-- th:checked="${flag} ? 'checked'" -->
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
 								                                        </div>
 								                                	</div>
 																	<div class="modal-footer">
@@ -991,35 +1379,503 @@
 						                                    </div>
 						                                </div>
 						                            </div>
-						                            <!-- END Create modal for a new list -->
+						                            <!-- END Create modal for a new order term -->
 													
-													<!-- BEGIN Create modal for each list -->
-													<state th:each="oDP : ${orderDocumentPackages}">
-														<div class="modal fade bs-modal-lg" th:id="${'largePackage' + {oDP.id}}" tabindex="-1" role="basic" aria-hidden="true">
+													<!-- BEGIN Create modal for each order term -->
+													<state th:each="term : ${orderTerms}">
+														<div class="modal fade bs-modal-lg" th:id="${'largeTerm' + {term.id}}" tabindex="-1" role="basic" aria-hidden="true">
 															<div class="modal-dialog modal-lg">
 																<div class="modal-content">
 																	<div class="modal-header">
 																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-																		<h4 class="modal-title">Save Document Package</h4>
+																		<h4 class="modal-title">Save Order Term</h4>
 																	</div>
-																	<form th:action="@{/manage/order/__${order.id}__/orderdocumentpackage/save}" id="form_sample_2" class="form-horizontal" method="post">
+																	<form th:action="@{/manage/order/__${order.id}__/orderterm/save}" id="form_sample_2" class="form-horizontal" method="post">
 																		<div class="portlet-body">
 								                                        <div class="form-body">
 								                                            <div class="alert alert-danger display-hide">
 								                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
 								                                            </div>
+								                                            
 								                                            <div class="form-group  margin-top-20">
-								                                                <label class="control-label col-md-3">Name
+								                                                <label class="control-label col-md-3">Description
 								                                                    <span class="required"> * </span>
 								                                                </label>
 								                                                <div class="col-md-4">
-								                                                	<input hidden="true" type="text" id="id" name="id" th:value="${oDP.id}"/>
+								                                                	<input hidden="true" type="text" id="id" name="id" th:value="${term.id}"/>
 								                                                    <div class="input-icon right">
 								                                                        <i class="fa"></i>
-								                                                        <input type="text" class="form-control" name="name" th:value="${oDP.name}"/> 
+								                                                        <input type="text" class="form-control" name="description" th:value="${term.description}"/> 
 								                                                    </div>
 								                                                </div>
 								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Fund
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="fundId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="fund : ${funds}">
+								                                                        <option th:if="${term.id > 0 and fund.name == term.fund.name}"
+																				               th:value="${fund.id}"
+																				               th:text="${fund.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and fund.name == term.fund.name}"
+																				               th:value="${fund.id}"
+																				               th:text="${fund.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Amount
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="amount" th:value="${term.amount}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Currency
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="currId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="curr : ${currencies}">
+								                                                        <option th:if="${term.id > 0 and curr.name == term.currency.name}"
+																				               th:value="${curr.id}"
+																				               th:text="${curr.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and curr.name == term.currency.name}"
+																				               th:value="${curr.id}"
+																				               th:text="${curr.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                             <div class="form-group">
+								                                                <label class="control-label col-md-3">Frequency Quantity
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="frequencyQuantity" th:value="${term.frequencyQuantity}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Frequency type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="freqTypeId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="freq : ${freqTypes}">
+								                                                        <option th:if="${term.id > 0 and freq.name == term.frequencyType.name}"
+																				               th:value="${freq.id}"
+																				               th:text="${freq.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and freq.name == term.frequencyType.name}"
+																				               th:value="${freq.id}"
+																				               th:text="${freq.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Installment Quantity
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="installmentQuantity" th:value="${term.installmentQuantity}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Installment First Day
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="installmentFirstDay" th:value="${term.installmentFirstDay}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">First Installment Date</label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+								                                                        <input type="text" class="form-control" name="firstInstallmentDate" th:value="${term.firstInstallmentDate}"/>
+								                                                        <span class="input-group-btn">
+								                                                            <button class="btn default" type="button">
+								                                                                <i class="fa fa-calendar"></i>
+								                                                            </button>
+								                                                        </span>
+								                                                    </div>
+								                                                    <span class="help-block"> select a date </span>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Last Installment Date</label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+								                                                        <input type="text" class="form-control" name="lastInstallmentDate" th:value="${term.lastInstallmentDate}"/>
+								                                                        <span class="input-group-btn">
+								                                                            <button class="btn default" type="button">
+								                                                                <i class="fa fa-calendar"></i>
+								                                                            </button>
+								                                                        </span>
+								                                                    </div>
+								                                                    <span class="help-block"> select a date </span>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Min Days Disb First Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="minDaysDisbFirstInst" th:value="${term.minDaysDisbFirstInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Max Days Disb First Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="maxDaysDisbFirstInst" th:value="${term.maxDaysDisbFirstInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Principle Payment Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnPrinciplePaymentInst" th:value="${term.graceOnPrinciplePaymentInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Principle Payment Days
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnPrinciplePaymentDays" th:value="${term.graceOnPrinciplePaymentDays}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Interest Payment Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnInterestPaymentInst" th:value="${term.graceOnInterestPaymentInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Interest Payment Days
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnInterestPaymentDays" th:value="${term.graceOnInterestPaymentDays}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Interest Accr Inst
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnInterestAccrInst" th:value="${term.graceOnInterestAccrInst}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Grace On Interest Accr Days
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="graceOnInterestAccrDays" th:value="${term.graceOnInterestAccrDays}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest Rate Value
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="interestRateValue" th:value="${term.interestRateValue}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest Rate Value Per Period
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="ratePeriodId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="period : ${ratePeriods}">
+								                                                        <option th:if="${term.id > 0 and period.name == term.interestRateValuePerPeriod.name}"
+																				               th:value="${period.id}"
+																				               th:text="${period.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and period.name == term.interestRateValuePerPeriod.name}"
+																				               th:value="${period.id}"
+																				               th:text="${period.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest Type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="interestTypeId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="type : ${rateTypes}">
+								                                                        <option th:if="${term.id > 0 and type.name == term.interestType.name}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and type.name == term.interestType.name}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty On Principle Overdue Rate Value
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="penaltyOnPrincipleOverdueRateValue" th:value="${term.penaltyOnPrincipleOverdueRateValue}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty On Principle Overdue Type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="popotId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="type : ${rateTypes}">
+								                                                        <option th:if="${term.id > 0 and type.name == term.penaltyOnPrincipleOverdueType.name}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and type.name == term.penaltyOnPrincipleOverdueType.name}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty On Interest Overdue Rate Value
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="penaltyOnInterestOverdueRateValue" th:value="${term.penaltyOnInterestOverdueRateValue}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty On Interest Overdue Type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="poiotId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="type : ${rateTypes}">
+								                                                        <option th:if="${term.id > 0 and type.name == term.penaltyOnInterestOverdueType.name}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and type.name == term.penaltyOnInterestOverdueType.name}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Days In Year Method
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="diyMethodId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="method : ${daysMethods}">
+								                                                        <option th:if="${term.id > 0 and method.name == term.daysInYearMethod.name}"
+																				               th:value="${method.id}"
+																				               th:text="${method.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and method.name == term.daysInYearMethod.name}"
+																				               th:value="${method.id}"
+																				               th:text="${method.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Days In Month Method
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="dimMethodId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="method : ${daysMethods}">
+								                                                        <option th:if="${term.id > 0 and method.name == term.daysInMonthMethod.name}"
+																				               th:value="${method.id}"
+																				               th:text="${method.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and method.name == term.daysInMonthMethod.name}"
+																				               th:value="${method.id}"
+																				               th:text="${method.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Transaction Order
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="txOrderId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="order : ${txOrders}">
+								                                                        <option th:if="${term.id > 0 and order.name == term.transactionOrder.name}"
+																				               th:value="${order.id}"
+																				               th:text="${order.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and order.name == term.transactionOrder.name}"
+																				               th:value="${order.id}"
+																				               th:text="${order.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest Accr Method
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="intAccrId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="method : ${accrMethods}">
+								                                                        <option th:if="${term.id > 0 and method.name == term.interestAccrMethod.name}"
+																				               th:value="${method.id}"
+																				               th:text="${method.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${term.id > 0 and method.name == term.interestAccrMethod.name}"
+																				               th:value="${method.id}"
+																				               th:text="${method.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Early Repayment Allowed
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="checkbox" name="earlyRepaymentAllowed"  th:checked="${term.earlyRepaymentAllowed} ? 'checked'">
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty Limit Percent
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="penaltyLimitPercent" th:value="${term.penaltyLimitPercent}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Collateral Free
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="checkbox" name="collateralFree" th:checked="${term.collateralFree} ? 'checked'">
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
 								                                        </div>
 								                                	</div>
 																	<div class="modal-footer">
@@ -1031,7 +1887,7 @@
 															</div>
 														</div>
 													</state>
-													<!-- END Create modal for each list -->
+													<!-- END Create modal for each order term -->
 												</div>
 											</div>
 										</div>
