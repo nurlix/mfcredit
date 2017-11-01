@@ -7,6 +7,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.AbstractDao;
 import kg.gov.mf.loan.manage.model.UserProfile;
 
 @Repository("userProfileDao")

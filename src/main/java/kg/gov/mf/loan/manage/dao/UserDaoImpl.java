@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import kg.gov.mf.loan.manage.dao.AbstractDao;
 import kg.gov.mf.loan.manage.model.User;
 
 @Repository("userDao")
