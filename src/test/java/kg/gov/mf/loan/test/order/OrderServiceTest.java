@@ -16,6 +16,7 @@ import org.springframework.test.context.web.AnnotationConfigWebContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import kg.gov.mf.loan.config.AppConfig;
+import kg.gov.mf.loan.config.HibernateTestConfiguration;
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
 import kg.gov.mf.loan.manage.model.order.CreditOrderState;
 import kg.gov.mf.loan.manage.model.order.CreditOrderType;
@@ -25,7 +26,7 @@ import kg.gov.mf.loan.manage.service.order.CreditOrderTypeService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes= {AppConfig.class},  loader=AnnotationConfigWebContextLoader.class)
+@ContextConfiguration(classes= {AppConfig.class, HibernateTestConfiguration.class},  loader=AnnotationConfigWebContextLoader.class)
 public class OrderServiceTest {
 
 	@Autowired
