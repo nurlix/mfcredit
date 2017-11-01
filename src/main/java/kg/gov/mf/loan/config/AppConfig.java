@@ -104,6 +104,8 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Autowired
     EmploymentHistoryEventTypeFormatter employmentHistoryEventTypeFormatter; 
 
+    @Autowired
+    SupervisorTermFormatter supervisorTermFormatter;     
     
     private static final String UTF8 = "UTF-8";
     
@@ -227,7 +229,11 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         registry.addFormatter(districtFormatter);            
         registry.addFormatter(employmentHistoryFormatter);    
         registry.addFormatter(employmentHistoryEventTypeFormatter);    
+        
+        registry.addFormatter(supervisorTermFormatter);
 
+        
+        
         
   //      registry.addConverter(roleToStringConverter);
         

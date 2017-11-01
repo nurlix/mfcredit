@@ -46,6 +46,16 @@ public class UserController {
     }
     
     
+    @Autowired
+    private SupervisorTermService supervisorTermService;
+	
+    public void setSupervisorTermService(SupervisorTermService rs)
+    {
+        this.supervisorTermService = rs;
+    }
+    
+    
+    
 	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
 	public String listUsers(Model model) {
 		
@@ -84,7 +94,8 @@ public class UserController {
 
 		model.addAttribute("user", new User());
 		model.addAttribute("userList", this.userService.findAll());
-		model.addAttribute("roleList", this.roleService.findAll());		
+		model.addAttribute("roleList", this.roleService.findAll());	
+		model.addAttribute("supervisorTermList", this.supervisorTermService.findAll());		
 
 		return "admin/sys/userForm";
 	}
@@ -95,6 +106,7 @@ public class UserController {
 		model.addAttribute("user", this.userService.findById(id));
 		model.addAttribute("userList", this.userService.findAll());
 		model.addAttribute("roleList", this.roleService.findAll());		
+		model.addAttribute("supervisorTermList", this.supervisorTermService.findAll());		
 		
 		
 		if(this.userService.findById(id).getRoles().isEmpty())

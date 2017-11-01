@@ -1,5 +1,9 @@
 package kg.gov.mf.loan.admin.sys.controller;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import antlr.collections.List;
 import kg.gov.mf.loan.admin.org.model.District;
 import kg.gov.mf.loan.admin.org.service.DepartmentService;
 import kg.gov.mf.loan.admin.org.service.DistrictService;
@@ -38,6 +43,15 @@ public class SupervisorTermController {
     {
         this.informationService = rs;
     }
+    
+	@Autowired
+    private UserService userService;
+	
+    public void setUserService(UserService rs)
+    {
+        this.userService = rs;
+    }
+        
     
     
 	@Autowired
@@ -117,7 +131,15 @@ public class SupervisorTermController {
 	public String getSupervisorTermAddByUserIdForm(@PathVariable("userId") long userId,Model model) {
 
 		SupervisorTerm modelSupervisorTerm = new SupervisorTerm();
-		//modelSupervisorTerm.setInformation(this.informationService.findById(informationId));
+		
+		Set<User> modelList = modelSupervisorTerm.getUsers();
+		modelList.add(this.userService.findById(userId));
+		
+		
+		
+		
+		
+		modelSupervisorTerm.setUsers(modelList);
 		model.addAttribute("supervisorTerm",modelSupervisorTerm);
 		
 		model.addAttribute("regionList", this.regionService.findAll());
