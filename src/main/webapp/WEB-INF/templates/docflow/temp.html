@@ -5,9 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
+<form action="#" th:action="@{/docflow}" th:object="${document}" method="post">
     <p>Id: <input type="text" th:field="*{id}" /></p>
-    <p>Message: <input type="text" th:field="*{content}" /></p>
+    <p>Message: <input type="text" th:field="*{name}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 </body>

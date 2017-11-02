@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name="df_result_data")
 public class ResultData extends GenericModel {
 
-    private Date close_date;
+    private Date close_date = new Date();
     private Long resultStatus;
     private Information information;
     private Responsible responsible;
