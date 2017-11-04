@@ -2,7 +2,6 @@ package kg.gov.mf.loan.manage.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
-import kg.gov.mf.loan.manage.model.orderdocument.OrderDocument;
-import kg.gov.mf.loan.manage.model.orderdocument.OrderDocumentType;
-import kg.gov.mf.loan.manage.model.orderdocumentpackage.OrderDocumentPackage;
+import kg.gov.mf.loan.manage.model.orderterm.AgreementTemplate;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTerm;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermAccrMethod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
@@ -88,6 +85,9 @@ public class OrderTermController {
 
 		OrderTerm term = orderTermService.findById(termId);
 		model.addAttribute("term", term);
+		
+		model.addAttribute("emptyTemplate", new AgreementTemplate());
+        model.addAttribute("templates", term.getAgreementTemplate());
 		
         model.addAttribute("orderId", orderId);
         
