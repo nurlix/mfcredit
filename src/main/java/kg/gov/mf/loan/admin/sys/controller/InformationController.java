@@ -1,5 +1,9 @@
 package kg.gov.mf.loan.admin.sys.controller;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.hibernate.validator.internal.util.privilegedactions.GetClassLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -132,6 +136,17 @@ public class InformationController {
 	public String saveInformationAndRedirectToInformationList(@Validated @ModelAttribute("information") Information information, @PathVariable("informationId") long informationId, BindingResult result) {
 
 		
+		
+		try {
+			System.out.println(information.getClass().getDeclaredField("name"));
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if (result.hasErrors()) 
 		{
 			System.out.println(" ==== BINDING ERROR ====" + result.getAllErrors().toString());
@@ -156,9 +171,24 @@ public class InformationController {
 	
 	
 	@RequestMapping(value = "/information/save", method = RequestMethod.POST)
-	public String saveInformation(@Validated @ModelAttribute("information") Information information, BindingResult result) {
+	public String saveInformation(@Validated @ModelAttribute("information") Information information, BindingResult result) throws NoSuchFieldException {
 
+		/*
+		try {
+			Method method= information.getClass().getMethod("getName", null);
+			
+			String output = method.invoke(information).toString();
+			
+			
+			
+				Class<?> act = Class.forName("kg.gov.mf.loan.admin.sys.model.Information");
 
+			System.out.println(output);
+		} catch (SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 		
 		if (result.hasErrors()) 
 		{

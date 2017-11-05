@@ -36,7 +36,17 @@ public class ObjectType {
     @Column(name="code")
     private String code;
     
+    
+    @OneToMany(mappedBy="objectType", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval=true)
+    private Set<ObjectField> objectField = new HashSet<ObjectField>(); 
 
+    
+    @OneToMany(mappedBy="objectType", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval=true)
+    private Set<ObjectEvent> objectEvent = new HashSet<ObjectEvent>(); 
+
+    @OneToMany(mappedBy="objectType", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval=true)
+    private Set<FixTerm> fixTerm = new HashSet<FixTerm>();     
+    
 	public long getId() {
 		return id;
 	}
@@ -61,6 +71,31 @@ public class ObjectType {
 		this.code = code;
 	}
 
+	public Set<ObjectField> getObjectField() {
+		return objectField;
+	}
+
+	public void setObjectField(Set<ObjectField> objectField) {
+		this.objectField = objectField;
+	}
+
+	public Set<ObjectEvent> getObjectEvent() {
+		return objectEvent;
+	}
+
+	public void setObjectEvent(Set<ObjectEvent> objectEvent) {
+		this.objectEvent = objectEvent;
+	}
+
+	public Set<FixTerm> getFixTerm() {
+		return fixTerm;
+	}
+
+	public void setFixTerm(Set<FixTerm> fixTerm) {
+		this.fixTerm = fixTerm;
+	}
+
+	
 	
 	
 }
