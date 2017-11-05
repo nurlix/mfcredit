@@ -1,13 +1,17 @@
 package kg.gov.mf.loan.manage.model.orderterm;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -135,6 +139,10 @@ public class OrderTerm {
 	
 	@Column(name="collateral_free")
 	private boolean collateralFree;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="orderTerm_id")
+	private Set<AgreementTemplate> agreementTemplate;
 	
 	public OrderTerm()
 	{
@@ -458,4 +466,13 @@ public class OrderTerm {
 	public void setCollateralFree(boolean collateralFree) {
 		this.collateralFree = collateralFree;
 	}
+
+	public Set<AgreementTemplate> getAgreementTemplate() {
+		return agreementTemplate;
+	}
+
+	public void setAgreementTemplate(Set<AgreementTemplate> agreementTemplate) {
+		this.agreementTemplate = agreementTemplate;
+	}
+	
 }
