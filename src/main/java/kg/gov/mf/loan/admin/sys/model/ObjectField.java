@@ -1,5 +1,9 @@
 package kg.gov.mf.loan.admin.sys.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +35,9 @@ public class ObjectField {
     @ManyToOne(fetch = FetchType.EAGER , optional=true)
     @JoinColumn(name="object_type_id")
     private ObjectType objectType;
+    
+    @OneToMany(mappedBy="objectField", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval=true)
+    private Set<ValidationTerm> validationTerm = new HashSet<ValidationTerm>(); 
    
 	public long getId() {
 		return id;
@@ -69,6 +77,14 @@ public class ObjectField {
 
 	public void setObjectType(ObjectType objectType) {
 		this.objectType = objectType;
+	}
+
+	public Set<ValidationTerm> getValidationTerm() {
+		return validationTerm;
+	}
+
+	public void setValidationTerm(Set<ValidationTerm> validationTerm) {
+		this.validationTerm = validationTerm;
 	}
 
 	
