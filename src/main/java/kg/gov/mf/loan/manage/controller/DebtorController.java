@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,17 +18,24 @@ import kg.gov.mf.loan.manage.model.debtor.Debtor;
 import kg.gov.mf.loan.manage.model.debtor.DebtorType;
 import kg.gov.mf.loan.manage.model.debtor.OrganizationForm;
 import kg.gov.mf.loan.manage.model.debtor.WorkSector;
+import kg.gov.mf.loan.manage.model.loan.Loan;
+import kg.gov.mf.loan.manage.model.loan.LoanState;
+import kg.gov.mf.loan.manage.model.loan.LoanType;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 import kg.gov.mf.loan.manage.service.debtor.DebtorService;
 import kg.gov.mf.loan.manage.service.debtor.DebtorTypeService;
 import kg.gov.mf.loan.manage.service.debtor.OrganizationFormService;
 import kg.gov.mf.loan.manage.service.debtor.WorkSectorService;
+import kg.gov.mf.loan.manage.service.loan.LoanStateService;
+import kg.gov.mf.loan.manage.service.loan.LoanTypeService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermCurrencyService;
 import kg.gov.mf.loan.manage.util.Utils;
 
 @Controller
 public class DebtorController {
 	
 	@Autowired
-	DebtorTypeService typeService;
+	DebtorTypeService debtorTypeService;
 	
 	@Autowired
 	OrganizationFormService formService;
@@ -38,6 +46,15 @@ public class DebtorController {
 	@Autowired
 	DebtorService debtorService;
 	
+	@Autowired
+	OrderTermCurrencyService currService;
+	
+	@Autowired
+	LoanTypeService loanTypeService;
+	
+	@Autowired
+	LoanStateService loanStateService;
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
 	{
@@ -45,10 +62,36 @@ public class DebtorController {
 	    binder.registerCustomEditor(Date.class, editor);
 	}
 	
+	@RequestMapping(value = { "/manage/debtor/{debtorId}/view"})
+    public String viewOrder(ModelMap model, @PathVariable("debtorId")Long debtorId) {
+
+		Debtor debtor = debtorService.findById(debtorId);
+        model.addAttribute("debtor", debtor);
+        
+        List<OrderTermCurrency> currs = currService.findAll();
+        model.addAttribute("currencies", currs);
+        model.addAttribute("emptyCurrency", new OrderTermCurrency());
+        
+        List<LoanType> types = loanTypeService.findAll();
+        model.addAttribute("types", types);
+        model.addAttribute("emptyType", new LoanType());
+        
+        List<LoanState> states = loanStateService.findAll();
+        model.addAttribute("states", states);
+        model.addAttribute("emptyState", new LoanState());
+        
+        model.addAttribute("emptyLoan", new Loan());
+        model.addAttribute("loans", debtor.getLoan());
+        model.addAttribute("tLoans", debtor.getLoan());
+        
+        model.addAttribute("loggedinuser", Utils.getPrincipal());
+        return "/manage/debtor/view";
+    }
+	
 	@RequestMapping(value = { "/manage/debtor/", "/manage/debtor/list" }, method = RequestMethod.GET)
     public String listDebtors(ModelMap model) {
  
-		List<DebtorType> types = typeService.findAll();
+		List<DebtorType> types = debtorTypeService.findAll();
 		model.addAttribute("types", types);
 		model.addAttribute("emptyType", new DebtorType());
 		
@@ -73,14 +116,14 @@ public class DebtorController {
 	{
 		if(debtor != null && debtor.getId() == 0)
 		{
-			Debtor newDebtor = new Debtor(debtor.getName(), typeService.findById(typeId), formService.findById(orgFormId), sectorService.findById(workSectorId));
+			Debtor newDebtor = new Debtor(debtor.getName(), debtorTypeService.findById(typeId), formService.findById(orgFormId), sectorService.findById(workSectorId));
 			debtorService.save(newDebtor);
 		}
 			
 		
 		if(debtor != null && debtor.getId() > 0)
 		{
-			debtor.setDebtorType(typeService.findById(typeId));
+			debtor.setDebtorType(debtorTypeService.findById(typeId));
 			debtor.setOrgForm(formService.findById(orgFormId));
 			debtor.setWorkSector(sectorService.findById(workSectorId));
 			debtorService.update(debtor);
@@ -99,10 +142,10 @@ public class DebtorController {
 	@RequestMapping(value="/manage/debtor/type/save", method=RequestMethod.POST)
     public String saveDebtorType(DebtorType type,  ModelMap model) {
 		if(type != null && type.getId() == 0)
-			typeService.save(new DebtorType(type.getName()));
+			debtorTypeService.save(new DebtorType(type.getName()));
 		
 		if(type != null && type.getId() > 0)
-			typeService.update(type);
+			debtorTypeService.update(type);
 		
 		model.addAttribute("loggedinuser", Utils.getPrincipal());
         return "redirect:" + "/manage/debtor/list";
@@ -111,7 +154,7 @@ public class DebtorController {
 	@RequestMapping(value="/manage/debtor/type/delete", method=RequestMethod.POST)
     public String deleteDebtorType(long id) {
 		if(id > 0)
-			typeService.deleteById(id);
+			debtorTypeService.deleteById(id);
         return "redirect:" + "/manage/debtor/list";
     }
 	

@@ -128,7 +128,7 @@ public class CreditOrderController {
         
         List<OrderTermCurrency> currs = currService.findAll();
         model.addAttribute("currencies", currs);
-        model.addAttribute("emptyCurrency", new OrderTermFund());
+        model.addAttribute("emptyCurrency", new OrderTermCurrency());
         
         List<OrderTermFrequencyType> freqTypes = freqTypeService.findAll();
         model.addAttribute("freqTypes", freqTypes);
