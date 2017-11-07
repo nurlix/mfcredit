@@ -17,6 +17,8 @@ public interface ObjectFieldDao {
 	
 	public ObjectField findById (long id);
 	
+	public ObjectField findByCode (String code);	
+	
 	public List<ObjectField> findAll();
 
 }

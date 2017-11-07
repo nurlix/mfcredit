@@ -47,6 +47,12 @@ public class ObjectFieldServiceJpaImpl implements ObjectFieldService {
 	public ObjectField findById(long id) {
 		return this.objectFieldDao.findById(id);
 	}
+	
+	@Override
+	@Transactional	
+	public ObjectField findByCode (String code) {
+		return this.objectFieldDao.findByCode(code);
+	}
 
 	@Override
     @Transactional

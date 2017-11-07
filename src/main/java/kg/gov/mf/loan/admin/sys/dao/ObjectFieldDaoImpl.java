@@ -1,13 +1,11 @@
 package kg.gov.mf.loan.admin.sys.dao;
 
 import java.util.List;
- 
 
-
-
-
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +83,17 @@ public class ObjectFieldDaoImpl implements ObjectFieldDao {
 		return objectField ;
 	}
 
+	@Override
+	public ObjectField findByCode(String code) {
+		
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		Criteria criteria = session.createCriteria(ObjectField.class);
+		criteria.add(Restrictions.eq("code", code));
 
+		return (ObjectField) criteria.uniqueResult() ;		
+
+	}
 	
     @SuppressWarnings("unchecked")
     @Override

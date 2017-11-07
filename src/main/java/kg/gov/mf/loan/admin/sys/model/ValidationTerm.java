@@ -39,6 +39,12 @@ public class ValidationTerm {
 		return id;
 	}
 
+	@Override
+	public String toString() {
+		return "ValidationTerm [id=" + id + ", name=" + name + ", description=" + description + ", max_length="
+				+ max_length + ", min_length=" + min_length + ", objectField=" + objectField + "]";
+	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
