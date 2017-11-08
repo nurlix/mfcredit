@@ -40,7 +40,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     
     
-    /*
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -49,7 +48,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("admin").password("password").roles("ADMIN");
     }
-    */
  
     @Override
     protected void configure(HttpSecurity http) throws Exception {

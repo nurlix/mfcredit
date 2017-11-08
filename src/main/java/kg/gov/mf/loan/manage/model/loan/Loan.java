@@ -1,13 +1,17 @@
 package kg.gov.mf.loan.manage.model.loan;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -57,11 +61,32 @@ public class Loan {
 	@JoinColumn(name="parent_loan_id", nullable=true)
 	private Loan parentLoan;
 	
-	@Column(name="credit_order_id", nullable=false)
+	@OneToOne
+	@JoinColumn(name="credit_order_id", nullable=true)
 	private long creditOrderId;
 	
 	@ManyToOne
 	private Debtor debtor;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<CreditTerm> creditTerm;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<WriteOff> writeOff;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<PaymentSchedule> paymentSchedule;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<Payment> payment;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<SupervisorPlan> supervisorPlan;
 	
 	public Loan()
 	{
@@ -175,6 +200,46 @@ public class Loan {
 
 	public void setDebtor(Debtor debtor) {
 		this.debtor = debtor;
+	}
+	
+	public Set<CreditTerm> getCreditTerm() {
+		return creditTerm;
+	}
+
+	public void setCreditTerm(Set<CreditTerm> creditTerm) {
+		this.creditTerm = creditTerm;
+	}
+
+	public Set<WriteOff> getWriteOff() {
+		return writeOff;
+	}
+
+	public void setWriteOff(Set<WriteOff> writeOff) {
+		this.writeOff = writeOff;
+	}
+	
+	public Set<PaymentSchedule> getPaymentSchedule() {
+		return paymentSchedule;
+	}
+
+	public void setPaymentSchedule(Set<PaymentSchedule> paymentSchedule) {
+		this.paymentSchedule = paymentSchedule;
+	}
+	
+	public Set<Payment> getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Set<Payment> payment) {
+		this.payment = payment;
+	}
+	
+	public Set<SupervisorPlan> getSupervisorPlan() {
+		return supervisorPlan;
+	}
+
+	public void setSupervisorPlan(Set<SupervisorPlan> supervisorPlan) {
+		this.supervisorPlan = supervisorPlan;
 	}
 
 	@Override
