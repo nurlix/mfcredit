@@ -2,6 +2,7 @@ package kg.gov.mf.loan.manage.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +18,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
+import kg.gov.mf.loan.manage.model.loan.CreditTerm;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 import kg.gov.mf.loan.manage.model.loan.LoanState;
 import kg.gov.mf.loan.manage.model.loan.LoanType;
+import kg.gov.mf.loan.manage.model.loan.SupervisorPlan;
+import kg.gov.mf.loan.manage.model.loan.WriteOff;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermDaysMethod;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermFloatingRateType;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermRatePeriod;
+import kg.gov.mf.loan.manage.model.orderterm.OrderTermTransactionOrder;
 import kg.gov.mf.loan.manage.service.debtor.DebtorService;
 import kg.gov.mf.loan.manage.service.loan.LoanService;
 import kg.gov.mf.loan.manage.service.loan.LoanStateService;
 import kg.gov.mf.loan.manage.service.loan.LoanTypeService;
 import kg.gov.mf.loan.manage.service.order.CreditOrderService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermCurrencyService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermDaysMethodService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermFloatingRateTypeService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermRatePeriodService;
+import kg.gov.mf.loan.manage.service.orderterm.OrderTermTransactionOrderService;
 import kg.gov.mf.loan.manage.util.Utils;
 
 @Controller
@@ -49,6 +61,18 @@ public class LoanController {
 	@Autowired
 	CreditOrderService orderService;
 	
+	@Autowired
+	OrderTermRatePeriodService ratePeriodService;
+	
+	@Autowired
+	OrderTermFloatingRateTypeService rateTypeService;
+	
+	@Autowired
+	OrderTermTransactionOrderService txOrderService;
+	
+	@Autowired
+	OrderTermDaysMethodService daysMethodService;
+
 	static final Logger loggerLoan = LoggerFactory.getLogger(Loan.class);
 	
 	@InitBinder
@@ -63,6 +87,30 @@ public class LoanController {
 
 		Loan loan = loanService.findById(loanId);
         model.addAttribute("loan", loan);
+        
+        model.addAttribute("terms", loan.getCreditTerm());
+        model.addAttribute("emptyTerm", new CreditTerm());
+        
+        model.addAttribute("WOs", loan.getWriteOff());
+        model.addAttribute("emptyWO", new WriteOff());
+        
+        model.addAttribute("SPs", loan.getSupervisorPlan());
+        model.addAttribute("emptySP", new SupervisorPlan());
+        
+        List<OrderTermRatePeriod> ratePeriods = ratePeriodService.findAll();
+        model.addAttribute("ratePeriods", ratePeriods);
+        
+        List<OrderTermFloatingRateType> rateTypes = rateTypeService.findAll();
+        model.addAttribute("rateTypes", rateTypes);
+        model.addAttribute("popots", rateTypes);
+        model.addAttribute("poiots", rateTypes);
+        
+        List<OrderTermTransactionOrder> txOrders = txOrderService.findAll();
+        model.addAttribute("tXs", txOrders);
+        
+        List<OrderTermDaysMethod> daysMethods = daysMethodService.findAll();
+        model.addAttribute("dimms", daysMethods);
+        model.addAttribute("diyms", daysMethods);
         
         model.addAttribute("debtorId", debtorId);
         
