@@ -71,6 +71,9 @@ public class cSystemController {
 	@RequestMapping(value = "/cSystem/list", method = RequestMethod.GET)
 	public String listCSystems(Model model) {
 		
+		
+		model.addAttribute("openModal", "0");
+		
 		model.addAttribute("cSystem", new cSystem());
 		model.addAttribute("cSystemList", this.cSystemService.findAll());
 		return "admin/sys/cSystemList";
@@ -188,9 +191,19 @@ public class cSystemController {
 		if (result.hasErrors()) {
 			System.out.println(" ==== BINDING ERROR ====" + result.getAllErrors().toString());
 			
-			model.addAttribute("error", result);	
+//			model.addAttribute("error", result);	
 			
-			return "/error";
+			model.addAttribute("openModal", "1");
+			
+			model.addAttribute("cSystemList", this.cSystemService.findAll());
+			
+			return "admin/sys/cSystemList";
+			
+			
+			
+			
+			
+			
 			
 			
 		} else if (cSystem.getId() == 0) {
