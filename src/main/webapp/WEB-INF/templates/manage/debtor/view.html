@@ -187,7 +187,7 @@
 													<td th:text="${loan.supervisorId}">1</td>
 													<td th:text="${loan.hasSubLoan}">true</td>
 													<td th:text="${loan.parentLoan!=null} ? ${loan.parentLoan.id} : 'null'">0</td>
-													<td th:text="${loan.creditOrderId}">1</td>
+													<td th:text="${loan.creditOrder.id}">1</td>
 													<td>
 														<a th:href="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
 													</td>
@@ -329,14 +329,16 @@
 			                                            </div>
 			                                            
 			                                            <div class="form-group">
-			                                                <label class="control-label col-md-3">Credit OrderId id
+			                                                <label class="control-label col-md-3">Credit order
 			                                                    <span class="required"> * </span>
 			                                                </label>
 			                                                <div class="col-md-4">
-			                                                    <div class="input-icon right">
-			                                                        <i class="fa"></i>
-			                                                        <input type="text" class="form-control" name="creditOrderId" th:value="${emptyLoan.creditOrderId}"/> 
-			                                                    </div>
+			                                                    <select class="form-control" name="creditOrderId">
+			                                                        <option value="0">Select...</option>
+			                                                        <option th:each="order : ${orders}"
+															               th:value="${order.id}"
+															               th:text="${order.regNumber} + ' '  + ${order.regDate}">Category 1</option>
+			                                                    </select>
 			                                                </div>
 			                                            </div>
 			                                            
@@ -494,18 +496,26 @@
 			                                                </div>
 			                                            </div>
 			                                             
-			                                            <div class="form-group">
-			                                                <label class="control-label col-md-3">Credit OrderId id
+			                                             <div class="form-group">
+			                                                <label class="control-label col-md-3">Credit order id
 			                                                    <span class="required"> * </span>
 			                                                </label>
 			                                                <div class="col-md-4">
-			                                                    <div class="input-icon right">
-			                                                        <i class="fa"></i>
-			                                                        <input type="text" class="form-control" name="creditOrderId" th:value="${loan.creditOrderId}"/> 
-			                                                    </div>
+			                                                    <select class="form-control" name="creditOrderId">
+			                                                        <option value="">Select...</option>
+			                                                        <states th:each="order : ${orders}">
+			                                                        <option th:if="${loan.id > 0 and order.id == loan.creditOrder.id}"
+															               th:value="${order.id}"
+															               th:text="${order.regNumber} + ' ' + ${order.regDate}"
+															               selected="selected">Category 1</option>
+															        <option th:unless="${loan.id > 0 and  order.id == loan.creditOrder.id}"
+															               th:value="${order.id}"
+															              th:text="${order.regNumber} + ' ' + ${order.regDate}">Category 1</option>
+															        </states>
+			                                                    </select>
 			                                                </div>
 			                                            </div>
-			                                            
+			                                             
 			                                        </div>
 			                                	</div>
 												<div class="modal-footer">

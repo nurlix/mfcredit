@@ -21,6 +21,7 @@ import kg.gov.mf.loan.manage.model.debtor.WorkSector;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 import kg.gov.mf.loan.manage.model.loan.LoanState;
 import kg.gov.mf.loan.manage.model.loan.LoanType;
+import kg.gov.mf.loan.manage.model.order.CreditOrder;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 import kg.gov.mf.loan.manage.service.debtor.DebtorService;
 import kg.gov.mf.loan.manage.service.debtor.DebtorTypeService;
@@ -28,6 +29,7 @@ import kg.gov.mf.loan.manage.service.debtor.OrganizationFormService;
 import kg.gov.mf.loan.manage.service.debtor.WorkSectorService;
 import kg.gov.mf.loan.manage.service.loan.LoanStateService;
 import kg.gov.mf.loan.manage.service.loan.LoanTypeService;
+import kg.gov.mf.loan.manage.service.order.CreditOrderService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermCurrencyService;
 import kg.gov.mf.loan.manage.util.Utils;
 
@@ -55,6 +57,9 @@ public class DebtorController {
 	@Autowired
 	LoanStateService loanStateService;
 	
+	@Autowired
+	CreditOrderService orderService;
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
 	{
@@ -70,7 +75,6 @@ public class DebtorController {
         
         List<OrderTermCurrency> currs = currService.findAll();
         model.addAttribute("currencies", currs);
-        model.addAttribute("emptyCurrency", new OrderTermCurrency());
         
         List<LoanType> types = loanTypeService.findAll();
         model.addAttribute("types", types);
@@ -83,6 +87,9 @@ public class DebtorController {
         model.addAttribute("emptyLoan", new Loan());
         model.addAttribute("loans", debtor.getLoan());
         model.addAttribute("tLoans", debtor.getLoan());
+        
+        List<CreditOrder> orders = orderService.findAll();
+        model.addAttribute("orders", orders);
         
         model.addAttribute("loggedinuser", Utils.getPrincipal());
         return "/manage/debtor/view";

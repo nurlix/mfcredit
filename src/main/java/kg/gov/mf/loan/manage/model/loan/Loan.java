@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
+import kg.gov.mf.loan.manage.model.order.CreditOrder;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
 
 @Entity
@@ -63,7 +64,7 @@ public class Loan {
 	
 	@OneToOne
 	@JoinColumn(name="credit_order_id", nullable=true)
-	private long creditOrderId;
+	private CreditOrder creditOrder;
 	
 	@ManyToOne
 	private Debtor debtor;
@@ -94,7 +95,7 @@ public class Loan {
 	}
 
 	public Loan(String regNumber, Date regDate, Double amount, OrderTermCurrency currency, LoanType loanType,
-			LoanState loanState, long supervisorId, boolean hasSubLoan, long creditOrderId) {
+			LoanState loanState, long supervisorId, boolean hasSubLoan, CreditOrder creditOrder) {
 		this.regNumber = regNumber;
 		this.regDate = regDate;
 		this.amount = amount;
@@ -103,7 +104,7 @@ public class Loan {
 		this.loanState = loanState;
 		this.supervisorId = supervisorId;
 		this.hasSubLoan = hasSubLoan;
-		this.creditOrderId = creditOrderId;
+		this.creditOrder = creditOrder;
 	}
 
 	public long getId() {
@@ -186,12 +187,12 @@ public class Loan {
 		this.parentLoan = parentLoan;
 	}
 
-	public long getCreditOrderId() {
-		return creditOrderId;
+	public CreditOrder getCreditOrder() {
+		return creditOrder;
 	}
 
-	public void setCreditOrderId(long creditOrderId) {
-		this.creditOrderId = creditOrderId;
+	public void setCreditOrder(CreditOrder creditOrder) {
+		this.creditOrder = creditOrder;
 	}
 
 	public Debtor getDebtor() {
@@ -246,7 +247,7 @@ public class Loan {
 	public String toString() {
 		return "Loan [id=" + id + ", regNumber=" + regNumber + ", regDate=" + regDate + ", amount=" + amount
 				+ ", currency=" + currency + ", loanType=" + loanType + ", loanState=" + loanState + ", supervisorId="
-				+ supervisorId + ", hasSubLoan=" + hasSubLoan + ", parentLoan=" + parentLoan + ", creditOrderId="
-				+ creditOrderId + "]";
+				+ supervisorId + ", hasSubLoan=" + hasSubLoan + ", parentLoan=" + parentLoan + ", creditOrder ="
+				+ creditOrder + "]";
 	}
 }

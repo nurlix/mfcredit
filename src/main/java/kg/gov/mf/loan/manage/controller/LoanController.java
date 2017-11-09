@@ -1,7 +1,5 @@
 package kg.gov.mf.loan.manage.controller;
 
-import static org.junit.Assert.fail;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,6 +24,7 @@ import kg.gov.mf.loan.manage.service.debtor.DebtorService;
 import kg.gov.mf.loan.manage.service.loan.LoanService;
 import kg.gov.mf.loan.manage.service.loan.LoanStateService;
 import kg.gov.mf.loan.manage.service.loan.LoanTypeService;
+import kg.gov.mf.loan.manage.service.order.CreditOrderService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermCurrencyService;
 import kg.gov.mf.loan.manage.util.Utils;
 
@@ -47,6 +46,9 @@ public class LoanController {
 	@Autowired
 	LoanService loanService;
 	
+	@Autowired
+	CreditOrderService orderService;
+	
 	static final Logger loggerLoan = LoggerFactory.getLogger(Loan.class);
 	
 	@InitBinder
@@ -56,11 +58,24 @@ public class LoanController {
 	    binder.registerCustomEditor(Date.class, editor);
 	}
 	
+	@RequestMapping(value = { "/manage/debtor/{debtorId}/loan/{loanId}/view"})
+    public String viewLoan(ModelMap model, @PathVariable("debtorId")Long debtorId, @PathVariable("loanId")Long loanId) {
+
+		Loan loan = loanService.findById(loanId);
+        model.addAttribute("loan", loan);
+        
+        model.addAttribute("debtorId", debtorId);
+        
+        model.addAttribute("loggedinuser", Utils.getPrincipal());
+        return "/manage/debtor/loan/view";
+    }
+	
 	@RequestMapping(value="/manage/debtor/{debtorId}/loan/save", method=RequestMethod.POST)
 	public String saveLoan(Loan loan,
 			long currencyId,
 			long typeId,
 			long stateId,
+			long creditOrderId,
 			@RequestParam(required=false) Long parentLoanId,
 			@PathVariable("debtorId")Long debtorId, 
 			ModelMap model)
@@ -77,7 +92,7 @@ public class LoanController {
 					loanStateService.findById(stateId),
 					loan.getSupervisorId(),
 					false,
-					loan.getCreditOrderId());
+					orderService.findById(creditOrderId));
 			
 			if(parentLoanId > 0)
 			{
@@ -100,6 +115,7 @@ public class LoanController {
 			loan.setCurrency(currService.findById(currencyId));
 			loan.setLoanType(loanTypeService.findById(typeId));
 			loan.setLoanState(loanStateService.findById(stateId));
+			loan.setCreditOrder(orderService.findById(creditOrderId));
 			loan.setParentLoan(loanService.findById(loan.getId()).getParentLoan());
 			
 			loggerLoan.info("updateLoan : {}", loan);
