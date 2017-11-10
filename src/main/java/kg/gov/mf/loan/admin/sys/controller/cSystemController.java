@@ -23,8 +23,20 @@ import kg.gov.mf.loan.admin.sys.service.*;
 @Controller
 public class cSystemController {
 	
+	
+	@Autowired
+    private ValidationService validationService;
+	
+	public void setValidationService(ValidationService rs)
+    {
+        this.validationService = rs;
+    }
+	
+	
+	
 	@Autowired
     private cSystemService cSystemService;
+	
 	
 	public void setCSystemService(cSystemService rs)
     {
@@ -123,70 +135,7 @@ public class cSystemController {
 	@RequestMapping(value = "/cSystem/save", method = RequestMethod.POST)
 	public String saveCSystemAndRedirectToCSystemList(@Validated @ModelAttribute("cSystem") cSystem cSystem, BindingResult result, Model model) {
 
-		
-		
-		Set<ObjectField> objectTypeFieldList = new HashSet<ObjectField>();
-		
-		objectTypeFieldList = this.objectTypeService.findByCode(cSystem.getClass().getSimpleName()).getObjectField();
-		
-		for (ObjectField objectField : objectTypeFieldList) {
-			
-			
-			for (ValidationTerm validationTerm : objectField.getValidationTerm()) {
-			
-				
-				String sMethodName = "get"+objectField.getName().substring(0, 1).toUpperCase()+objectField.getName().substring(1, objectField.getName().length());
-				
-				Class objectClass = cSystem.getClass();
-				
-				
-				try 
-				{
-					
-					String objectToBeValidated = (cSystem.getClass().getMethod(sMethodName, null).invoke(cSystem)).toString();
-					
-					System.out.println(objectToBeValidated);
-					
-					if(validationTerm.getMax_length() >0)
-					{
-						if(objectToBeValidated.length()>validationTerm.getMax_length()) 
-						{
-							result.rejectValue(objectField.getName(), "error.cSystem.name.maxlength", "name must be < "+validationTerm.getMax_length());
-						}
-					}
-					
-					if(validationTerm.getMin_length() >0)
-					{
-						if(objectToBeValidated.length()<validationTerm.getMin_length()) 
-						{
-							result.rejectValue(objectField.getName(), "error.cSystem.name.mminlength", "name must be > "+validationTerm.getMin_length());
-						}
-					}
-					
-					
-				} 
-				catch 
-				(	IllegalAccessException | 
-					IllegalArgumentException | 
-					InvocationTargetException | 
-					NoSuchMethodException | SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
-				
-				
-
-			}
-			
-			
-		}
-		
-		
-		
-		
-
+		this.validationService.validateObject(cSystem, result);
 		
 		if (result.hasErrors()) {
 			System.out.println(" ==== BINDING ERROR ====" + result.getAllErrors().toString());
