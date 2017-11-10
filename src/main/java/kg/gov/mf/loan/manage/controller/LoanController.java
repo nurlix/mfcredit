@@ -19,9 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
 import kg.gov.mf.loan.manage.model.loan.CreditTerm;
+import kg.gov.mf.loan.manage.model.loan.InstallmentState;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 import kg.gov.mf.loan.manage.model.loan.LoanState;
 import kg.gov.mf.loan.manage.model.loan.LoanType;
+import kg.gov.mf.loan.manage.model.loan.Payment;
+import kg.gov.mf.loan.manage.model.loan.PaymentSchedule;
+import kg.gov.mf.loan.manage.model.loan.PaymentType;
 import kg.gov.mf.loan.manage.model.loan.SupervisorPlan;
 import kg.gov.mf.loan.manage.model.loan.WriteOff;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermDaysMethod;
@@ -29,9 +33,11 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermFloatingRateType;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermRatePeriod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermTransactionOrder;
 import kg.gov.mf.loan.manage.service.debtor.DebtorService;
+import kg.gov.mf.loan.manage.service.loan.InstallmentStateService;
 import kg.gov.mf.loan.manage.service.loan.LoanService;
 import kg.gov.mf.loan.manage.service.loan.LoanStateService;
 import kg.gov.mf.loan.manage.service.loan.LoanTypeService;
+import kg.gov.mf.loan.manage.service.loan.PaymentTypeService;
 import kg.gov.mf.loan.manage.service.order.CreditOrderService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermCurrencyService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermDaysMethodService;
@@ -72,6 +78,12 @@ public class LoanController {
 	
 	@Autowired
 	OrderTermDaysMethodService daysMethodService;
+	
+	@Autowired
+	InstallmentStateService iStateService;
+	
+	@Autowired
+	PaymentTypeService pTypeService;
 
 	static final Logger loggerLoan = LoggerFactory.getLogger(Loan.class);
 	
@@ -80,6 +92,16 @@ public class LoanController {
 	{
 		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
 	    binder.registerCustomEditor(Date.class, editor);
+	}
+	
+	@RequestMapping(value = { "/manage/loan/list"})
+    public String listLoans(ModelMap model) {
+		
+		List<Loan> loans = loanService.findAll(); 
+		model.addAttribute("loans", loans);
+		
+		return "/manage/loan/list";
+		
 	}
 	
 	@RequestMapping(value = { "/manage/debtor/{debtorId}/loan/{loanId}/view"})
@@ -96,6 +118,20 @@ public class LoanController {
         
         model.addAttribute("SPs", loan.getSupervisorPlan());
         model.addAttribute("emptySP", new SupervisorPlan());
+        
+        model.addAttribute("PaymentSchedules", loan.getPaymentSchedule());
+        model.addAttribute("emptyPaymentSchedule", new PaymentSchedule());
+        
+        List<InstallmentState> iStates = iStateService.findAll();
+        model.addAttribute("iStates", iStates);
+        model.addAttribute("emptyState", new InstallmentState());
+        
+        model.addAttribute("Payments", loan.getPayment());
+        model.addAttribute("emptyPayment", new Payment());
+        
+        List<PaymentType> pTypes = pTypeService.findAll();
+        model.addAttribute("pTypes", pTypes);
+        model.addAttribute("emptyType", new PaymentType());
         
         List<OrderTermRatePeriod> ratePeriods = ratePeriodService.findAll();
         model.addAttribute("ratePeriods", ratePeriods);

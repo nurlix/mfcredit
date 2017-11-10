@@ -740,6 +740,7 @@
 										</div>
 									</div>
 								</div>
+								
 								<div class="tab-pane" id="tab_1">
 									<div class="row">
 										<div class="col-md-12">
@@ -1047,10 +1048,947 @@
 									</div>
 								</div>
 								<div class="tab-pane" id="tab_2">
-									<p>Tab_2 content</p>
+									
+									<div class="row">
+										<div class="col-md-12">
+											<!-- BEGIN BORDERED TABLE PORTLET-->
+											<div class="portlet light portlet-fit ">
+												<div class="portlet-body">
+													<div class="table-toolbar">
+														<div class="row">
+															<div class="col-md-6">
+																<div class="btn-group">
+																	<a class="btn green" data-toggle="modal" href="#largePaymentScheduleNew">
+																	Add New Payment Schedule <i class="fa fa-plus"></i>
+																	</a>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="table-scrollable table-scrollable-borderless">
+														<table class="table table-hover table-light" id="orders">
+															<thead>
+																<tr>
+																	<th>Id</th>
+																	<th>Expected Date</th>
+																	<th>Disbursement</th>
+																	<th>Principal payment</th>
+																	<th>Interest payment</th>
+																	<th>Collected Interest Payment</th>
+																	<th>Collected Penalty Payment</th>
+																	<th>Installment State</th>
+																	<th>View Details</th>
+																	<th>Edit</th>
+																	<th>Delete</th>
+																</tr>
+															</thead>
+															<tbody>
+																<ordercheck th:if="${#lists.isEmpty(PaymentSchedules)}">
+																	<tr class="no-records-found" style="text-align: center;">
+																		<td colspan="11">No matching records found</td>
+																	</tr>
+																</ordercheck>
+																<order th:each="paymentS : ${PaymentSchedules}">
+																	<tr class="clickable-row">
+																		<td th:text="${paymentS.id}">Id</td>
+																		<td th:text="${paymentS.expectedDate}">01.01.1970</td>
+																		<td th:text="${paymentS.disbursement}"></td>
+																		<td th:text="${paymentS.principalPayment}"></td>
+																		<td th:text="${paymentS.interestPayment}"></td>
+																		<td th:text="${paymentS.collectedInterestPayment}"></td>
+																		<td th:text="${paymentS.collectedPenaltyPayment}"></td>
+																		<td th:text="${paymentS.installmentState.name}"></td>
+																		<td>
+																			<a th:href="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/paymentschedule/__${paymentS.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
+																		</td>
+																		<td>
+																			<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#largePaymentSchedule' + {paymentS.id}}">Edit</a>
+																		</td>
+																		<td>
+																			<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/paymentschedule/delete}" method="post" onsubmit="return confirm('Are you sure?') ? true : false;">
+																				<input hidden="true" type="text" id="id" name="id" th:value="${paymentS.id}" />
+																				<button type="submit" class="btn btn-outline btn-circle dark btn-sm red">Delete</button>
+																			</form>
+																		</td>
+																	</tr>
+																</order>
+															</tbody>
+														</table>
+													</div>
+													
+													<!-- BEGIN Create modal for a new payment schedule -->
+													<div class="modal fade bs-modal-lg" id="largePaymentScheduleNew" tabindex="-1" role="dialog" aria-hidden="true">
+						                                <div class="modal-dialog modal-lg">
+						                                    <div class="modal-content">
+						                                        <div class="modal-header">
+						                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						                                            <h4 class="modal-title">Save Payment Schedule</h4>
+						                                        </div>
+																<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/paymentschedule/save}" id="form_sample_2" class="form-horizontal" method="post">
+																	<div class="portlet-body">
+								                                        <div class="form-body">
+								                                            <div class="alert alert-danger display-hide">
+								                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
+								                                            </div>
+								                                            
+								                                            <div class="form-group  margin-top-20">
+								                                                <label class="control-label col-md-3">Expected Date</label>
+								                                                <div class="col-md-4">
+								                                                	<input hidden="true" type="text" id="id" name="id" th:value="${emptyPaymentSchedule.id}"/>
+								                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+								                                                        <input type="text" class="form-control" name="expectedDate" th:value="${emptyPaymentSchedule.expectedDate}"/>
+								                                                        <span class="input-group-btn">
+								                                                            <button class="btn default" type="button">
+								                                                                <i class="fa fa-calendar"></i>
+								                                                            </button>
+								                                                        </span>
+								                                                    </div>
+								                                                    <span class="help-block"> select a date </span>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Disbursement
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="disbursement" th:value="${emptyPaymentSchedule.disbursement}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Principal payment
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="principalPayment" th:value="${emptyPaymentSchedule.principalPayment}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest payment
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="interestPayment" th:value="${emptyPaymentSchedule.interestPayment}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Collected Interest Payment
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="collectedInterestPayment" th:value="${emptyPaymentSchedule.collectedInterestPayment}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">CollectedPenaltyPayment
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="collectedPenaltyPayment" th:value="${emptyPaymentSchedule.collectedPenaltyPayment}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Installment State
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="installmentStateId">
+								                                                        <option value="0">Select...</option>
+								                                                        <option th:each="state : ${iStates}"
+																				               th:value="${state.id}"
+																				               th:text="${state.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                        </div>
+								                                	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+																		<button type="submit" class="btn green">Save</button>
+																	</div>
+																</form>	                                        
+						                                    </div>
+						                                </div>
+						                            </div>
+						                            <!-- END Create modal for a new payment schedule -->
+													
+													<!-- BEGIN Create modal for each payment schedule -->
+													<state th:each="paymentSchedule : ${PaymentSchedules}"> 
+														<div class="modal fade bs-modal-lg" th:id="${'largePaymentSchedule' + {paymentSchedule.id}}" tabindex="-1" role="basic" aria-hidden="true">
+															<div class="modal-dialog modal-lg">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+																		<h4 class="modal-title">Save Payment Schedule</h4>
+																	</div>
+																	<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/paymentschedule/save}" id="form_sample_2" class="form-horizontal" method="post">
+																		<div class="portlet-body">
+								                                        <div class="form-body">
+								                                            <div class="alert alert-danger display-hide">
+								                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
+								                                            </div>
+								                                            
+								                                            <div class="form-group  margin-top-20">
+								                                                <label class="control-label col-md-3">Expected Date</label>
+								                                                <div class="col-md-4">
+								                                                	<input hidden="true" type="text" id="id" name="id" th:value="${paymentSchedule.id}"/>
+								                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+								                                                        <input type="text" class="form-control" name="expectedDate" th:value="${paymentSchedule.expectedDate}"/>
+								                                                        <span class="input-group-btn">
+								                                                            <button class="btn default" type="button">
+								                                                                <i class="fa fa-calendar"></i>
+								                                                            </button>
+								                                                        </span>
+								                                                    </div>
+								                                                    <span class="help-block"> select a date </span>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Disbursement
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="disbursement" th:value="${paymentSchedule.disbursement}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Principal payment
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="principalPayment" th:value="${paymentSchedule.principalPayment}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest payment
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="interestPayment" th:value="${paymentSchedule.interestPayment}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Collected Interest Payment
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="collectedInterestPayment" th:value="${paymentSchedule.collectedInterestPayment}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">CollectedPenaltyPayment
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="collectedPenaltyPayment" th:value="${paymentSchedule.collectedPenaltyPayment}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Installment State
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="installmentStateId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="state : ${iStates}">
+								                                                        <option th:if="${paymentSchedule.id > 0 and state.name == paymentSchedule.installmentState.name}"
+																				               th:value="${state.id}"
+																				               th:text="${state.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${paymentSchedule.id > 0 and state.name == paymentSchedule.installmentState.name}"
+																				               th:value="${state.id}"
+																				               th:text="${state.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                        </div>
+								                                	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+																		<button type="submit" class="btn green">Save</button>
+																	</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</state>
+													<!-- END Create modal for each payment schedule -->
+													
+												</div>
+											</div>
+											<!-- END BORDERED TABLE PORTLET-->
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-md-6">
+											<!-- BEGIN BORDERED TABLE PORTLET-->
+											<div class="portlet light portlet-fit ">
+												<div class="portlet-title">
+													<div class="caption">
+														<i class="icon-settings font-red"></i> 
+														<span class="caption-subject font-red sbold uppercase">Installment States</span>
+													</div>
+													<div class="tools">
+						                                <a href="javascript:;" class="expand"> </a>
+						                            </div>
+												</div>
+												<div class="portlet-body" style="display:none">
+													<div class="table-toolbar">
+														<div class="row">
+															<div class="col-md-6">
+																<div class="btn-group">
+																	<a class="btn red " data-toggle="modal" href="#basicStateNew">
+																	Add New Installment State
+																	<i class="fa fa-plus"></i></a>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="table-scrollable table-scrollable-borderless">
+														<table class="table table-hover table-light">
+															<thead>
+																<tr>
+																	<th>Name</th>
+																	<th>Edit</th>
+																	<th>Delete</th>
+																</tr>
+															</thead>
+															<tbody>
+																<statecheck th:if="${#lists.isEmpty(iStates)}">
+																	<tr class="no-records-found" style="text-align: center;">
+																		<td colspan="3">No matching records found</td>
+																	</tr>
+																</statecheck>
+																<state th:each="state : ${iStates}">
+																	<tr>
+																		<td th:text="${state.name}">Name</td>
+																		<td>
+																			<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#basicState' + {state.id}}">Edit</a>
+																		</td>
+																		<td>
+																			<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/paymentschedule/installmentstate/delete}" method="post" onsubmit="return confirm('Are you sure?') ? true : false;">
+																				<input hidden="true" type="text" id="id" name="id" th:value="${state.id}" />
+																				<button type="submit" class="btn btn-outline btn-circle dark btn-sm red">Delete</button>
+																			</form>
+																		</td>
+																	</tr>
+																</state>
+															</tbody>
+					
+														</table>
+													</div>
+													
+													<!-- BEGIN Create modal for a new state -->
+													<div class="modal fade" id="basicStateNew" tabindex="-1" role="basic" aria-hidden="true">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+																	<h4 class="modal-title">Save Installment State</h4>
+																</div>
+																<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/paymentschedule/installmentstate/save}" id="form_sample_2" class="form-horizontal" method="post">
+																	<div class="portlet-body">
+																		<div class="form-body">
+																			<div class="alert alert-danger display-hide">
+																				<button class="close" data-close="alert"></button>
+																				You have some form errors. Please check below.
+																			</div>
+																			<div class="form-group  margin-top-20">
+																				<label class="control-label col-md-3">Name <span class="required"> * </span>
+																				</label>
+																				<div class="col-md-4">
+																					<input hidden="true" type="text" id="id" name="id" th:value="${emptyState.id}"/>
+																					<div class="input-icon right">
+																						<i class="fa"></i> 
+																						<input type="text" class="form-control" name="name" th:value="${emptyState.name}"/>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+																		<button type="submit" class="btn green">Save</button>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+													<!-- END Create modal for a new state -->								
+													
+													<!-- BEGIN Create modal for each state -->
+													<state th:each="state : ${iStates}">
+														<div class="modal fade" th:id="${'basicState' + {state.id}}" tabindex="-1" role="basic" aria-hidden="true">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+																		<h4 class="modal-title">Save Installment State</h4>
+																	</div>
+																	<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/paymentschedule/installmentstate/save}" id="form_sample_2" class="form-horizontal" method="post">
+																		<div class="portlet-body">
+																			<div class="form-body">
+																				<div class="alert alert-danger display-hide">
+																					<button class="close" data-close="alert"></button>
+																					You have some form errors. Please check below.
+																				</div>
+																				<div class="form-group  margin-top-20">
+																					<label class="control-label col-md-3">Name <span class="required"> * </span>
+																					</label>
+																					<div class="col-md-4">
+																						<input hidden="true" type="text" id="id" name="id" th:value="${state.id}"/>
+																						<div class="input-icon right">
+																							<i class="fa"></i> 
+																							<input type="text" class="form-control" name="name" th:value="${state.name}"/>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+																			<button type="submit" class="btn green">Save</button>
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</state>
+													<!-- END Create modal for each state -->
+												</div>
+											</div>
+										</div>
+									</div>
+
 								</div>
 								<div class="tab-pane" id="tab_3">
-									<p>Tab_3 content</p>
+									<div class="row">
+										<div class="col-md-12">
+											<!-- BEGIN BORDERED TABLE PORTLET-->
+											<div class="portlet light portlet-fit ">
+												<div class="portlet-body">
+													<div class="table-toolbar">
+														<div class="row">
+															<div class="col-md-6">
+																<div class="btn-group">
+																	<a class="btn green" data-toggle="modal" href="#largePaymentNew">
+																	Add New Payment <i class="fa fa-plus"></i>
+																	</a>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="table-scrollable table-scrollable-borderless">
+														<table class="table table-hover table-light" id="orders">
+															<thead>
+																<tr>
+																	<th>Id</th>
+																	<th>Payment Date</th>
+																	<th>Total Amount</th>
+																	<th>Principal</th>
+																	<th>Interest</th>
+																	<th>Penalty</th>
+																	<th>Fee</th>
+																	<th>Number</th>
+																	<th>Payment type</th>
+																	<th>View Details</th>
+																	<th>Edit</th>
+																	<th>Delete</th>
+																</tr>
+															</thead>
+															<tbody>
+																<ordercheck th:if="${#lists.isEmpty(PaymentSchedules)}">
+																	<tr class="no-records-found" style="text-align: center;">
+																		<td colspan="12">No matching records found</td>
+																	</tr>
+																</ordercheck>
+																<order th:each="payment : ${Payments}">
+																	<tr class="clickable-row">
+																		<td th:text="${payment.id}">Id</td>
+																		<td th:text="${payment.paymentDate}">01.01.1970</td>
+																		<td th:text="${payment.totalAmount}"></td>
+																		<td th:text="${payment.principal}"></td>
+																		<td th:text="${payment.interest}"></td>
+																		<td th:text="${payment.penalty}"></td>
+																		<td th:text="${payment.fee}"></td>
+																		<td th:text="${payment.number}"></td>
+																		<td th:text="${payment.paymentType.name}"></td>
+																		<td>
+																			<a th:href="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/payment/__${payment.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
+																		</td>
+																		<td>
+																			<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#largePayment' + {payment.id}}">Edit</a>
+																		</td>
+																		<td>
+																			<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/payment/delete}" method="post" onsubmit="return confirm('Are you sure?') ? true : false;">
+																				<input hidden="true" type="text" id="id" name="id" th:value="${payment.id}" />
+																				<button type="submit" class="btn btn-outline btn-circle dark btn-sm red">Delete</button>
+																			</form>
+																		</td>
+																	</tr>
+																</order>
+															</tbody>
+														</table>
+													</div>
+													
+													<!-- BEGIN Create modal for a new payment -->
+													<div class="modal fade bs-modal-lg" id="largePaymentNew" tabindex="-1" role="dialog" aria-hidden="true">
+						                                <div class="modal-dialog modal-lg">
+						                                    <div class="modal-content">
+						                                        <div class="modal-header">
+						                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						                                            <h4 class="modal-title">Save Payment</h4>
+						                                        </div>
+																<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/payment/save}" id="form_sample_2" class="form-horizontal" method="post">
+																	<div class="portlet-body">
+								                                        <div class="form-body">
+								                                            <div class="alert alert-danger display-hide">
+								                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
+								                                            </div>
+								                                            
+								                                            <div class="form-group  margin-top-20">
+								                                                <label class="control-label col-md-3">Payment Date</label>
+								                                                <div class="col-md-4">
+								                                                	<input hidden="true" type="text" id="id" name="id" th:value="${emptyPayment.id}"/>
+								                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+								                                                        <input type="text" class="form-control" name="paymentDate" th:value="${emptyPayment.paymentDate}"/>
+								                                                        <span class="input-group-btn">
+								                                                            <button class="btn default" type="button">
+								                                                                <i class="fa fa-calendar"></i>
+								                                                            </button>
+								                                                        </span>
+								                                                    </div>
+								                                                    <span class="help-block"> select a date </span>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Total amount
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="totalAmount" th:value="${emptyPayment.totalAmount}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Principal
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="principal" th:value="${emptyPayment.principal}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="interest" th:value="${emptyPayment.interest}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="penalty" th:value="${emptyPayment.penalty}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Fee
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="fee" th:value="${emptyPayment.fee}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Number
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="number" th:value="${emptyPayment.number}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Payment Type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="paymentTypeId">
+								                                                        <option value="0">Select...</option>
+								                                                        <option th:each="type : ${pTypes}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}">Category 1</option>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                        </div>
+								                                	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+																		<button type="submit" class="btn green">Save</button>
+																	</div>
+																</form>	                                        
+						                                    </div>
+						                                </div>
+						                            </div>
+						                            <!-- END Create modal for a new payment -->
+													
+													<!-- BEGIN Create modal for each payment  -->
+													<state th:each="payment : ${Payments}"> 
+														<div class="modal fade bs-modal-lg" th:id="${'largePayment' + {payment.id}}" tabindex="-1" role="basic" aria-hidden="true">
+															<div class="modal-dialog modal-lg">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+																		<h4 class="modal-title">Save Payment</h4>
+																	</div>
+																	<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/payment/save}" id="form_sample_2" class="form-horizontal" method="post">
+																		<div class="portlet-body">
+								                                        <div class="form-body">
+								                                            <div class="alert alert-danger display-hide">
+								                                                <button class="close" data-close="alert"></button> You have some form errors. Please check below. 
+								                                            </div>
+								                                            
+								                                            <div class="form-group  margin-top-20">
+								                                                <label class="control-label col-md-3">Payment Date</label>
+								                                                <div class="col-md-4">
+								                                                	<input hidden="true" type="text" id="id" name="id" th:value="${payment.id}"/>
+								                                                    <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+								                                                        <input type="text" class="form-control" name="paymentDate" th:value="${payment.paymentDate}"/>
+								                                                        <span class="input-group-btn">
+								                                                            <button class="btn default" type="button">
+								                                                                <i class="fa fa-calendar"></i>
+								                                                            </button>
+								                                                        </span>
+								                                                    </div>
+								                                                    <span class="help-block"> select a date </span>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Total amount
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="totalAmount" th:value="${payment.totalAmount}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Principal
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="principal" th:value="${payment.principal}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Interest
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="interest" th:value="${payment.interest}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Penalty
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="penalty" th:value="${payment.penalty}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Fee
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="fee" th:value="${payment.fee}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Number
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <div class="input-icon right">
+								                                                        <i class="fa"></i>
+								                                                        <input type="text" class="form-control" name="number" th:value="${payment.number}"/> 
+								                                                    </div>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                            <div class="form-group">
+								                                                <label class="control-label col-md-3">Payment Type
+								                                                    <span class="required"> * </span>
+								                                                </label>
+								                                                <div class="col-md-4">
+								                                                    <select class="form-control" name="paymentTypeId">
+								                                                        <option value="">Select...</option>
+								                                                        <states th:each="type : ${pTypes}">
+								                                                        <option th:if="${payment.id > 0 and type.name == payment.paymentType.name}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}"
+																				               selected="selected">Category 1</option>
+																				        <option th:unless="${payment.id > 0 and type.name == payment.paymentType.name}"
+																				               th:value="${type.id}"
+																				               th:text="${type.name}">Category 1</option>
+																				        </states>
+								                                                    </select>
+								                                                </div>
+								                                            </div>
+								                                            
+								                                        </div>
+								                                	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+																		<button type="submit" class="btn green">Save</button>
+																	</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</state>
+													<!-- END Create modal for each payment -->
+													
+												</div>
+											</div>
+											<!-- END BORDERED TABLE PORTLET-->
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-md-6">
+											<!-- BEGIN BORDERED TABLE PORTLET-->
+											<div class="portlet light portlet-fit ">
+												<div class="portlet-title">
+													<div class="caption">
+														<i class="icon-settings font-red"></i> 
+														<span class="caption-subject font-red sbold uppercase">Payment Types</span>
+													</div>
+													<div class="tools">
+						                                <a href="javascript:;" class="expand"> </a>
+						                            </div>
+												</div>
+												<div class="portlet-body" style="display:none">
+													<div class="table-toolbar">
+														<div class="row">
+															<div class="col-md-6">
+																<div class="btn-group">
+																	<a class="btn red " data-toggle="modal" href="#basicTypeNew">
+																	Add New Payment Type
+																	<i class="fa fa-plus"></i></a>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="table-scrollable table-scrollable-borderless">
+														<table class="table table-hover table-light">
+															<thead>
+																<tr>
+																	<th>Name</th>
+																	<th>Edit</th>
+																	<th>Delete</th>
+																</tr>
+															</thead>
+															<tbody>
+																<statecheck th:if="${#lists.isEmpty(pTypes)}">
+																	<tr class="no-records-found" style="text-align: center;">
+																		<td colspan="3">No matching records found</td>
+																	</tr>
+																</statecheck>
+																<state th:each="type : ${pTypes}">
+																	<tr>
+																		<td th:text="${type.name}">Name</td>
+																		<td>
+																			<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#basicType' + {type.id}}">Edit</a>
+																		</td>
+																		<td>
+																			<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/payment/type/delete}" method="post" onsubmit="return confirm('Are you sure?') ? true : false;">
+																				<input hidden="true" type="text" id="id" name="id" th:value="${type.id}" />
+																				<button type="submit" class="btn btn-outline btn-circle dark btn-sm red">Delete</button>
+																			</form>
+																		</td>
+																	</tr>
+																</state>
+															</tbody>
+					
+														</table>
+													</div>
+													
+													<!-- BEGIN Create modal for a new type -->
+													<div class="modal fade" id="basicTypeNew" tabindex="-1" role="basic" aria-hidden="true">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+																	<h4 class="modal-title">Save Payment Type</h4>
+																</div>
+																<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/payment/type/save}" id="form_sample_2" class="form-horizontal" method="post">
+																	<div class="portlet-body">
+																		<div class="form-body">
+																			<div class="alert alert-danger display-hide">
+																				<button class="close" data-close="alert"></button>
+																				You have some form errors. Please check below.
+																			</div>
+																			<div class="form-group  margin-top-20">
+																				<label class="control-label col-md-3">Name <span class="required"> * </span>
+																				</label>
+																				<div class="col-md-4">
+																					<input hidden="true" type="text" id="id" name="id" th:value="${emptyType.id}"/>
+																					<div class="input-icon right">
+																						<i class="fa"></i> 
+																						<input type="text" class="form-control" name="name" th:value="${emptyType.name}"/>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+																		<button type="submit" class="btn green">Save</button>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+													<!-- END Create modal for a new state -->								
+													
+													<!-- BEGIN Create modal for each state -->
+													<state th:each="type : ${pTypes}">
+														<div class="modal fade" th:id="${'basicType' + {type.id}}" tabindex="-1" role="basic" aria-hidden="true">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+																		<h4 class="modal-title">Save Payment Type</h4>
+																	</div>
+																	<form th:action="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/payment/type/save}" id="form_sample_2" class="form-horizontal" method="post">
+																		<div class="portlet-body">
+																			<div class="form-body">
+																				<div class="alert alert-danger display-hide">
+																					<button class="close" data-close="alert"></button>
+																					You have some form errors. Please check below.
+																				</div>
+																				<div class="form-group  margin-top-20">
+																					<label class="control-label col-md-3">Name <span class="required"> * </span>
+																					</label>
+																					<div class="col-md-4">
+																						<input hidden="true" type="text" id="id" name="id" th:value="${type.id}"/>
+																						<div class="input-icon right">
+																							<i class="fa"></i> 
+																							<input type="text" class="form-control" name="name" th:value="${type.name}"/>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancel</button>
+																			<button type="submit" class="btn green">Save</button>
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</state>
+													<!-- END Create modal for each type -->
+												</div>
+											</div>
+										</div>
+									</div>
+									
 								</div>
 								<div class="tab-pane" id="tab_4">
 									<div class="row">

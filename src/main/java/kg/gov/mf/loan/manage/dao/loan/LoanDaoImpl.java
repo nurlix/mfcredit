@@ -16,7 +16,7 @@ public class LoanDaoImpl extends AbstractDao<Long, Loan> implements LoanDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Loan> findAll() {
-		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("id"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Loan> loans = (List<Loan>) criteria.list();
 		return loans;
