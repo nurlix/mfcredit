@@ -89,6 +89,26 @@ public class Loan {
 	@JoinColumn(name="loan_id")
 	private Set<SupervisorPlan> supervisorPlan;
 	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<LoanGoods> loanGoods;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<DebtTransfer> debtTransfer;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<TargetedUse> targetedUse;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<ReconstructedList> reconstructedList;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<Bankrupt> bankrupt;
+	
 	public Loan()
 	{
 		
@@ -241,6 +261,46 @@ public class Loan {
 
 	public void setSupervisorPlan(Set<SupervisorPlan> supervisorPlan) {
 		this.supervisorPlan = supervisorPlan;
+	}
+	
+	public Set<LoanGoods> getLoanGoods() {
+		return loanGoods;
+	}
+
+	public void setLoanGoods(Set<LoanGoods> loanGoods) {
+		this.loanGoods = loanGoods;
+	}
+
+	public Set<DebtTransfer> getDebtTransfer() {
+		return debtTransfer;
+	}
+
+	public void setDebtTransfer(Set<DebtTransfer> debtTransfer) {
+		this.debtTransfer = debtTransfer;
+	}
+
+	public Set<TargetedUse> getTargetedUse() {
+		return targetedUse;
+	}
+
+	public void setTargetedUse(Set<TargetedUse> targetedUse) {
+		this.targetedUse = targetedUse;
+	}
+
+	public Set<ReconstructedList> getReconstructedList() {
+		return reconstructedList;
+	}
+
+	public void setReconstructedList(Set<ReconstructedList> reconstructedList) {
+		this.reconstructedList = reconstructedList;
+	}
+
+	public Set<Bankrupt> getBankrupt() {
+		return bankrupt;
+	}
+
+	public void setBankrupt(Set<Bankrupt> bankrupt) {
+		this.bankrupt = bankrupt;
 	}
 
 	@Override

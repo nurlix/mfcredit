@@ -18,15 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
+import kg.gov.mf.loan.manage.model.loan.Bankrupt;
 import kg.gov.mf.loan.manage.model.loan.CreditTerm;
+import kg.gov.mf.loan.manage.model.loan.DebtTransfer;
 import kg.gov.mf.loan.manage.model.loan.InstallmentState;
 import kg.gov.mf.loan.manage.model.loan.Loan;
+import kg.gov.mf.loan.manage.model.loan.LoanGoods;
 import kg.gov.mf.loan.manage.model.loan.LoanState;
 import kg.gov.mf.loan.manage.model.loan.LoanType;
 import kg.gov.mf.loan.manage.model.loan.Payment;
 import kg.gov.mf.loan.manage.model.loan.PaymentSchedule;
 import kg.gov.mf.loan.manage.model.loan.PaymentType;
+import kg.gov.mf.loan.manage.model.loan.ReconstructedList;
 import kg.gov.mf.loan.manage.model.loan.SupervisorPlan;
+import kg.gov.mf.loan.manage.model.loan.TargetedUse;
 import kg.gov.mf.loan.manage.model.loan.WriteOff;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermDaysMethod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFloatingRateType;
@@ -147,6 +152,21 @@ public class LoanController {
         List<OrderTermDaysMethod> daysMethods = daysMethodService.findAll();
         model.addAttribute("dimms", daysMethods);
         model.addAttribute("diyms", daysMethods);
+        
+        model.addAttribute("LGs", loan.getLoanGoods());
+        model.addAttribute("emptyLG", new LoanGoods());
+        
+        model.addAttribute("DTs", loan.getDebtTransfer());
+        model.addAttribute("emptyDT", new DebtTransfer());
+        
+        model.addAttribute("TUs", loan.getTargetedUse());
+        model.addAttribute("emptyTU", new TargetedUse());
+        
+        model.addAttribute("RLs", loan.getReconstructedList());
+        model.addAttribute("emptyRL", new ReconstructedList());
+        
+        model.addAttribute("Bankrupts", loan.getBankrupt());
+        model.addAttribute("emptyBankrupt", new Bankrupt());
         
         model.addAttribute("debtorId", debtorId);
         

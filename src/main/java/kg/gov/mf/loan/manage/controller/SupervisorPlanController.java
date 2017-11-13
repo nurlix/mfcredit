@@ -54,7 +54,7 @@ public class SupervisorPlanController {
     }
 	
 	@RequestMapping(value="/manage/debtor/{debtorId}/loan/{loanId}/sp/delete", method=RequestMethod.POST)
-    public String deleteCreditTerm(long id, @PathVariable("debtorId")Long debtorId, @PathVariable("loanId")Long loanId) {
+    public String deleteSupervisorPlan(long id, @PathVariable("debtorId")Long debtorId, @PathVariable("loanId")Long loanId) {
 		if(id > 0)
 			spService.deleteById(id);
 		return "redirect:" + "/manage/debtor/{debtorId}/loan/{loanId}/view#tab_4";
