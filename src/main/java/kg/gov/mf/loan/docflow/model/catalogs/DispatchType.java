@@ -1,0 +1,12 @@
+package kg.gov.mf.loan.docflow.model.catalogs;
+
+import kg.gov.mf.loan.docflow.model.Catalog;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="cat_dispatch_type")
+public class DispatchType extends Catalog {
+
+}
