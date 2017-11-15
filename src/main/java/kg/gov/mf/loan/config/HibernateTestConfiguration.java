@@ -15,11 +15,13 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
- 
+
+/*
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"kg.gov.mf.loan.config"})
 @PropertySource(value = { "classpath:applicationTest.properties" })
+*/
 public class HibernateTestConfiguration {
  
     @Autowired
