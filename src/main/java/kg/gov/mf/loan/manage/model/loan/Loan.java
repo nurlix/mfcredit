@@ -1,6 +1,7 @@
 package kg.gov.mf.loan.manage.model.loan;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -17,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import kg.gov.mf.loan.manage.model.collateral.Collateral;
+import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
@@ -108,6 +113,17 @@ public class Loan {
 	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name="loan_id")
 	private Set<Bankrupt> bankrupt;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<Collateral> collateral;
+	
+	@ManyToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(
+			name="loan_collateral",
+			joinColumns = { @JoinColumn(name = "loan_id") }, 
+	        inverseJoinColumns = { @JoinColumn(name = "collateralAgreement_id") })
+	Set<CollateralAgreement> collateralAgreements = new HashSet<CollateralAgreement>();
 	
 	public Loan()
 	{
@@ -302,7 +318,23 @@ public class Loan {
 	public void setBankrupt(Set<Bankrupt> bankrupt) {
 		this.bankrupt = bankrupt;
 	}
+	
+	public Set<Collateral> getCollateral() {
+		return collateral;
+	}
 
+	public void setCollateral(Set<Collateral> collateral) {
+		this.collateral = collateral;
+	}
+
+	public Set<CollateralAgreement> getCollateralAgreements() {
+		return collateralAgreements;
+	}
+
+	public void setCollateralAgreements(Set<CollateralAgreement> collateralAgreements) {
+		this.collateralAgreements = collateralAgreements;
+	}
+	
 	@Override
 	public String toString() {
 		return "Loan [id=" + id + ", regNumber=" + regNumber + ", regDate=" + regDate + ", amount=" + amount

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kg.gov.mf.loan.manage.model.collateral.Collateral;
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
 import kg.gov.mf.loan.manage.model.loan.Bankrupt;
 import kg.gov.mf.loan.manage.model.loan.CreditTerm;
@@ -167,6 +168,9 @@ public class LoanController {
         
         model.addAttribute("Bankrupts", loan.getBankrupt());
         model.addAttribute("emptyBankrupt", new Bankrupt());
+        
+        model.addAttribute("Collaterals", loan.getCollateral());
+        model.addAttribute("emptyCollateral", new Collateral());
         
         model.addAttribute("debtorId", debtorId);
         

@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>MFLoan | Loans</title>
+<title>MFLoan | Collateral Details</title>
 <div th:replace="fragments/header :: header-css" />
 <link th:href="@{/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css}" rel="stylesheet" type="text/css" />
 <link th:href="@{/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css}" rel="stylesheet" type="text/css" />
@@ -24,15 +24,14 @@
 			<div class="page-content">
 				<!-- BEGIN PAGE HEADER-->
 				<h1 class="page-title">
-					Loans
-					<!-- 
-					<small>create, view, edit, delete loans </small>
-					 -->
+					Collateral Details
+					<small>create, view, edit, delete collateral agreements </small>
 				</h1>
 				<div class="page-bar">
 					<ul class="page-breadcrumb">
 						<li><i class="icon-home"></i> <a th:href="@{/}">Home</a> <i class="fa fa-angle-right"></i></li>
-						<li><span>Loans</span></li>
+						<li><a th:href="@{/manage/collateral/list}">Collaterals</a> <i class="fa fa-angle-right"></i></li>
+						<li><span>Collateral</span></li>
 					</ul>
 					<div class="page-toolbar">
 						<div class="btn-group pull-right">
@@ -60,61 +59,41 @@
 							<div class="portlet-title">
 								<div class="caption">
 									<i class="icon-settings font-green"></i> 
-									<span class="caption-subject font-green sbold uppercase">Loans</span>
+									<span class="caption-subject font-green sbold uppercase" th:text="'Collateral : '+${collateral.name}">Collateral name</span>
 								</div>
 							</div>
-							<div class="portlet-body">
-								<div class="table-scrollable table-scrollable-borderless">
-									<table class="table table-hover table-light" id="orders">
-										<thead>
-											<tr>
-												<th>Id</th>
-												<th>Registration number</th>
-												<th>Registration date</th>
-												<th>Amount</th>
-												<th>Currency</th>
-												<th>Loan type</th>
-												<th>Loan state</th>
-												<th>Supervisor id</th>
-												<th>Has sub loan</th>
-												<th>Parent loan id</th>
-												<th>Credit order id</th>
-												<th>View Details</th>
-											</tr>
-										</thead>
-										<tbody>
-											<ordercheck th:if="${#lists.isEmpty(loans)}">
-												<tr class="no-records-found" style="text-align: center;">
-													<td colspan="15">No matching records found</td>
-												</tr>
-											</ordercheck>
-											<order th:each="loan : ${loans}">
-												<tr class="clickable-row">
-													<td th:text="${loan.id}">Id</td>
-													<td th:text="${loan.regNumber}">REG123</td>
-													<td th:text="${loan.regDate}">01.01.1970</td>
-													<td th:text="${loan.amount}">1000.00</td>
-													<td th:text="${loan.currency.name}">RUB</td>
-													<td th:text="${loan.loanType.name}">Type 1</td>
-													<td th:text="${loan.loanState.name}">State 1</td>
-													<td th:text="${loan.supervisorId}">1</td>
-													<td th:text="${loan.hasSubLoan}">true</td>
-													<td th:text="${loan.parentLoan!=null} ? ${loan.parentLoan.id} : 'null'">0</td>
-													<td th:text="${loan.creditOrder.id}">1</td>
-													<td>
-														<a th:href="@{/manage/debtor/__${loan.debtor.id}__/loan/__${loan.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
-													</td>
-												</tr>
-											</order>
-										</tbody>
-									</table>
-								</div>
-								
+							<div class="portlet-body form">
+								<form class="form-horizontal" role="form">
+									<div class="form-body" style="padding: 20px">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label col-md-3">Id:</label>
+													<div class="col-md-9">
+														<p class="form-control-static" th:text="${collateral.id}">1</p>
+													</div>
+												</div>
+											</div>
+											<!--/span-->
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label col-md-3">Collateral name:</label>
+													<div class="col-md-9">
+														<p class="form-control-static" th:text="${collateral.name}">Coll 1</p>
+													</div>
+												</div>
+											</div>
+											<!--/span-->
+										</div>
+										<!--/row-->
+									</div>
+								</form>
 							</div>
 						</div>
 						<!-- END BORDERED TABLE PORTLET-->
 					</div>
 				</div>
+				
 			</div>
 			<!-- END CONTENT BODY -->
 		</div>
