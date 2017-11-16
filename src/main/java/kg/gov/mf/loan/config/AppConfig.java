@@ -38,6 +38,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import kg.gov.mf.loan.admin.org.converter.*;
 import kg.gov.mf.loan.admin.sys.converter.*;
+import kg.gov.mf.loan.admin.sys.service.MessageResourceService;
 
 
 
@@ -105,7 +106,11 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     EmploymentHistoryEventTypeFormatter employmentHistoryEventTypeFormatter; 
 
     @Autowired
-    SupervisorTermFormatter supervisorTermFormatter;     
+    SupervisorTermFormatter supervisorTermFormatter;    
+    
+    
+    @Autowired
+    private MessageResourceService messageResourceService;    
     
     private static final String UTF8 = "UTF-8";
     
@@ -132,7 +137,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     private TemplateEngine templateEngine() {
         SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateResolver());
-        engine.setMessageSource(messageSource());
+        engine.setMessageSource(getMessageSource());
         return engine;
     }
     
@@ -167,6 +172,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
             return localeResolver;
     }
 
+    /*
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
             ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -175,6 +181,20 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
             return messageSource;
     }
 
+    */
+    @Bean(name = "messageSource")
+    public DatabaseDrivenMessageSource getMessageSource() {
+        DatabaseDrivenMessageSource resource = new DatabaseDrivenMessageSource(messageResourceService);
+        ReloadableResourceBundleMessageSource databaseDrivenMessageSourceProperties = new ReloadableResourceBundleMessageSource();
+        databaseDrivenMessageSourceProperties.setBasename("classpath:/locales/messages");
+        databaseDrivenMessageSourceProperties.setDefaultEncoding("UTF-8");
+        databaseDrivenMessageSourceProperties.setCacheSeconds(0);
+        databaseDrivenMessageSourceProperties.setFallbackToSystemLocale(false);
+        resource.setParentMessageSource(databaseDrivenMessageSourceProperties);
+        return resource;
+    }
+    
+    
     /*
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
