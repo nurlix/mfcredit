@@ -2,7 +2,9 @@ package kg.gov.mf.loan.manage.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kg.gov.mf.loan.manage.model.collateral.Collateral;
+import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
 import kg.gov.mf.loan.manage.model.loan.Bankrupt;
 import kg.gov.mf.loan.manage.model.loan.CreditTerm;
@@ -38,6 +41,7 @@ import kg.gov.mf.loan.manage.model.orderterm.OrderTermDaysMethod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermFloatingRateType;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermRatePeriod;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermTransactionOrder;
+import kg.gov.mf.loan.manage.service.collateral.CollateralAgreementService;
 import kg.gov.mf.loan.manage.service.debtor.DebtorService;
 import kg.gov.mf.loan.manage.service.loan.InstallmentStateService;
 import kg.gov.mf.loan.manage.service.loan.LoanService;
@@ -90,6 +94,9 @@ public class LoanController {
 	
 	@Autowired
 	PaymentTypeService pTypeService;
+	
+	@Autowired
+	CollateralAgreementService agreementService;
 
 	static final Logger loggerLoan = LoggerFactory.getLogger(Loan.class);
 	
@@ -184,6 +191,7 @@ public class LoanController {
 			long typeId,
 			long stateId,
 			long creditOrderId,
+			String[] agreementIdList,
 			@RequestParam(required=false) Long parentLoanId,
 			@PathVariable("debtorId")Long debtorId, 
 			ModelMap model)
@@ -209,12 +217,19 @@ public class LoanController {
 				parentLoan.setHasSubLoan(true);
 				loanService.update(parentLoan);
 			}
-				
 			
 			newLoan.setDebtor(debtor);
 			
 			loggerLoan.info("createLoan : {}", newLoan);
+			Set<CollateralAgreement> cAgreements = new HashSet<>();
 			
+			for (String agreementId : agreementIdList) {
+				CollateralAgreement tA = agreementService.findById(Long.parseLong(agreementId));
+				cAgreements.add(tA);
+			}
+			
+			if(cAgreements.size()>0)
+				newLoan.setCollateralAgreements(cAgreements);
 			loanService.save(newLoan);
 		}
 			

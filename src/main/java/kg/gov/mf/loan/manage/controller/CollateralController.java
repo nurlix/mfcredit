@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kg.gov.mf.loan.manage.model.collateral.Collateral;
+import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 import kg.gov.mf.loan.manage.service.collateral.CollateralService;
 import kg.gov.mf.loan.manage.service.loan.LoanService;
@@ -36,7 +37,12 @@ public class CollateralController {
 	@RequestMapping(value = { "/manage/collateral/{collateralId}/view"})
     public String viewLoan(ModelMap model, @PathVariable("collateralId")Long collateralId) {
 		
-		model.addAttribute("collateral", collService.findById(collateralId));
+		Collateral collateral = collService.findById(collateralId);
+		
+		model.addAttribute("collateral", collateral);
+		
+		model.addAttribute("agreements", collateral.getAgreement());
+		model.addAttribute("emptyAgreement", new CollateralAgreement());
 		
 		return "/manage/collateral/view";
 		

@@ -148,5 +148,13 @@ public class CollateralAgreement {
 	public void setCollateral(Collateral collateral) {
 		this.collateral = collateral;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "CollateralAgreement [id=" + id + ", agreementNumber=" + agreementNumber + ", agreementDate="
+				+ agreementDate + ", collateralOfficeRegNumber=" + collateralOfficeRegNumber
+				+ ", collateralOfficeRegDate=" + collateralOfficeRegDate + ", notaryOfficeRegNumber="
+				+ notaryOfficeRegNumber + ", notaryOfficeRegDate=" + notaryOfficeRegDate + ", arrestRegNumber="
+				+ arrestRegNumber + ", arrestRegDate=" + arrestRegDate + "]";
+	}
 }

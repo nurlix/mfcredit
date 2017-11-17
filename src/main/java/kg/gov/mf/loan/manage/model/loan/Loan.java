@@ -118,7 +118,7 @@ public class Loan {
 	@JoinColumn(name="loan_id")
 	private Set<Collateral> collateral;
 	
-	@ManyToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name="loan_collateral",
 			joinColumns = { @JoinColumn(name = "loan_id") }, 

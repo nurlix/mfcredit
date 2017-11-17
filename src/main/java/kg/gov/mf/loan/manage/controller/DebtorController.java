@@ -23,6 +23,7 @@ import kg.gov.mf.loan.manage.model.loan.LoanState;
 import kg.gov.mf.loan.manage.model.loan.LoanType;
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
+import kg.gov.mf.loan.manage.service.collateral.CollateralAgreementService;
 import kg.gov.mf.loan.manage.service.debtor.DebtorService;
 import kg.gov.mf.loan.manage.service.debtor.DebtorTypeService;
 import kg.gov.mf.loan.manage.service.debtor.OrganizationFormService;
@@ -60,6 +61,9 @@ public class DebtorController {
 	@Autowired
 	CreditOrderService orderService;
 	
+	@Autowired
+	CollateralAgreementService agreementService;
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
 	{
@@ -83,6 +87,8 @@ public class DebtorController {
         List<LoanState> states = loanStateService.findAll();
         model.addAttribute("states", states);
         model.addAttribute("emptyState", new LoanState());
+        
+        model.addAttribute("agreements", agreementService.findAll());
         
         model.addAttribute("emptyLoan", new Loan());
         model.addAttribute("loans", debtor.getLoan());

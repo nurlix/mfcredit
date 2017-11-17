@@ -45,6 +45,7 @@ public class LoanServiceImpl implements LoanService{
         	entity.setHasSubLoan(loan.isHasSubLoan());
         	entity.setCreditOrder(loan.getCreditOrder());
         	entity.setParentLoan(loan.getParentLoan());
+        	entity.setCollateralAgreements(loan.getCollateralAgreements());
         }
 	}
 
