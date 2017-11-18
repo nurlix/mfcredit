@@ -92,6 +92,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     public List<Organization> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
         List<Organization> organizationsList = session.createQuery("from Organization").list();
+        System.out.println(organizationsList.toString());
         return organizationsList;
     }
  
