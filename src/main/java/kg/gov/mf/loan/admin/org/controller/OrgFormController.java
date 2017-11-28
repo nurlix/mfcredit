@@ -38,6 +38,7 @@ public class OrgFormController {
 	@RequestMapping(value = "/orgForm/list", method = RequestMethod.GET)
 	public String listOrgForms(Model model) {
 		model.addAttribute("orgForm", new OrgForm());
+		model.addAttribute("labelOrgFormName", "label.orgForm.name");
 		model.addAttribute("orgFormList", this.orgFormService.findAll());
 
 		return "admin/org/orgFormList";

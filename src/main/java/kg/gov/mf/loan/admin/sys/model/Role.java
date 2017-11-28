@@ -21,7 +21,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
  
 @Entity
-@Table(name="roles")
+@Table(name="role")
 public class Role {
  
     @Id 
