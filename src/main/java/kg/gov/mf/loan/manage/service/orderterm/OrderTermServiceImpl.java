@@ -3,10 +3,14 @@ package kg.gov.mf.loan.manage.service.orderterm;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kg.gov.mf.loan.manage.dao.orderterm.OrderTermDao;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTerm;
 
+@Service("orderTermService")
+@Transactional
 public class OrderTermServiceImpl implements OrderTermService{
 	
 	@Autowired

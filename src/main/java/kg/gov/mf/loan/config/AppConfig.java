@@ -1,6 +1,10 @@
 package kg.gov.mf.loan.config;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +18,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.CacheControl;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -29,16 +36,81 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import kg.gov.mf.loan.converter.RoleToUserProfileConverter;
+import kg.gov.mf.loan.admin.org.converter.*;
+import kg.gov.mf.loan.admin.sys.converter.*;
+import kg.gov.mf.loan.admin.sys.service.MessageResourceService;
+
+
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "kg.gov.mf.loan")
 public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
      
-     
+
+    
     @Autowired
-    RoleToUserProfileConverter roleToUserProfileConverter;
+    OrgFormConverter orgFormConverter;
+    
+    
+    @Autowired
+    AokmotuConverter aokmotuConverter;    
+
+    
+    @Autowired
+    DistrictConverter districtConverter;    
+
+    
+    @Autowired
+    RegionConverter regionConverter;    
+
+    
+    @Autowired
+    VillageConverter villageConverter;    
+
+    @Autowired
+    IdentityDocGivenByConverter identityDocGivenByConverter;    
+    
+  
+    @Autowired
+    IdentityDocTypeConverter identityDocTypeConverter;    
+
+    @Autowired
+    RoleFormatter roleFormatter;      
+
+    @Autowired
+    DepartmentFormatter departmentFormatter;
+
+    @Autowired
+    PositionFormatter positionFormatter;
+
+    @Autowired
+    PersonFormatter personFormatter;
+
+    @Autowired
+    RegionFormatter regionFormatter;
+    
+    @Autowired
+    DistrictFormatter districtFormatter;    
+    
+    @Autowired
+    OrganizationFormatter organizationFormatter;    
+    
+    @Autowired
+    PermissionFormatter permissionFormatter;
+
+    @Autowired
+    EmploymentHistoryFormatter employmentHistoryFormatter; 
+    
+    @Autowired
+    EmploymentHistoryEventTypeFormatter employmentHistoryEventTypeFormatter; 
+
+    @Autowired
+    SupervisorTermFormatter supervisorTermFormatter;    
+    
+    
+    @Autowired
+    private MessageResourceService messageResourceService;    
     
     private static final String UTF8 = "UTF-8";
     
@@ -57,14 +129,15 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
         resolver.setCharacterEncoding(UTF8);
-        resolver.setContentType("text/html; charset=UTF-8");
+        resolver.setContentType("text/html;charset=UTF-8");
+        resolver.setCache(false);
         return resolver;
     }
     
     private TemplateEngine templateEngine() {
         SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateResolver());
-        engine.setMessageSource(messageSource());
+        engine.setMessageSource(getMessageSource());
         return engine;
     }
     
@@ -73,9 +146,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         resolver.setApplicationContext(applicationContext);
         resolver.setPrefix("/WEB-INF/templates/");
         resolver.setSuffix(".html");
-        resolver.setCacheable(false);
-        resolver.setTemplateMode(TemplateMode.HTML);
         resolver.setCharacterEncoding(UTF8);
+        resolver.setTemplateMode(TemplateMode.HTML);
+        resolver.setCacheable(false);
         return resolver;
     }
     
@@ -99,6 +172,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
             return localeResolver;
     }
 
+    /*
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
             ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -107,6 +181,20 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
             return messageSource;
     }
 
+    */
+    @Bean(name = "messageSource")
+    public DatabaseDrivenMessageSource getMessageSource() {
+        DatabaseDrivenMessageSource resource = new DatabaseDrivenMessageSource(messageResourceService);
+        ReloadableResourceBundleMessageSource databaseDrivenMessageSourceProperties = new ReloadableResourceBundleMessageSource();
+        databaseDrivenMessageSourceProperties.setBasename("classpath:/locales/messages");
+        databaseDrivenMessageSourceProperties.setDefaultEncoding("UTF-8");
+        databaseDrivenMessageSourceProperties.setCacheSeconds(0);
+        databaseDrivenMessageSourceProperties.setFallbackToSystemLocale(false);
+        resource.setParentMessageSource(databaseDrivenMessageSourceProperties);
+        return resource;
+    }
+    
+    
     /*
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -124,19 +212,55 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-        registry.addResourceHandler("/assets/**").addResourceLocations("/static/assets/");
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/").setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS));
+        registry.addResourceHandler("/assets/**").addResourceLocations("/static/assets/").setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS));;
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS));;
     }
-     
+    
+    @Bean(name = "multipartResolver")
+    public MultipartResolver createMultipartResolver() {
+        return new StandardServletMultipartResolver();
+    }
+    
     /**
      * Configure Converter to be used.
      * In our example, we need a converter to convert string values[Roles] to UserProfiles in newUser.jsp
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(roleToUserProfileConverter);
+
+        
+        
+        registry.addConverter(orgFormConverter);
+        registry.addConverter(aokmotuConverter);
+        
+        
+        registry.addConverter(villageConverter);
+        registry.addConverter(identityDocTypeConverter);
+        registry.addConverter(identityDocGivenByConverter);
+    
+        registry.addFormatter(roleFormatter);
+        registry.addFormatter(permissionFormatter);
+        registry.addFormatter(departmentFormatter);
+        registry.addFormatter(organizationFormatter);
+        registry.addFormatter(positionFormatter);
+        registry.addFormatter(personFormatter);
+        registry.addFormatter(regionFormatter);
+        registry.addFormatter(districtFormatter);            
+        registry.addFormatter(employmentHistoryFormatter);    
+        registry.addFormatter(employmentHistoryEventTypeFormatter);    
+        
+        registry.addFormatter(supervisorTermFormatter);
+
+        
+        
+        
+  //      registry.addConverter(roleToStringConverter);
+        
     }
+    
+    
+     
  
     /**
      * Configure MessageSource to lookup any validation/error message in internationalized property files

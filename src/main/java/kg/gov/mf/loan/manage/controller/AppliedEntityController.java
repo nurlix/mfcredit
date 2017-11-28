@@ -32,7 +32,7 @@ import kg.gov.mf.loan.manage.service.entitydocument.EntityDocumentService;
 import kg.gov.mf.loan.manage.service.entitydocument.EntityDocumentStateService;
 import kg.gov.mf.loan.manage.service.entitylist.AppliedEntityListService;
 import kg.gov.mf.loan.manage.service.order.CreditOrderService;
-import kg.gov.mf.loan.util.Utils;
+import kg.gov.mf.loan.manage.util.Utils;
 
 @Controller
 public class AppliedEntityController {

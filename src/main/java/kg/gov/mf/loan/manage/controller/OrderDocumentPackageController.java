@@ -30,7 +30,7 @@ import kg.gov.mf.loan.manage.service.documentpackage.DocumentPackageTypeService;
 import kg.gov.mf.loan.manage.service.order.CreditOrderService;
 import kg.gov.mf.loan.manage.service.orderdocument.OrderDocumentTypeService;
 import kg.gov.mf.loan.manage.service.orderdocumentpackage.OrderDocumentPackageService;
-import kg.gov.mf.loan.util.Utils;
+import kg.gov.mf.loan.manage.util.Utils;
 
 @Controller
 public class OrderDocumentPackageController {

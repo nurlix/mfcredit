@@ -29,7 +29,7 @@ import kg.gov.mf.loan.manage.service.entitydocument.EntityDocumentStateService;
 import kg.gov.mf.loan.manage.service.orderdocument.OrderDocumentService;
 import kg.gov.mf.loan.manage.service.orderdocument.OrderDocumentTypeService;
 import kg.gov.mf.loan.manage.service.orderdocumentpackage.OrderDocumentPackageService;
-import kg.gov.mf.loan.util.Utils;
+import kg.gov.mf.loan.manage.util.Utils;
 
 @Controller
 public class OrderDocumentController {

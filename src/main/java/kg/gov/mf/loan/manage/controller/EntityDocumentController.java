@@ -21,7 +21,7 @@ import kg.gov.mf.loan.manage.service.documentpackage.DocumentPackageService;
 import kg.gov.mf.loan.manage.service.entitydocument.EntityDocumentRegisteredByService;
 import kg.gov.mf.loan.manage.service.entitydocument.EntityDocumentService;
 import kg.gov.mf.loan.manage.service.entitydocument.EntityDocumentStateService;
-import kg.gov.mf.loan.util.Utils;
+import kg.gov.mf.loan.manage.util.Utils;
 
 @Controller
 public class EntityDocumentController {

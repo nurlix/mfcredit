@@ -46,7 +46,7 @@ import kg.gov.mf.loan.manage.service.orderterm.OrderTermFrequencyTypeService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermFundService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermRatePeriodService;
 import kg.gov.mf.loan.manage.service.orderterm.OrderTermTransactionOrderService;
-import kg.gov.mf.loan.util.Utils;
+import kg.gov.mf.loan.manage.util.Utils;
 
 @Controller
 @SessionAttributes("roles")
@@ -128,7 +128,7 @@ public class CreditOrderController {
         
         List<OrderTermCurrency> currs = currService.findAll();
         model.addAttribute("currencies", currs);
-        model.addAttribute("emptyCurrency", new OrderTermFund());
+        model.addAttribute("emptyCurrency", new OrderTermCurrency());
         
         List<OrderTermFrequencyType> freqTypes = freqTypeService.findAll();
         model.addAttribute("freqTypes", freqTypes);
