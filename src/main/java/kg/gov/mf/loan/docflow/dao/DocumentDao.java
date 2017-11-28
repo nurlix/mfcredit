@@ -1,9 +1,11 @@
 package kg.gov.mf.loan.docflow.dao;
 
 import kg.gov.mf.loan.docflow.model.Document;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public class DocumentDao extends GenericDaoImpl<Document>
+public interface DocumentDao extends GenericDao<Document>
 {
+    List<Document> incomingDocuments();
+    List<Document> outgoingDocuments();
+    List<Document> internalDocuments();
 }

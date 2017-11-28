@@ -1,11 +1,6 @@
 package kg.gov.mf.loan.docflow.model;
 
-import kg.gov.mf.loan.docflow.model.catalogs.DocumentSubType;
-import kg.gov.mf.loan.docflow.model.catalogs.DocumentTemplate;
-import kg.gov.mf.loan.docflow.model.catalogs.DocumentType;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="df_document")
@@ -13,13 +8,31 @@ public class Document extends GenericModel {
 
     private String title;
     private String description;
+    private Long generalStatus;
+
+    @ManyToOne(targetEntity=DocumentType.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="documentType_id")
 	private DocumentType documentType;
+
+    @ManyToOne(targetEntity=DocumentSubType.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="documentSubType_id")
 	private DocumentSubType documentSubType;
+
+    @ManyToOne(targetEntity=DocumentTemplate.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="documentTemplate_id")
 	private DocumentTemplate documentTemplate;
+
+    @ManyToOne(targetEntity=SenderData.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="senderData_id")
     private SenderData senderData;
+
+    @ManyToOne(targetEntity=ReceiverData.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="receiverData_id")
     private ReceiverData receiverData;
+
+    @ManyToOne(targetEntity=ResultData.class, fetch = FetchType.EAGER)
+    @JoinColumn(name="resultData_id")
     private ResultData resultData;
-	private Long generalStatus;
 
     public String getTitle() {
         return title;

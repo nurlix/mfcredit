@@ -1,4 +1,4 @@
-package kg.gov.mf.loan.docflow.model.catalogs;
+package kg.gov.mf.loan.docflow.model;
 
 import kg.gov.mf.loan.docflow.model.Catalog;
 import javax.persistence.Entity;

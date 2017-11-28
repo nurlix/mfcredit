@@ -3,44 +3,47 @@ package kg.gov.mf.loan.docflow.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
-public class GenericDaoImpl<T> implements GenericDao<T>
+@Repository
+public abstract class GenericDaoImpl<E> implements GenericDao<E>
 {
     @Autowired
-    private SessionFactory sessionFactory;
-
-    private Class<T> entityClass;
+    protected SessionFactory sessionFactory;
+    protected Class<? extends E> entityClass;
 
     public GenericDaoImpl() {
-        entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        Type t = getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) t;
+        entityClass = (Class) pt.getActualTypeArguments()[0];
     }
-
 
     protected final Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
 
-    public void add(T entity) {
-        getCurrentSession().persist(entity);
+    public void add(E entity) {
+        getCurrentSession().save(entity);
     }
 
-    public List<T> list() {
-        return getCurrentSession().createQuery("from " + entityClass.getName()).list();
+    public List<E> list() {
+        return getCurrentSession().createCriteria(entityClass).list();
     }
 
-    public T getById(Long id) {
-        return (T) getCurrentSession().get(entityClass, id );
+    public E getById(Long id) {
+        return (E) getCurrentSession().get(entityClass, id);
     }
 
-    public void update(T entity) {
+    public void update(E entity) {
         getCurrentSession().update(entity);
     }
 
-    public void remove(Long id) {
-        T entity = getById(id);
+    public void remove(E entity) {
         getCurrentSession().delete(entity);
     }
 }

@@ -1,6 +1,6 @@
 package kg.gov.mf.loan.docflow.dao;
 
-import kg.gov.mf.loan.docflow.model.catalogs.DocumentSubType;
+import kg.gov.mf.loan.docflow.model.DocumentSubType;
 import org.springframework.stereotype.Repository;
 
 @Repository

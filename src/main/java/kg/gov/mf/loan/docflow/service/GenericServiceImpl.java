@@ -2,42 +2,45 @@ package kg.gov.mf.loan.docflow.service;
 
 import kg.gov.mf.loan.docflow.dao.GenericDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class GenericServiceImpl<T> implements GenericService<T> {
-
+@Service
+public abstract class GenericServiceImpl<E> implements GenericService<E>
+{
     @Autowired
-    private GenericDao<T> dao;
+    protected GenericDao<E> dao;
 
     @Override
-    @Transactional
-    public void add(T entity) {
-        dao.add(entity);
-    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void add(E entity) {
+    dao.add(entity);
+}
 
     @Override
-    @Transactional
-    public List<T> list() {
-        return dao.list();
-    }
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public List<E> list() {
+    return dao.list();
+}
 
     @Override
-    @Transactional
-    public T getById(Long id) {
-        return dao.getById(id);
-    }
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    public E getById(Long id) {
+    return dao.getById(id);
+}
 
     @Override
-    @Transactional
-    public void update(T entity) {
-        dao.update(entity);
-    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void update(E entity) {
+    dao.update(entity);
+}
 
     @Override
-    @Transactional
-    public void remove(Long id) {
-        dao.remove(id);
-    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void remove(E entity) {
+    dao.remove(entity);
+}
 }

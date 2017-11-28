@@ -1,108 +1,110 @@
 package kg.gov.mf.loan.docflow.controller;
 
 import kg.gov.mf.loan.docflow.model.Document;
-import kg.gov.mf.loan.docflow.model.catalogs.DocumentSubType;
-import kg.gov.mf.loan.docflow.model.catalogs.DocumentType;
-import kg.gov.mf.loan.docflow.service.GenericService;
-import kg.gov.mf.loan.util.Utils;
+import kg.gov.mf.loan.docflow.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @Controller
 public class DocumentFlowController {
 
     @Autowired
-    GenericService<Document> documentService;
+    DocumentService documentService;
 
     @Autowired
-    GenericService<DocumentType> documentTypeService;
+    DocumentTypeService documentTypeService;
 
     @Autowired
-    GenericService<DocumentSubType> documentSubTypeService;
+    DocumentSubTypeService documentSubTypeService;
 
-    @RequestMapping(value = "/docflow", method = RequestMethod.GET)
+    @Autowired
+    SenderDataService senderDataService;
+
+    @Autowired
+    ReceiverDataService receiverDataService;
+
+    @Autowired
+    ResultDataService resultDataService;
+
+    @RequestMapping(value = "/docflow")
     public String listDocuments(Model model)
     {
-        model.addAttribute("documents", documentService.list());
-        model.addAttribute("document", new Document());
-
-        model.addAttribute("documentTypes", documentTypeService.list());
-        model.addAttribute("documentType", new DocumentType());
-
-        model.addAttribute("documentSubTypes", documentSubTypeService.list());
-        model.addAttribute("documentSubType", new DocumentSubType());
-
-        model.addAttribute("loggedinuser", Utils.getPrincipal());
-
-        return "/docflow/index";
+        model.addAttribute("documentType", documentTypeService.list());
+        model.addAttribute("documentSubType", documentSubTypeService.list());
+        model.addAttribute("senderData", senderDataService.list());
+        model.addAttribute("receiverData", receiverDataService.list());
+        model.addAttribute("resultData", resultDataService.list());
+        return "/docflow/document/index";
     }
 
-    @RequestMapping(value= "/docflow/add", method = RequestMethod.POST)
-    public String addDocument(@ModelAttribute("document") Document document)
+    @RequestMapping("/docflow/all")
+    @ResponseBody
+    public List<Document> allDocuments()
     {
-        if(document.getId() == null){
+        return documentService.list();
+    }
+
+    @RequestMapping("/docflow/internal")
+    @ResponseBody
+    public List<Document> internalDocuments()
+    {
+        return documentService.internalDocuments();
+    }
+
+    @RequestMapping("/docflow/incoming")
+    @ResponseBody
+    public List<Document> incomingDocuments()
+    {
+        return documentService.incomingDocuments();
+    }
+
+    @RequestMapping("/docflow/outgoing")
+    @ResponseBody
+    public List<Document> outgoingDocuments()
+    {
+        return documentService.outgoingDocuments();
+    }
+
+    @RequestMapping("/docflow/{id}")
+    @ResponseBody
+    public Document getDocumentString(@PathVariable("id") Long id)
+    {
+        return documentService.getById(id);
+    }
+
+    @RequestMapping(value= "/docflow/add")
+    @ResponseBody
+    public String SaveOrUpdateDocument(@ModelAttribute("document") Document document)
+    {
+        if((document.getId() == null) || (document.getId() == 0))
+        {
+            document.setSenderData(null);
+            document.setReceiverData(null);
+            document.setResultData(null);
             this.documentService.add(document);
-        }else{
+        }
+        else
+        {
             this.documentService.update(document);
         }
-        return "redirect:/docflow";
+        return "OK";
     }
 
     @RequestMapping("/docflow/remove/{id}")
-    public String removeDocument(@PathVariable("id") Long id)
+    @ResponseBody
+    public String removeDocument(@ModelAttribute("document") Document document)
     {
-        this.documentService.remove(id);
-        return "redirect:/docflow";
-    }
-
-    @RequestMapping("/docflow/edit/{id}")
-    public String editDocument(@PathVariable("id") Long id, Model model)
-    {
-        model.addAttribute("document", this.documentService.getById(id));
-        model.addAttribute("documents", this.documentService.list());
-        return "/docflow";
-    }
-
-    //************************************************************************************************
-    /// DocumentType
-
-    @RequestMapping(value= "/docflow/documentType/add", method = RequestMethod.POST)
-    public String SaveOrUpdateDocumentType(@ModelAttribute("documentType") DocumentType documentType)
-    {
-        if(documentType.getId() == null){
-            this.documentTypeService.add(documentType);
-        } else {
-            this.documentTypeService.update(documentType);
-        }
-        return "redirect:/docflow";
-    }
-
-    @RequestMapping("/docflow/documentType/remove/{id}")
-    public String removeDocumentType(@PathVariable("id") Long id)
-    {
-        this.documentTypeService.remove(id);
-        return "redirect:/docflow";
-    }
-
-    //************************************************************************************************
-    // Document Subtype
-
-    @RequestMapping(value= "/docflow/documentSubType/add", method = RequestMethod.POST)
-    public String SaveOrUpdateDocumentSubType(@ModelAttribute("documentSubType") DocumentSubType documentSubType)
-    {
-        if(documentSubType.getId() == null){
-            this.documentSubTypeService.add(documentSubType);
-        }else{
-            this.documentSubTypeService.update(documentSubType);
-        }
-        return "redirect:/docflow";
+        this.documentService.remove(document);
+        return "OK";
     }
 
     private String getPrincipal(){
+
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

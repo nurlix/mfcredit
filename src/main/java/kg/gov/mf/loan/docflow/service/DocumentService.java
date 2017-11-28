@@ -1,9 +1,11 @@
 package kg.gov.mf.loan.docflow.service;
 
 import kg.gov.mf.loan.docflow.model.Document;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service("documentService")
-public class DocumentService extends GenericServiceImpl<Document>
+public interface DocumentService extends GenericService<Document>
 {
+    public List<Document> incomingDocuments();
+    public List<Document> outgoingDocuments();
+    public List<Document> internalDocuments();
 }

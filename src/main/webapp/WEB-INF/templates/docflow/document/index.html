@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>MFLoan | Docflow</title>
+
+	<div th:replace="fragments/header :: header-css"></div>
+
+	<link th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/datatables.min.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}" rel="stylesheet" type="text/css" />
+
+</head>
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed">
+
+<div th:replace="layout :: header-top"></div>
+
+<div class="modal fade" id="modal_form" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header"><h3 class="modal-title" id="modal-title">Document Form</h3></div>
+			<div class="modal-body form">
+
+				<form action="#" id="form" class="form-horizontal">
+					<input type="hidden" value="" name="id"/>
+					<div class="form-body">
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Title<span class="required"> * </span></label>
+							<div class="col-md-6">
+								<input name="title" placeholder="Title" class="form-control" type="text">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Description<span class="required"> * </span></label>
+							<div class="col-md-6">
+								<input name="description" placeholder="Description" class="form-control" type="text">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Document Type<span class="required"> * </span></label>
+							<div class="col-md-6">
+								<select class="form-control" name="documentType.id">
+									<option th:each="dt : ${documentType}"
+											th:value="${dt.id}"
+											th:text="${dt.name}">Document Type</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Document SubType<span class="required"> * </span></label>
+							<div class="col-md-6">
+								<select class="form-control" name="documentSubType.id">
+									<option th:each="dst : ${documentSubType}"
+											th:value="${dst.id}"
+											th:text="${dst.name}">Document SubType</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Sender Data<span class="required"> * </span></label>
+							<div class="col-md-6">
+								<select class="form-control" name="senderData.id">
+									<option th:each="sd : ${senderData}"
+											th:value="${sd.id}"
+											th:text="${sd.responsible.name}">Sender Data</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Receiver Data<span class="required"> * </span></label>
+							<div class="col-md-6">
+								<select class="form-control" name="receiverData.id">
+									<option th:each="rd : ${receiverData}"
+											th:value="${rd.id}"
+											th:text="${rd.responsible.name}">Receiver Data</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-md-4">Result Data<span class="required"> * </span></label>
+							<div class="col-md-6">
+								<select class="form-control" name="resultData.id">
+									<option th:each="rtd : ${resultData}"
+											th:value="${rtd.id}"
+											th:text="${rtd.responsible.name}">Result Data</option>
+								</select>
+							</div>
+						</div>
+
+
+					</div>
+
+					<!-------------------------------------------------------------------------------->
+
+					<div class="tabbable-custom">
+
+						<ul class="nav nav-tabs ">
+							<li class="active"><a href="#tab_sender" data-toggle="tab"> Sender </a></li>
+							<li><a href="#tab_receiver" data-toggle="tab"> Receiver </a></li>
+							<li><a href="#tab_result" data-toggle="tab"> Result </a></li>
+						</ul>
+
+						<div class="tab-content clearfix">
+
+							<div class="tab-pane active" id="tab_sender">
+
+								<input type="hidden" value="" name="senderData.id"/>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Registered Date</label>
+									<div class="col-md-6">
+										<input type='text'class="form-control" disabled="true" name="senderData_registeredDate"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Registered №</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" disabled="true" name="senderData_registeredNumber"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Due Date</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="senderData_dueDate"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Responsible</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="senderData_responsible_name"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Executor</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="senderData_executor_name"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Information</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="senderData_information_name"/>
+									</div>
+								</div>
+
+								<!--
+								Sender status
+								-->
+
+
+							</div>
+
+							<div class="tab-pane" id="tab_receiver">
+
+								<input type="hidden" value="" name="receiverData.id"/>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Registered Date</label>
+									<div class="col-md-6">
+										<input type='text'class="form-control" disabled="true" name="receiverData_registeredDate"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Registered №</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" disabled="true" name="receiverData_registeredNumber"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Due Date</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="receiverData_dueDate"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Responsible</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="receiverData_responsible_name"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Executor</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="receiverData_executor_name"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Information</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="receiverData_information_name"/>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="tab-pane" id="tab_result">
+
+								<input type="hidden" value="" name="resultData.id"/>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Close Date</label>
+									<div class="col-md-6">
+										<input type='text'class="form-control" disabled="true" name="resultData_close_date"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Result Status</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" disabled="true" name="resultData_resultStatus"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Information</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="resultData_information_name"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Responsible</label>
+									<div class="col-md-6">
+										<input type='text' class="form-control" disabled="true" name="resultData_responsible_name"/>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+					<!-------------------------------------------------------------------------------->
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="page-container">
+	<div th:replace="layout :: page-container-sidebar" />
+
+	<div class="page-content-wrapper">
+		<div class="page-content">
+
+			<div class="row">
+				<div class="col-md-12">
+
+					<table class="table table-hover table-condensed table-striped table-bordered compact condensed" id="documentTable">
+						<thead>
+						<tr>
+							<th>Id</th>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Document Type</th>
+							<th>Document SubType</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+						</thead>
+
+						<tbody></tbody>
+					</table>
+
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<button class="btn btn-success" onclick="add_document()"><i class="glyphicon glyphicon-plus"></i> Add Document </button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+<div th:replace="layout :: footer"></div>
+<div th:replace="fragments/footer :: footer-js"></div>
+
+<script th:src="@{/assets/global/plugins/datatables/datatables.js}" type="text/javascript"></script>
+<script th:src="@{/assets/global/plugins/datatables/dataTables.keyTable.js}" type="text/javascript"></script>
+<script type="text/javascript">
+
+    var table;
+
+    $(document).ready(function() {
+
+        table = $("#documentTable").DataTable({
+            "processing": true,
+            "order": [],
+            "language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"},
+            "info":     false,
+            "ajax": {
+                "url" : "/docflow/all/",
+                "dataSrc": ""
+            },
+            "columns": [
+                { "data": "id" },
+                { "data": "title" },
+                { "data": "description" },
+                { "data": "documentType.name" },
+                { "data": "documentSubType.name" },
+                { "data": "id" },
+                { "data": "id" }
+            ],
+            keys: { focus: ':eq(0)' },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "render": function (data, type, row) {
+                        return '<a data-toggle="modal" data-target="#modal_form" href="#" onclick="view_document(' + data + ');" role="button" class="btn btn-xs green-stripe"> ' + data + ' </a>'
+                    }
+                },
+                {
+                    "targets": [5],
+                    "orderable": false,
+                    "render": function (data, type, row) {
+                        return '<a data-toggle="modal" data-target="#modal_form" href="#" onclick="edit_document(' + data + ');" role="button" class="btn btn-xs blue-stripe"> Edit </a>'
+                    }
+                },
+                {
+                    "targets": [6],
+                    "orderable": false,
+                    "render": function (data, type, row) {
+                        return '<a href="#" onclick="delete_document(' + data + ');" role="button" class="btn btn-xs red-stripe"> Delete </a>'
+                    }
+                },
+            ],
+        });
+
+        $("input").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("textarea").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+        $("select").change(function(){
+            $(this).parent().parent().removeClass('has-error');
+            $(this).next().empty();
+        });
+    });
+
+    function add_document() {
+        $(".form-group").removeClass("has-error");
+        $("#form")[0].reset();
+        $('[name="id"]').val(0);
+        formState(false, "New Document")
+    }
+    function view_document(id) {
+        $("#form")[0].reset();
+        $(".form-group").removeClass('has-error');
+        $.ajax({
+            url : "/docflow/" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data) {
+                loadData(data);
+                formState(true, "Document")
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error get data from ajax");
+            }
+        });
+    }
+    function edit_document(id) {
+        $("#form")[0].reset();
+        $(".form-group").removeClass('has-error');
+        $.ajax({
+            url : "/docflow/" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data) {
+                loadData(data);
+                formState(false, "Edit Document")
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error get data from ajax");
+            }
+        });
+    }
+    function delete_document(id) {
+        if(confirm('Are you sure delete this data?'))
+        {
+            $.ajax({
+                url : "docflow/remove/"+id,
+                type: "POST",
+                dataType: "text",
+                success: function(data)
+                {
+                    reload_table();
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                    alert('Error deleting data');
+                }
+            });
+        }
+    }
+    function save() {
+        $("#btnSave").text('Saving...');
+        $("#btnSave").attr('disabled',true);
+        $.ajax({
+            url : "/docflow/add",
+            type: "POST",
+            data: $('#form').serialize(),
+            dataType: "text",
+            success: function(data)
+            {
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert("Erooooooooor");
+            }
+        });
+        $("#modal_form").modal('hide');
+        $('#btnSave').text('Save');
+        $('#btnSave').attr('disabled',false);
+    }
+    function reload_table() {
+        table.ajax.reload(null,false);
+    }
+    function loadData(item) {
+
+        $('[name="id"]').val(item.id);
+        $('[name="title"]').val(item.title);
+        $('[name="description"]').val(item.description);
+        $('[name="documentType.id"]').val(item.documentType.id);
+        $('[name="documentSubType.id"]').val(item.documentSubType.id);
+        $('[name="senderData.id"]').val(item.senderData.id);
+        $('[name="receiverData.id"]').val(item.receiverData.id);
+        $('[name="resultData.id"]').val(item.resultData.id);
+
+        $('[name="senderData_registeredDate"]').val(item.senderData.registeredDate);
+        $('[name="senderData_registeredNumber"]').val(item.senderData.registeredNumber);
+        $('[name="senderData_dueDate"]').val(item.senderData.dueDate);
+        $('[name="senderData_responsible_name"]').val(item.senderData.responsible.name);
+        $('[name="senderData_executor_name"]').val(item.senderData.executor.name);
+        $('[name="senderData_information_name"]').val(item.senderData.information.name);
+
+        $('[name="receiverData_registeredDate"]').val(item.receiverData.registeredDate);
+        $('[name="receiverData_registeredNumber"]').val(item.receiverData.registeredNumber);
+        $('[name="receiverData_dueDate"]').val(item.receiverData.dueDate);
+        $('[name="receiverData_responsible_name"]').val(item.receiverData.responsible.name);
+        $('[name="receiverData_executor_name"]').val(item.receiverData.executor.name);
+        $('[name="receiverData_information_name"]').val(item.receiverData.information.name);
+
+        $('[name="resultData_close_date"]').val(item.resultData.close_date);
+        $('[name="resultData_resultStatus"]').val(item.resultData.resultStatus);
+        $('[name="resultData_information_name"]').val(item.resultData.information.name);
+        $('[name="resultData_responsible_name"]').val(item.resultData.responsible.name);
+    }
+    function formState(state, mtitle) {
+
+        $('[name="title"]').attr('disabled',state);
+        $('[name="description"]').attr('disabled',state);
+        $('[name="documentType.id"]').attr('disabled',state);
+        $('[name="documentSubType.id"]').attr('disabled',state);
+        $('[name="senderData.id"]').attr('disabled',state);
+        $('[name="receiverData.id"]').attr('disabled',state);
+        $('[name="resultData.id"]').attr('disabled',state);
+
+        $('#btnSave').attr('disabled',state);
+        $(".modal-title").text(mtitle);
+        $("#modal_form").modal('show');
+    }
+
+</script>
+
+</body>
+</html>

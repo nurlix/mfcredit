@@ -1,4 +1,4 @@
-package kg.gov.mf.loan.docflow.model.catalogs;
+package kg.gov.mf.loan.docflow.model;
 
 import kg.gov.mf.loan.docflow.model.Catalog;
 
@@ -10,4 +10,12 @@ import javax.persistence.Table;
 public class DispatchTemplate extends Catalog {
 
     private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

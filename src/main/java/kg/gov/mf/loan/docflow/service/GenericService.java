@@ -2,11 +2,11 @@ package kg.gov.mf.loan.docflow.service;
 
 import java.util.List;
 
-public interface GenericService<T> {
+public interface GenericService<E> {
 
-    void add(T entity);
-    List<T> list();
-    T getById(Long id);
-    void update(T entity);
-    void remove(Long id);
+    void add(E entity);
+    List<E> list();
+    E getById(Long id);
+    void update(E entity);
+    void remove(E entity);
 }
