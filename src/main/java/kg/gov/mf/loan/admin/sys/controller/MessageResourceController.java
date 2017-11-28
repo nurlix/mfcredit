@@ -1,6 +1,9 @@
 package kg.gov.mf.loan.admin.sys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.DelegatingMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kg.gov.mf.loan.admin.sys.model.*;
 import kg.gov.mf.loan.admin.sys.service.*;
+import kg.gov.mf.loan.config.DatabaseDrivenMessageSource;
 
 @Controller
 public class MessageResourceController {
@@ -34,6 +38,20 @@ public class MessageResourceController {
         this.objectTypeService = rs;
     }
     
+    @Autowired
+    @Qualifier("messageSource")
+    private MessageSource messages;
+     
+    private void reloadDatabaseMessages() {
+        if (messages instanceof DatabaseDrivenMessageSource) {
+            ((DatabaseDrivenMessageSource)messages).reload();
+        } else if (messages instanceof DelegatingMessageSource) {
+            DelegatingMessageSource myMessage = ((DelegatingMessageSource)messages);
+            if (myMessage.getParentMessageSource()!=null && myMessage.getParentMessageSource() instanceof DatabaseDrivenMessageSource) {
+                ((DatabaseDrivenMessageSource) myMessage.getParentMessageSource()).reload();
+            }
+        }
+    }
     
 	@RequestMapping(value = "/messageResource/list", method = RequestMethod.GET)
 	public String listMessageResources(Model model) {
@@ -112,6 +130,8 @@ public class MessageResourceController {
 		} else {
 			this.messageResourceService.edit(messageResource);
 		}
+		
+		this.reloadDatabaseMessages();
 
 		return "redirect:/objectType/list";
 
