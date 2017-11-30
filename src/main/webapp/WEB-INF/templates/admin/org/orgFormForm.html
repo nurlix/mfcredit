@@ -10,7 +10,7 @@
 <body>
 
 	<form th:action="@{/orgForm/save}" id="form_sample_2"
-		class="form-horizontal" method="post">
+		class="form-horizontal" method="post" th:object="${orgForm}">
 		<div class="form-body">
 			<div class="alert alert-danger display-hide">
 				<button class="close" data-close="alert"></button>
@@ -29,8 +29,8 @@
 					<input hidden="true" type="text" id="id" name="id"
 						th:value="${orgForm.id}" />
 					<div class="input-icon right">
-						<i class="fa"></i> <input type="text" class="form-control"
-							name="name" th:value="${orgForm.name}" />
+						<i class="fa"></i> 
+						<input type="text" class="form-control" name="name" th:value="${orgForm.name}" />
 					</div>
 				</div>
 			</div>
@@ -43,8 +43,13 @@
 				<div class="col-md-4">
 
 					<div class="input-icon right">
-						<i class="fa"></i> <input type="text" class="form-control"
-							name="enabled" th:value="${orgForm.enabled}" />
+						<i class="fa"></i> 
+							<input type="checkbox" id="enabled" name="enabled" th:field="*{enabled}"
+							th:attr="data-on-text=#{label.enabled},data-off-text=#{label.disabled}">
+							
+							
+							
+							
 					</div>
 				</div>
 			</div>
@@ -60,6 +65,9 @@
 			</div>
 		</div>
 	</form>
+	<script>
+		$("#enabled").bootstrapSwitch();
+	</script>
 
 </body>
 </html>
