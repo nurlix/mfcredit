@@ -25,8 +25,38 @@
 	        <link th:href="@{/assets/layouts/layout2/css/layout.min.css}" rel="stylesheet" type="text/css" />
 	        <link th:href="@{/assets/layouts/layout2/css/themes/grey.min.css}" rel="stylesheet" type="text/css" id="style_color" />
 	        <link th:href="@{/assets/layouts/layout2/css/custom.min.css}" rel="stylesheet" type="text/css" />
+	        
+	        
+<link
+	th:href="@{/assets/global/plugins/datatables/keyTable.bootstrap.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/datatables/datatables.min.css}"
+	rel="stylesheet" type="text/css" />
+<link
+	th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css}"
+	rel="stylesheet" type="text/css" />
+
+
+
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link th:href="@{/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/clockface/css/clockface.css}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link th:href="@{/assets/global/css/components.min.css}" rel="stylesheet" id="style_components" type="text/css" />
+        <link th:href="@{/assets/global/css/plugins.min.css}" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link th:href="@{/assets/layouts/layout2/css/layout.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/layouts/layout2/css/themes/blue.min.css}" rel="stylesheet" type="text/css" id="style_color" />
+        <link th:href="@{/assets/layouts/layout2/css/custom.min.css}" rel="stylesheet" type="text/css" />
+        <!-- END THEME LAYOUT STYLES -->	        
 	        <!-- END THEME LAYOUT STYLES -->
-	        <link rel="shortcut icon" href="favicon.ico" />
+	        <link rel="shortcut icon" th:href="favicon.ico" />
         </div>
     </head>
     <!-- END HEAD -->
