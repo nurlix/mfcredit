@@ -64,6 +64,9 @@
 												<td th:text="${employmentHistory.id}">Id</td>
 												<td th:text="${employmentHistory.number}">Number</td>     
 												<td th:text="${employmentHistory.date}">Date</td>
+												
+												
+												
 												<td th:text="${employmentHistory.staff.name}">Staff name</td>
 												<td><a th:href="@{/employmentHistory/__${employmentHistory.id}__/details}"
 													role="button" class="btn btn-xs green-stripe"> View </a></td>
@@ -239,13 +242,12 @@
 
 	    if(link.attr("href").indexOf('employmentHistoryEvent/add')>0)
 	    {
-	    	alert(1);
 	    	$(this).find(".modal-title").html(link.attr("href").replace("/employmentHistoryEvent/add","/employmentHistory/"+employmentHistoryID+"/employmentHistoryEvent/add"));
 		    $(this).find(".modal-body").load(link.attr("href").replace("/employmentHistoryEvent/add","/employmentHistory/"+employmentHistoryID+"/employmentHistoryEvent/add"));
 	    }
 	    else
     	{
-	    	alert(2);
+
 	    	$(this).find(".modal-title").html(link.attr("href"));
 		    $(this).find(".modal-body").load(link.attr("href"));
     	}

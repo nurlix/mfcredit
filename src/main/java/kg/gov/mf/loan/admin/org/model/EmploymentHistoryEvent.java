@@ -31,7 +31,7 @@ public class EmploymentHistoryEvent {
     @Column(name="name", nullable=false)
     private String name;
 
-    @DateTimeFormat(pattern = "dd.mm.yyyy")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Temporal(TemporalType.DATE)
     private Date date;
 

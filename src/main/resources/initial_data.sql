@@ -258,7 +258,7 @@ UPDATE `mfloan`.`staff` SET `employment_history_id`='1' WHERE `id`='1';
 
 /* ADD EMPLOYMENT HISTORY EVENT */
 
-INSERT INTO `mfloan`.`employment_history_event` (`name`, `employmentHistory_id`, `employment_history_event_type_id`) VALUES ('name', '1', '1');
+INSERT INTO `mfloan`.`employment_history_event` (`date`,`name`, `employmentHistory_id`, `employment_history_event_type_id`) VALUES ('2017/01/01','name', '1', '1');
 
 /* ADD MESSAGE RESOURCE */
 

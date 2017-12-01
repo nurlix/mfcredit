@@ -1,11 +1,17 @@
 package kg.gov.mf.loan.admin.org.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +40,13 @@ public class EmploymentHistoryEventController {
         this.employmentHistoryService = rs;
     }    
     
+    
+	@InitBinder
+	public void initBinder(WebDataBinder binder)
+	{
+		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd.MM.yyyy"), true);
+	    binder.registerCustomEditor(Date.class, editor);
+	}    
     
 	@Autowired
     private EmploymentHistoryEventTypeService employmentHistoryEventTypeService;
