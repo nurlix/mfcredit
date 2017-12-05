@@ -34,6 +34,10 @@ public class Collateral {
 	@JoinColumn(name="collateral_id")
 	private Set<CollateralAgreement> agreement;
 	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="collateral_id")
+	private Set<CollateralSummary> collateralSummary;
+	
 	public Collateral()
 	{
 		
@@ -73,6 +77,14 @@ public class Collateral {
 
 	public void setAgreement(Set<CollateralAgreement> agreement) {
 		this.agreement = agreement;
+	}
+
+	public Set<CollateralSummary> getCollateralSummary() {
+		return collateralSummary;
+	}
+
+	public void setCollateralSummary(Set<CollateralSummary> collateralSummary) {
+		this.collateralSummary = collateralSummary;
 	}
 	
 }

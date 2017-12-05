@@ -1,12 +1,17 @@
 package kg.gov.mf.loan.manage.model.collateral;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,6 +55,14 @@ public class CollateralAgreement {
 	
 	@ManyToOne
 	private Collateral collateral;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="collateralAgreement_id")
+	private Set<CollateralInspection> collateralInspection;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="collateralAgreement_id")
+	private Set<CollateralArrestFree> collateralArrestFree;
 	
 	public CollateralAgreement()
 	{
@@ -147,6 +160,22 @@ public class CollateralAgreement {
 
 	public void setCollateral(Collateral collateral) {
 		this.collateral = collateral;
+	}
+	
+	public Set<CollateralInspection> getCollateralInspection() {
+		return collateralInspection;
+	}
+
+	public void setCollateralInspection(Set<CollateralInspection> collateralInspection) {
+		this.collateralInspection = collateralInspection;
+	}
+
+	public Set<CollateralArrestFree> getCollateralArrestFree() {
+		return collateralArrestFree;
+	}
+
+	public void setCollateralArrestFree(Set<CollateralArrestFree> collateralArrestFree) {
+		this.collateralArrestFree = collateralArrestFree;
 	}
 
 	@Override
