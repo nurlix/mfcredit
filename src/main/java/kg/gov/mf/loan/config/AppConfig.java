@@ -48,25 +48,6 @@ import kg.gov.mf.loan.admin.sys.service.MessageResourceService;
 public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware{
      
 
-    
-    @Autowired
-    OrgFormConverter orgFormConverter;
-    
-    
-    @Autowired
-    AokmotuConverter aokmotuConverter;    
-
-    
-    @Autowired
-    DistrictConverter districtConverter;    
-
-    
-    @Autowired
-    RegionConverter regionConverter;    
-
-    
-    @Autowired
-    VillageConverter villageConverter;    
 
     @Autowired
     IdentityDocGivenByConverter identityDocGivenByConverter;    
@@ -229,13 +210,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Override
     public void addFormatters(FormatterRegistry registry) {
 
+  
         
         
-        registry.addConverter(orgFormConverter);
-        registry.addConverter(aokmotuConverter);
-        
-        
-        registry.addConverter(villageConverter);
         registry.addConverter(identityDocTypeConverter);
         registry.addConverter(identityDocGivenByConverter);
     
