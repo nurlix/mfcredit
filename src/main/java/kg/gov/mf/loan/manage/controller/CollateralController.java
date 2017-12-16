@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kg.gov.mf.loan.manage.model.collateral.Collateral;
 import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
+import kg.gov.mf.loan.manage.model.collateral.CollateralSummary;
 import kg.gov.mf.loan.manage.model.loan.Loan;
 import kg.gov.mf.loan.manage.service.collateral.CollateralService;
 import kg.gov.mf.loan.manage.service.loan.LoanService;
@@ -43,6 +44,9 @@ public class CollateralController {
 		
 		model.addAttribute("agreements", collateral.getAgreement());
 		model.addAttribute("emptyAgreement", new CollateralAgreement());
+		
+		model.addAttribute("summaries", collateral.getCollateralSummary());
+		model.addAttribute("emptySummary", new CollateralSummary());
 		
 		return "/manage/collateral/view";
 		

@@ -3624,7 +3624,7 @@
 																		<td th:text="${coll.id}"></td>
 																		<td th:text="${coll.name}"></td>
 																		<td>
-																			<a th:href="@{/manage/debtor/__${debtorId}__/loan/__${loan.id}__/collateral/__${coll.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
+																			<a th:href="@{/manage/collateral/__${coll.id}__/view}" class="btn btn-outline btn-circle btn-sm blue">View Details</a>
 																		</td>
 																		<td>
 																			<a class="btn btn-outline btn-circle btn-sm blue" data-toggle="modal" th:href="${'#largeCollateral' + {coll.id}}">Edit</a>

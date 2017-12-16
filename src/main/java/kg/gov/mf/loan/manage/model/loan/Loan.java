@@ -22,6 +22,9 @@ import javax.persistence.TemporalType;
 
 import kg.gov.mf.loan.manage.model.collateral.Collateral;
 import kg.gov.mf.loan.manage.model.collateral.CollateralAgreement;
+import kg.gov.mf.loan.manage.model.collection.Collection;
+import kg.gov.mf.loan.manage.model.collection.EventDetails;
+import kg.gov.mf.loan.manage.model.collection.PhaseDetails;
 import kg.gov.mf.loan.manage.model.debtor.Debtor;
 import kg.gov.mf.loan.manage.model.order.CreditOrder;
 import kg.gov.mf.loan.manage.model.orderterm.OrderTermCurrency;
@@ -117,6 +120,18 @@ public class Loan {
 	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name="loan_id")
 	private Set<Collateral> collateral;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<Collection> collection;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<PhaseDetails> phaseDetails;
+	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name="loan_id")
+	private Set<EventDetails> eventDetails;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
@@ -335,6 +350,30 @@ public class Loan {
 		this.collateralAgreements = collateralAgreements;
 	}
 	
+	public Set<Collection> getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Set<Collection> collection) {
+		this.collection = collection;
+	}
+
+	public Set<PhaseDetails> getPhaseDetails() {
+		return phaseDetails;
+	}
+
+	public void setPhaseDetails(Set<PhaseDetails> phaseDetails) {
+		this.phaseDetails = phaseDetails;
+	}
+
+	public Set<EventDetails> getEventDetails() {
+		return eventDetails;
+	}
+
+	public void setEventDetails(Set<EventDetails> eventDetails) {
+		this.eventDetails = eventDetails;
+	}
+
 	@Override
 	public String toString() {
 		return "Loan [id=" + id + ", regNumber=" + regNumber + ", regDate=" + regDate + ", amount=" + amount
