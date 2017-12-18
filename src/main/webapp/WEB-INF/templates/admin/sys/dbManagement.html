@@ -56,8 +56,7 @@
 												<th>Id</th>
 												<th>Name</th>
 												<th>Path</th>
-												<th>Edit</th>
-												<th>Delete</th>
+												<th>Restore</th>
 											</tr>
 										</thead>
 
@@ -68,19 +67,8 @@
 												<td th:text="${s.name}">Name</td>
 												<td th:text="${s.path}">Path</td>
 												<td>
-													<a th:href="@{/systemFile/__${s.id}__/details}"
-													role="button" class="btn btn-xs blue-stripe"> View
-													</a>
-												</td>												
-												<td>
-													<a data-remote="false" data-toggle="modal"
-													data-target="#attachmentFormModal" th:href="@{/systemFile/__${s.id}__/edit}"
-													role="button" class="btn btn-xs blue-stripe"> Edit
-													</a>
-												</td>
-												<td>
-													<form th:action="@{/systemFile/__${s.id}__/remove}" method="post">
-														<button type="submit" class="btn btn-xs red-stripe">Delete</button>
+													<form th:action="@{/db/restore/__${s.id}__}" method="get">
+														<button type="submit" class="btn btn-xs red-stripe">Restore</button>
 													</form>
 												</td>
 											</tr>
